@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.meeteam4.meeting.repository.UserMapper">
+
+    <insert id="saveStudent"
+            parameterType="com.meeteam4.meeting.entity.Student"
+            keyProperty="studentId"
+            useGeneratedKeys="true"
+    >
+        insert into
+            student_tb
+        values
+            (0, #{username}, #{nickname}, #{password}, #{name}, #{email}, #{birthDate}, #{genderId}, #{roleId}, #{studentTypeId}, #{subjectId}, #{phoneNumber}, #{regionId}, now(), now());
+    </insert>
+
+    <insert id="saveTeacher"
+            parameterType="com.meeteam4.meeting.entity.Teacher"
+            keyProperty="teacherId"
+            useGeneratedKeys="true"
+    >
+        insert into
+            teacher_tb
+        values
+            (0, #{username}, #{nickname}, #{password}, #{name}, #{email}, #{birthDate}, #{genderId}, #{roleId}, #{universityId}, #{graduateStateId}, #{phoneNumber}, #{regionId}, now(), now());
+    </insert>
+
+</mapper>
