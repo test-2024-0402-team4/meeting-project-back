@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.meeteam4.meeting.repository.BoardMapper">
+    <insert id="saveBoard" parameterType="com.meeteam4.meeting.entity.Board">
+        insert into board_tb
+        values(
+            0,
+            #{userId},
+            #{title},
+            #{content},
+            #{viewCount},
+            now(),
+            now()
+        )
+    </insert>
+
+    <insert id="saveComment" parameterType="com.meeteam4.meeting.entity.Comment">
+        insert into comment_tb
+        values(
+        0,
+        #{boardId},
+        #{userId},
+        #{comment},
+        now(),
+        now()
+        )
+
+    </insert>
+</mapper>
