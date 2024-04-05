@@ -1,6 +1,6 @@
 package com.meeteam4.meeting.dto;
 
-import com.meeteam4.meeting.entity.Board;
+import com.meeteam4.meeting.entity.StudentBoard;
 import lombok.Data;
 
 @Data
@@ -13,8 +13,8 @@ public class BoardWriteReqDto {
     private String theme;
     private int viewCount;
 
-    public Board toEntity(){
-        return Board.builder()
+    public StudentBoard toEntity(){
+        return StudentBoard.builder()
                 .studentId(studentId)
                 .title(title)
                 .content(content)

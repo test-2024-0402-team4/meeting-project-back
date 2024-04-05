@@ -1,18 +1,13 @@
-package com.meeteam4.meeting.entity;
+package com.meeteam4.meeting.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-@Builder
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-
-public class Board {
+@Builder
+public class StudentBoardListRespDto {
     private int studentBoardId;
     private int studentId;
     private String title;
@@ -20,5 +15,4 @@ public class Board {
     private String theme;
     private int viewCount;
     private LocalDateTime createDate;
-    private LocalDateTime updateDate;
 }
