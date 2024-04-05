@@ -5,6 +5,39 @@
 
 <mapper namespace="com.meeteam4.meeting.repository.UserMapper">
 
+    <resultMap id="StudentResultMap" type="com.meeteam4.meeting.entity.Student">
+        <id property="studentId" column="student_id" />
+        <result property="username" column="username" />
+        <result property="nickname" column="nickname" />
+        <result property="password" column="password" />
+        <result property="name" column="name" />
+        <result property="email" column="email" />
+        <result property="birthDate" column="birth_date" />
+        <result property="genderId" column="gender_id" />
+        <result property="roleId" column="role_id" />
+        <result property="studentTypeId" column="student_type_id" />
+        <result property="subjectId" column="subject_id" />
+        <result property="phoneNumber" column="phone_number" />
+        <result property="regionId" column="region_id" />
+    </resultMap>
+
+    <resultMap id="TeacherResultMap" type="com.meeteam4.meeting.entity.Teacher">
+        <id property="teacherId" column="student_id" />
+        <result property="username" column="username" />
+        <result property="nickname" column="nickname" />
+        <result property="password" column="password" />
+        <result property="name" column="name" />
+        <result property="email" column="email" />
+        <result property="birthDate" column="birth_date" />
+        <result property="genderId" column="gender_id" />
+        <result property="roleId" column="role_id" />
+        <result property="universityId" column="university_id" />
+        <result property="graduateStateId" column="graduate_state_id" />
+        <result property="phoneNumber" column="phone_number" />
+        <result property="regionId" column="region_id" />
+
+    </resultMap>
+
     <insert id="saveStudent"
             parameterType="com.meeteam4.meeting.entity.Student"
             keyProperty="studentId"
@@ -26,5 +59,83 @@
         values
             (0, #{username}, #{nickname}, #{password}, #{name}, #{email}, #{birthDate}, #{genderId}, #{roleId}, #{universityId}, #{graduateStateId}, #{phoneNumber}, #{regionId}, now(), now());
     </insert>
+
+    <select id="findStudentUsername"
+            parameterType="String"
+            resultMap="StudentResultMap"
+    >
+        select
+            *
+        from
+            student_tb st
+            left outer join teacher_tb tt on(tt.teacher_id = st.student_id)
+        where
+            st.username = #{username}
+    </select>
+
+    <select id="findTeacherUsername"
+            parameterType="String"
+            resultMap="TeacherResultMap"
+    >
+        select
+            *
+        from
+            teacher_tb tt
+            left outer join student_tb st on(st.student_id = tt.teacher_id)
+        where
+            tt.username = #{username}
+    </select>
+
+    <select id="findStudentNickname"
+            parameterType="String"
+            resultMap="StudentResultMap"
+    >
+        select
+            *
+        from
+            student_tb st
+            left outer join teacher_tb tt on(tt.teacher_id = st.student_id)
+        where
+            st.nickname = #{nickname}
+    </select>
+
+    <select id="findTeacherNickname"
+            parameterType="String"
+            resultMap="TeacherResultMap"
+    >
+        select
+            *
+        from
+            teacher_tb tt
+            left outer join student_tb st on(st.student_id = tt.teacher_id)
+        where
+            tt.nickname = #{nickname}
+    </select>
+
+    <select id="findStudentEmail"
+            parameterType="String"
+            resultMap="StudentResultMap"
+    >
+        select
+            *
+        from
+            student_tb st
+            left outer join teacher_tb tt on(tt.teacher_id = st.student_id)
+        where
+            st.email = #{email}
+    </select>
+
+    <select id="findTeacherEmail"
+            parameterType="String"
+            resultMap="TeacherResultMap"
+    >
+        select
+            *
+        from
+            teacher_tb tt
+            left outer join student_tb st on(st.student_id = tt.teacher_id)
+        where
+            tt.email = #{email}
+    </select>
 
 </mapper>

@@ -6,17 +6,19 @@ import lombok.Data;
 @Data
 public class BoardWriteReqDto {
 
-    private int boardId;
-    private int userId;
+    private int studentBoardId;
+    private int studentId;
     private String title;
     private String content;
+    private String theme;
     private int viewCount;
 
     public Board toEntity(){
         return Board.builder()
-                .userId(userId)
+                .studentId(studentId)
                 .title(title)
                 .content(content)
+                .theme(theme)
                 .viewCount(viewCount)
                 .build();
     }

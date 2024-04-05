@@ -13,9 +13,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 
 public class Comment {
-    private int commentId;
-    private int boardId;
-    private int userId;
+    private int studentCommentId;
+    private int studentBoardId;
+    private int studentUserId;
     private String comment;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
