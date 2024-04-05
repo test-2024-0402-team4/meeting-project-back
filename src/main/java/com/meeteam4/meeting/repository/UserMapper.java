@@ -10,5 +10,4 @@ public interface UserMapper {
     public int saveStudent(Student user);
 
     public int saveTeacher(Teacher teacher);
-
 }
