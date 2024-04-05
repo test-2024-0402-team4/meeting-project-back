@@ -22,12 +22,18 @@ public class Student {
     private String email;
     private String birthDate;
     private int genderId;
+    private String genderType;
     private int roleId;
+    private String roleName;
     private int studentTypeId;
+    private String studentType;
     private int subjectId;
     private String phoneNumber;
     private int regionId;
+    private String regionName;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
+
+
 
 }
