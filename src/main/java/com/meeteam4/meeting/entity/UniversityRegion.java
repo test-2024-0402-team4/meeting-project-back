@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Builder
 @Data
-public class universityRegion {
+public class UniversityRegion {
 
     private int universityRegionId;
     private String universityRegionName;

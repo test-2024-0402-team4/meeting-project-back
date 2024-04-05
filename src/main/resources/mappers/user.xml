@@ -38,15 +38,15 @@
 
     </resultMap>
 
-    <insert id="saveStudent"
-            parameterType="com.meeteam4.meeting.entity.Student"
-            keyProperty="studentId"
+    <insert id="saveUser"
+            parameterType="com.meeteam4.meeting.entity.User"
+            keyProperty="UserId"
             useGeneratedKeys="true"
     >
         insert into
-            student_tb
+            user_tb
         values
-            (0, #{username}, #{nickname}, #{password}, #{name}, #{email}, #{birthDate}, #{genderId}, #{roleId}, #{studentTypeId}, #{subjectId}, #{phoneNumber}, #{regionId}, now(), now());
+            (0, #{name}, #{username}, #{password}, #{nickname}, #{email}, #{roleId}, now(), now());
     </insert>
 
     <insert id="saveTeacher"

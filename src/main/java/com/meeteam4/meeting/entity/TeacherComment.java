@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Builder
 @Data
-public class teacherComment {
+public class TeacherComment {
 
     private int teacherCommentId;
     private int teacherBoardId;

@@ -9,23 +9,16 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDateTime;
 
 @Builder
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
 public class Teacher {
 
     private int teacherId;
-    private String username;
-    private String nickname;
-    private String password;
-    private String name;
-    private String email;
+    private int userId;
     private String birthDate;
     private int genderId;
-    private int roleId;
     private int universityId;
     private int graduateStateId;
-    private int phoneNumber;
+    private String phoneNumber;
     private int regionId;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;

@@ -9,29 +9,17 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 @Data
 public class SignupStudentReqDto {
 
-    private String username;
-    private String nickname;
-    private String password;
-    private String name;
-    private String email;
-    private String birthDate;
-    private int genderId;
-    private int roleId;
-    private int studentTypeId;
-    private int subjectId;
-    private String phoneNumber;
-    private int regionId;
+        private String birthDate;
+        private int genderId;
+        private int studentTypeId;
+        private int subjectId;
+        private String phoneNumber;
+        private int regionId;
 
-    public Student toEntity(BCryptPasswordEncoder passwordEncoder) {
+    public Student toEntity() {
         return Student.builder()
-                .username(username)
-                .nickname(nickname)
-                .password(passwordEncoder.encode(password))
-                .name(name)
-                .email(email)
                 .birthDate(birthDate)
                 .genderId(genderId)
-                .roleId(roleId)
                 .studentTypeId(studentTypeId)
                 .subjectId(subjectId)
                 .phoneNumber(phoneNumber)

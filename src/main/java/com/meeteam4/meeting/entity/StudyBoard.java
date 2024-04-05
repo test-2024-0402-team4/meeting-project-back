@@ -1,5 +1,6 @@
 package com.meeteam4.meeting.entity;
 
+
 import lombok.Builder;
 import lombok.Data;
 
@@ -7,13 +8,13 @@ import java.time.LocalDateTime;
 
 @Builder
 @Data
-public class studyComment {
-    private int studyCommentId;
+public class StudyBoard {
     private int studyBoardId;
     private int studentId;
     private int teacherId;
-    private String comment;
+    private String title;
+    private String content;
+    private int viewCount;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
-
 }
