@@ -5,12 +5,13 @@
 
 <mapper namespace="com.meeteam4.meeting.repository.BoardMapper">
     <insert id="saveBoard" parameterType="com.meeteam4.meeting.entity.Board">
-        insert into board_tb
+        insert into student_board_tb
         values(
             0,
-            #{userId},
+            #{studentId},
             #{title},
             #{content},
+            #{theme},
             #{viewCount},
             now(),
             now()
@@ -18,11 +19,11 @@
     </insert>
 
     <insert id="saveComment" parameterType="com.meeteam4.meeting.entity.Comment">
-        insert into comment_tb
+        insert into student_comment_tb
         values(
         0,
-        #{boardId},
-        #{userId},
+        #{studentBoardId},
+        #{studentUserId},
         #{comment},
         now(),
         now()

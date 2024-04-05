@@ -13,10 +13,11 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 
 public class Board {
-    private int boardId;
-    private int userId;
+    private int studentBoardId;
+    private int studentId;
     private String title;
     private String content;
+    private String theme;
     private int viewCount;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;

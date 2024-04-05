@@ -6,16 +6,16 @@ import lombok.Data;
 @Data
 public class CommentReqDto {
 
-    private int commentId;
-    private int boardId;
-    private int userId;
+    private int studentCommentId;
+    private int studentBoardId;
+    private int studentUserId;
     private String comment;
 
     public Comment toEntity(){
         return Comment.builder()
-                .commentId(commentId)
-                .boardId(boardId)
-                .userId(userId)
+                .studentCommentId(studentCommentId)
+                .studentBoardId(studentBoardId)
+                .studentUserId(studentUserId)
                 .comment(comment)
                 .build();
     }
