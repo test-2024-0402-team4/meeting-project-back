@@ -4,7 +4,21 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.meeteam4.meeting.repository.BoardMapper">
-    <insert id="saveBoard" parameterType="com.meeteam4.meeting.entity.Board">
+
+    <resultMap id="BoardResultMap" type="com.meeteam4.meeting.entity.StudentBoard">
+        <id property="studentBoardId" column="student_board_id"/>
+        <result property="studentId" column="student_id"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="theme" column="theme"/>
+        <result property="viewCount" column="view_count"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+
+    </resultMap>
+
+
+    <insert id="saveBoard" parameterType="com.meeteam4.meeting.entity.StudentBoard">
         insert into student_board_tb
         values(
             0,
@@ -30,4 +44,25 @@
         )
 
     </insert>
+
+    <select id="searchBoard" resultMap="BoardResultMap">
+        select
+             sbt.student_board_id,
+             sbt.title,
+             sbt.create_date,
+             sbt.view_count
+        from
+            student_board_tb sbt
+            left outer join student_tb st on(st.student_id = sbt.student_id)
+        <choose>
+        <when test="searchText != 0">
+            and(
+            title like concat('%', #{searchText},'%')
+            or nickname like concat('%', #{searchText},'%')
+            )
+        </when>
+        </choose>
+
+
+    </select>
 </mapper>
