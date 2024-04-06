@@ -1,9 +1,9 @@
 package com.meeteam4.meeting.controller;
 
 
-import com.meeteam4.meeting.aop.annotation.ValidAspect;
 import com.meeteam4.meeting.dto.SignupStudentReqDto;
 import com.meeteam4.meeting.dto.SignupTeacherReqDto;
+import com.meeteam4.meeting.dto.SignupUserDto;
 import com.meeteam4.meeting.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,23 +13,22 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/auth/signup")
 public class AuthController {
 
     @Autowired
     private AuthService authService;
 
-    @ValidAspect
-    @PostMapping("/student")
-    public ResponseEntity<?> signupStudent (@Valid @RequestBody SignupStudentReqDto signupStudentReqDto, BindingResult bindingResult) {
-        return ResponseEntity.ok(authService.signupStudent(signupStudentReqDto));
-    }
+    @PostMapping("/auth/signup")
+    public ResponseEntity<?> signup (
+            @Valid
+            @RequestBody SignupUserDto signupUserDto,
+            SignupStudentReqDto signupStudentReqDto,
+            SignupTeacherReqDto signupTeacherReqDto,
+            BindingResult bindingResult) {
 
-    @ValidAspect
-    @PostMapping("/teacher")
-    public ResponseEntity<?> signupTeacher (@Valid @RequestBody SignupTeacherReqDto signupTeacherReqDto, BindingResult bindingResult) {
-        return ResponseEntity.ok(authService.signupTeacher(signupTeacherReqDto));
-    }
+        authService.signup(signupUserDto, signupTeacherReqDto, signupStudentReqDto);
 
+        return ResponseEntity.created(null).body(null);
+    }
 
 }

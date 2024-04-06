@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Builder
 @Data
-public class studentType {
+public class StudentType {
 
     private int studentTypeId;
     private String studentType;

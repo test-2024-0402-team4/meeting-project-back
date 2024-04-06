@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Builder
 @Data
-public class university {
+public class University {
 
     private int universityId;
     private String universityName;

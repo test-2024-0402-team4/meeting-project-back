@@ -48,55 +48,55 @@ public class ValidAop {
         // ----------------------------------------------------------------------
         // 중복확인 - 학생
 //        System.out.println(methodName);
-        if(methodName.equals("signupStudent")) {
-            SignupStudentReqDto signupStudentReqDto = null;
-
-            for(Object arg : args) {
-                if(arg.getClass() == SignupStudentReqDto.class) {
-                    signupStudentReqDto = (SignupStudentReqDto) arg;
-                }
-            }
-            if(userMapper.findStudentUsername(signupStudentReqDto.getUsername()) != null) {
-//                System.out.println(userMapper.findStudentUsername(signupStudentReqDto.getUsername()));
-                ObjectError objectError = new FieldError("username", "username", "이미 존재하는 아이디입니다.");
-                bindingResult.addError(objectError);
-//                System.out.println(bindingResult);
-            }
-            if(userMapper.findStudentNickname(signupStudentReqDto.getNickname()) != null) {
-                ObjectError objectError = new FieldError("nickname", "nickname", "이미 존재하는 닉네임입니다.");
-                bindingResult.addError(objectError);
-            }
-            if(userMapper.findStudentEmail(signupStudentReqDto.getEmail()) != null) {
-                ObjectError objectError = new FieldError("email", "email","이미 존재하는 이메일입니다.");
-                bindingResult.addError(objectError);
-            }
-
-        }
+//        if(methodName.equals("signupStudent")) {
+//            SignupStudentReqDto signupStudentReqDto = null;
+//
+//            for(Object arg : args) {
+//                if(arg.getClass() == SignupStudentReqDto.class) {
+//                    signupStudentReqDto = (SignupStudentReqDto) arg;
+//                }
+//            }
+//            if(userMapper.findStudentUsername(signupStudentReqDto.getUsername()) != null) {
+////                System.out.println(userMapper.findStudentUsername(signupStudentReqDto.getUsername()));
+//                ObjectError objectError = new FieldError("username", "username", "이미 존재하는 아이디입니다.");
+//                bindingResult.addError(objectError);
+////                System.out.println(bindingResult);
+//            }
+//            if(userMapper.findStudentNickname(signupStudentReqDto.getNickname()) != null) {
+//                ObjectError objectError = new FieldError("nickname", "nickname", "이미 존재하는 닉네임입니다.");
+//                bindingResult.addError(objectError);
+//            }
+//            if(userMapper.findStudentEmail(signupStudentReqDto.getEmail()) != null) {
+//                ObjectError objectError = new FieldError("email", "email","이미 존재하는 이메일입니다.");
+//                bindingResult.addError(objectError);
+//            }
+//
+//        }
         // 중복확인 - 선생
-        if(methodName.equals("signupTeacher")) {
-            SignupTeacherReqDto signupTeacherReqDto = null;
-
-            for(Object arg : args) {
-                if(arg.getClass() == SignupTeacherReqDto.class) {
-                    signupTeacherReqDto = (SignupTeacherReqDto) arg;
-                }
-            }
-            if(userMapper.findTeacherUsername(signupTeacherReqDto.getUsername()) != null) {
-                ObjectError objectError = new FieldError("username", "username", "이미 존재하는 아이디입니다");
-                bindingResult.addError(objectError);
-                System.out.println(objectError.getDefaultMessage());
-            }
-            if(userMapper.findTeacherNickname(signupTeacherReqDto.getNickname()) != null) {
-                ObjectError objectError = new FieldError("nickname", "nickname", "이미 존재하는 닉네임입니다.");
-                bindingResult.addError(objectError);
-                System.out.println(objectError.getDefaultMessage());
-            }
-            if(userMapper.findTeacherEmail(signupTeacherReqDto.getEmail()) != null) {
-                ObjectError objectError = new FieldError("email", "email","이미 존재하는 이메일입니다.");
-                bindingResult.addError(objectError);
-                System.out.println(objectError.getDefaultMessage());
-            }
-        }
+//        if(methodName.equals("signupTeacher")) {
+//            SignupTeacherReqDto signupTeacherReqDto = null;
+//
+//            for(Object arg : args) {
+//                if(arg.getClass() == SignupTeacherReqDto.class) {
+//                    signupTeacherReqDto = (SignupTeacherReqDto) arg;
+//                }
+//            }
+//            if(userMapper.findTeacherUsername(signupTeacherReqDto.getUsername()) != null) {
+//                ObjectError objectError = new FieldError("username", "username", "이미 존재하는 아이디입니다");
+//                bindingResult.addError(objectError);
+//                System.out.println(objectError.getDefaultMessage());
+//            }
+//            if(userMapper.findTeacherNickname(signupTeacherReqDto.getNickname()) != null) {
+//                ObjectError objectError = new FieldError("nickname", "nickname", "이미 존재하는 닉네임입니다.");
+//                bindingResult.addError(objectError);
+//                System.out.println(objectError.getDefaultMessage());
+//            }
+//            if(userMapper.findTeacherEmail(signupTeacherReqDto.getEmail()) != null) {
+//                ObjectError objectError = new FieldError("email", "email","이미 존재하는 이메일입니다.");
+//                bindingResult.addError(objectError);
+//                System.out.println(objectError.getDefaultMessage());
+//            }
+//        }
 
 
 
