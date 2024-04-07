@@ -10,6 +10,8 @@ import java.time.LocalDateTime;
 
 @Builder
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Student {
 
     private int studentId;
@@ -22,4 +24,9 @@ public class Student {
     private int regionId;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
+
+    private User user;
+    private Gender gender;
+    private StudentType studentType;
+    private Region region;
 }

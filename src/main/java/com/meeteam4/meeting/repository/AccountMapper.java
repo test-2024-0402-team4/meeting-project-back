@@ -7,6 +7,6 @@ import org.apache.ibatis.annotations.Mapper;
 @Mapper
 public interface AccountMapper {
 
-    public Student findStudentByStudentId(int studentId);
+    public Student findStudentByStudentId(int userId);
 
 }

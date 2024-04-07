@@ -10,6 +10,8 @@ import java.time.LocalDateTime;
 
 @Builder
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Teacher {
 
     private int teacherId;

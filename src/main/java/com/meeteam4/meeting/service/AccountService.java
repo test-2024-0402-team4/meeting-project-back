@@ -1,6 +1,7 @@
 package com.meeteam4.meeting.service;
 
 
+import com.meeteam4.meeting.dto.UserDataRespDto;
 import com.meeteam4.meeting.entity.Student;
 import com.meeteam4.meeting.repository.AccountMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,9 +13,18 @@ public class AccountService {
     @Autowired
     private AccountMapper accountMapper;
 
-    public Student getStudentInfo(int studentId) {
+    public UserDataRespDto getStudentInfo(int userId) {
 
-       return accountMapper.findStudentByStudentId(studentId);
+        UserDataRespDto userDataRespDto = UserDataRespDto
+                .builder()
+                .nickname(accountMapper.findStudentByStudentId(userId).getUser().getNickname())
+                .email(accountMapper.findStudentByStudentId(userId).getUser().getEmail())
+                .studentType(accountMapper.findStudentByStudentId(userId).getStudentType().getStudentType())
+                .genderType(accountMapper.findStudentByStudentId(userId).getGender().getGenderType())
+                .regionName(accountMapper.findStudentByStudentId(userId).getRegion().getRegionName())
+                .build();
+
+       return userDataRespDto;
     }
 
 

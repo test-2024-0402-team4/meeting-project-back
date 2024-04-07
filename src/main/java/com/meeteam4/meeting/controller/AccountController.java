@@ -21,8 +21,8 @@ public class AccountController {
 
 
 
-    @GetMapping("/studentId")
-    public ResponseEntity<?> getStudentId(@RequestParam int studentId) {
+    @GetMapping("/userId")
+    public ResponseEntity<?> getStudentId(@RequestParam int userId) {
 //        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 //
 //        if (authentication.getPrincipal() instanceof PrincipalStudent) {
@@ -33,6 +33,6 @@ public class AccountController {
 //        } else {
 //            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 //        }
-        return ResponseEntity.ok(accountService.getStudentInfo(studentId));
+        return ResponseEntity.ok(accountService.getStudentInfo(userId));
     }
 }

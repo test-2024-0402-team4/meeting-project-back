@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.meeteam4.meeting.repository.AccountMapper">
+
+    <resultMap id="StudentResultMap" type="com.meeteam4.meeting.entity.Student">
+        <id property="studentId" column="student_id" />
+        <result property="userId" column="user_id"/>
+        <result property="birthDate" column="birth_date"/>
+        <result property="genderId" column="gender_id"/>
+        <result property="studentTypeId" column="student_type_id"/>
+        <result property="subjectId" column="subject_id"/>
+        <result property="phoneNumber" column="phone_number"/>
+        <result property="regionId" column="region_id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+        <association property="user" resultMap="UserResultMap"/>
+        <association property="gender" resultMap="GenderResultMap"/>
+        <association property="studentType" resultMap="StudentTypeResultMap" />
+        <association property="region" resultMap="RegionResultMap"/>
+    </resultMap>
+    <resultMap id="TeacherResultMap" type="com.meeteam4.meeting.entity.Teacher">
+        <id property="teacherId" column="teacher_id" />
+        <result property="userId" column="user_id"/>
+        <result property="birthDate" column="birth_date"/>
+        <result property="genderId" column="gender_id"/>
+        <result property="universityId" column="university_id"/>
+        <result property="graduateStateId" column="graduateState_id"/>
+        <result property="phoneNumber" column="phone_number"/>
+        <result property="regionId" column="region_id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+    </resultMap>
+    <resultMap id="UserResultMap" type="com.meeteam4.meeting.entity.User">
+        <id property="userId" column="user_id"/>
+        <result property="username" column="username"/>
+        <result property="nickname" column="nickname"/>
+        <result property="password" column="password"/>
+        <result property="name" column="name"/>
+        <result property="email" column="email"/>
+        <result property="roleId" column="role_id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+     </resultMap>
+    <resultMap id="GenderResultMap" type="com.meeteam4.meeting.entity.Gender">
+        <id property="genderId" column="gender_id"/>
+        <result property="genderType" column="gender_type"/>
+    </resultMap>
+    <resultMap id="StudentTypeResultMap" type="com.meeteam4.meeting.entity.StudentType">
+        <id property="studentTypeId" column="student_type_id"/>
+        <result property="studentType" column="student_type"/>
+    </resultMap>
+    <resultMap id="RegionResultMap" type="com.meeteam4.meeting.entity.Region">
+        <id property="regionId" column="region_id"/>
+        <result property="regionName" column="region_name"/>
+    </resultMap>
+
+
+    <select id="findStudentByStudentId" resultMap="StudentResultMap">
+        select
+            ut.nickname,
+            ut.email,
+            gt.gender_type,
+            stt.student_type,
+            rt.region_name
+        from
+            student_tb st
+            left outer join user_tb ut on(ut.user_id = st.user_id)
+            left outer join gender_tb gt on(gt.gender_id = st.gender_id)
+            left outer join student_type_tb stt on(stt.student_type_id = st.student_type_id)
+            left outer join region_tb rt on(rt.region_id = st.region_id)
+        where
+            student_id = #{userId};
+    </select>
+
+</mapper>
