@@ -1,4 +1,4 @@
-package com.meeteam4.meeting.entity;
+package com.meeteam4.meeting.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +9,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Region {
-    private int regionId;
+public class UserDataRespDto {
+    private String nickname;
+    private String email;
+    private String genderType;
+    private String studentType;
     private String regionName;
 }
