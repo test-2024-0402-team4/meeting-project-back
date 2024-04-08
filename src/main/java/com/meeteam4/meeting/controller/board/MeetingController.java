@@ -3,6 +3,7 @@ package com.meeteam4.meeting.controller.board;
 import com.meeteam4.meeting.dto.BoardWriteReqDto;
 import com.meeteam4.meeting.dto.CommentReqDto;
 import com.meeteam4.meeting.dto.StudentBoardListReqDto;
+import com.meeteam4.meeting.dto.StudentCommentPageRespDto;
 import com.meeteam4.meeting.service.BoardService;
 import com.meeteam4.meeting.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,5 +40,19 @@ public class MeetingController {
     @GetMapping("/student/boardList")
     public ResponseEntity<?> studentBoardList(StudentBoardListReqDto studentBoardListReqDto){
         return ResponseEntity.ok(boardService.searchBoards(studentBoardListReqDto));
+    }
+
+    @GetMapping("/student/comment/5")
+    public ResponseEntity<?> studentBoardListSingle(){
+
+        return ResponseEntity.ok(boardService.getSingleBoards());
+    }
+
+    @DeleteMapping("/student/comment/{studentBoardId}")
+    public ResponseEntity<?> deleteSingleBoard(@PathVariable int studentBoardId){
+
+        boardService.deleteBoard(studentBoardId);
+
+        return ResponseEntity.ok(true);
     }
 }

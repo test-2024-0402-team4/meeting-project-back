@@ -65,4 +65,27 @@
 
 
     </select>
+
+    <select id="getSingleBoard" resultMap="BoardResultMap">
+        select
+            student_board_id,
+            title,
+            create_date,
+            content,
+            view_count
+        from
+            student_board_tb
+        where
+            student_board_id = 5;
+
+    </select>
+
+    <delete id="deleteBoardByBoardId" parameterType="com.meeteam4.meeting.entity.StudentBoard">
+        delete
+        from
+            student_board_tb
+        where
+            student_board_id = #{studentBoardId}
+
+    </delete>
 </mapper>
