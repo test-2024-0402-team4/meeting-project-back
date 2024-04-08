@@ -3,6 +3,7 @@ package com.meeteam4.meeting.service;
 import com.meeteam4.meeting.dto.BoardWriteReqDto;
 import com.meeteam4.meeting.dto.StudentBoardListReqDto;
 import com.meeteam4.meeting.dto.StudentBoardListRespDto;
+import com.meeteam4.meeting.dto.StudentCommentPageRespDto;
 import com.meeteam4.meeting.entity.StudentBoard;
 import com.meeteam4.meeting.repository.BoardMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ public class BoardService {
         boardMapper.saveBoard(boardWriteReqDto.toEntity());
     }
 
+
     public List<StudentBoardListRespDto> searchBoards(StudentBoardListReqDto studentBoardListReqDto){
 
         int startIndex = (studentBoardListReqDto.getPage()-1)* studentBoardListReqDto.getCount();
@@ -35,4 +37,16 @@ public class BoardService {
 
         return boards.stream().map(StudentBoard :: toStudentBoardListRespDto).collect(Collectors.toList());
     }
+     public StudentCommentPageRespDto getSingleBoards(){
+
+       StudentBoard board = boardMapper.getSingleBoard();
+
+       return board.toStudentCommentPageRespDto();
+    }
+
+    public void deleteBoard(int studentBoardId){
+        boardMapper.deleteBoardByBoardId(studentBoardId);
+    }
+
+
 }
