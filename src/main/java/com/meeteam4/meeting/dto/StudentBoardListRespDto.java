@@ -1,5 +1,6 @@
 package com.meeteam4.meeting.dto;
 
+import com.meeteam4.meeting.entity.Poster;
 import lombok.Builder;
 import lombok.Data;
 
@@ -15,4 +16,6 @@ public class StudentBoardListRespDto {
     private String theme;
     private int viewCount;
     private LocalDateTime createDate;
+
+
 }

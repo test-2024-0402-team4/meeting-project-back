@@ -56,6 +56,36 @@
         <id property="regionId" column="region_id"/>
         <result property="regionName" column="region_name"/>
     </resultMap>
+    <resultMap id="PosterResultMap" type="com.meeteam4.meeting.entity.Poster" >
+        <id property="posterId" column="poster_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="regionId" column="region_id"/>
+        <result property="subjectId" column="subject_id"/>
+        <result property="classTypeId" column="class_type_id"/>
+        <result property="content" column="content"/>
+        <result property="createDate" column="create_date" />
+        <result property="updateDate" column="update_date" />
+    </resultMap>
+
+    <insert id="savePoster"
+            parameterType="com.meeteam4.meeting.entity.Poster"
+            keyProperty="posterId"
+            useGeneratedKeys="true"
+            >
+        insert into
+            poster_tb
+        values
+            (0, #{userId}, #{regionId}, #{genderId}, #{subjectId}, #{classTypeId}, #{content}, now(), now())
+    </insert>
+
+    <insert id="saveDates">
+            insert into
+                date_register_tb
+            VALUES
+            <foreach collection="dateIds" item="dateId" separator=",">
+                (0, #{posterId}, #{dateId})
+            </foreach>
+    </insert>
 
 
     <select id="findStudentByStudentId" resultMap="StudentResultMap">
