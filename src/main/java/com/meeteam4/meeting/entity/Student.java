@@ -19,7 +19,6 @@ public class Student {
     private String birthDate;
     private int genderId;
     private int studentTypeId;
-    private int subjectId;
     private String phoneNumber;
     private int regionId;
     private LocalDateTime createDate;

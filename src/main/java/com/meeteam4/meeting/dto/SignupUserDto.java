@@ -46,14 +46,12 @@ public class SignupUserDto {
     // -------------------------------------------------------------------------------------------------------------------------------
     // 학생부분
     private int studentTypeId;
-    private int subjectId;
-
 
     // -------------------------------------------------------------------------------------------------------------------------------
     // 선생부분
     private int universityId;
+    private String departmentName;
     private int graduateStateId;
-
 
     public User toUserEntity(BCryptPasswordEncoder passwordEncoder) {
         return User.builder()
@@ -66,25 +64,26 @@ public class SignupUserDto {
                 .build();
     }
 
-    public Student toStudentEntity() {
+    public Student toStudentEntity(int userId) {
         return Student.builder()
                 .birthDate(birthDate)
+                .userId(userId)
                 .genderId(genderId)
                 .studentTypeId(studentTypeId)
-                .subjectId(subjectId)
                 .phoneNumber(phoneNumber)
                 .regionId(regionId)
                 .build();
     }
 
-    public Teacher toTeacherEntity() {
+    public Teacher toTeacherEntity(int userId) {
         return Teacher.builder()
                 .birthDate(birthDate)
+                .userId(userId)
                 .genderId(genderId)
                 .universityId(universityId)
+                .departmentName(departmentName)
                 .graduateStateId(graduateStateId)
                 .phoneNumber(phoneNumber)
-                .regionId(regionId)
                 .build();
     }
 }
