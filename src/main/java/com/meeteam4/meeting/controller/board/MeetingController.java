@@ -1,9 +1,6 @@
 package com.meeteam4.meeting.controller.board;
 
-import com.meeteam4.meeting.dto.BoardWriteReqDto;
-import com.meeteam4.meeting.dto.CommentReqDto;
-import com.meeteam4.meeting.dto.StudentBoardListReqDto;
-import com.meeteam4.meeting.dto.StudentCommentPageRespDto;
+import com.meeteam4.meeting.dto.*;
 import com.meeteam4.meeting.service.BoardService;
 import com.meeteam4.meeting.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,10 +39,10 @@ public class MeetingController {
         return ResponseEntity.ok(boardService.searchBoards(studentBoardListReqDto));
     }
 
-    @GetMapping("/student/comment/5")
-    public ResponseEntity<?> studentBoardListSingle(){
+    @GetMapping("/student/comment/{studentBoardId}")
+    public ResponseEntity<?> studentBoardListSingle(@PathVariable int studentBoardId){
 
-        return ResponseEntity.ok(boardService.getSingleBoards());
+        return ResponseEntity.ok(boardService.getSingleBoards(studentBoardId));
     }
 
     @DeleteMapping("/student/comment/{studentBoardId}")
@@ -53,6 +50,13 @@ public class MeetingController {
 
         boardService.deleteBoard(studentBoardId);
 
+        return ResponseEntity.ok(true);
+    }
+
+    @PutMapping("/student/update/{studentBoardId}")
+    public ResponseEntity<?> updateBoard(@PathVariable int studentBoardId, @RequestBody UpdateBoardReqDto updateBoardReqDto){
+        boardService.updateBoard(updateBoardReqDto);
+        System.out.println(updateBoardReqDto.toEntity());
         return ResponseEntity.ok(true);
     }
 }

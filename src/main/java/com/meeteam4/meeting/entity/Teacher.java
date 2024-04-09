@@ -19,9 +19,10 @@ public class Teacher {
     private String birthDate;
     private int genderId;
     private int universityId;
+    private String departmentName;
     private int graduateStateId;
     private String phoneNumber;
-    private String department;
+
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
 

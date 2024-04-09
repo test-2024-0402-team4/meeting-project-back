@@ -34,7 +34,7 @@
         insert into
             student_tb
         values
-            (0, #{userId}, #{birthDate}, #{genderId}, #{studentTypeId}, #{subjectId}, #{phoneNumber}, #{regionId}, now(), now());
+            (0, #{userId}, #{birthDate}, #{genderId}, #{studentTypeId}, #{phoneNumber}, #{regionId}, now(), now());
     </insert>
 
     <insert id="saveTeacher"
@@ -45,9 +45,8 @@
         insert into
             teacher_tb
         values
-            (0, #{userId}, #{birthDate}, #{genderId}, #{universityId}, #{graduateStateId}, #{phoneNumber}, #{regionId}, now(), now());
+            (0, #{userId}, #{birthDate}, #{genderId}, #{universityId}, #{departmentName}, #{graduateStateId}, #{phoneNumber}, now(), now());
     </insert>
-
 
 
 

@@ -76,11 +76,11 @@
         from
             student_board_tb
         where
-            student_board_id = 5;
+            student_board_id = #{studentBoardId};
 
     </select>
 
-    <delete id="deleteBoardByBoardId" parameterType="com.meeteam4.meeting.entity.StudentBoard">
+    <delete id="deleteBoardByBoardId">
         delete
         from
             student_board_tb
@@ -88,4 +88,17 @@
             student_board_id = #{studentBoardId}
 
     </delete>
+
+    <update id="updateBoardByBoardId" parameterType="com.meeteam4.meeting.entity.StudyBoard">
+        update
+            student_board_tb
+        set
+            title = #{title},
+            content = #{content},
+            theme = #{theme},
+            update_date = now()
+        where
+            student_board_id = #{studentBoardId}
+
+    </update>
 </mapper>
