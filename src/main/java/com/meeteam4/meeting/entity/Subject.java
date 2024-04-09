@@ -5,16 +5,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DateRegister {
-    private int dateRegisterId;
-    private int userId;
-    private List<Integer> dateIds;
+public class Subject {
+    private int subjectId;
+    private String subjectName;
 
-    private Date date;
 }

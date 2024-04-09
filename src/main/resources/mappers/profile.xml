@@ -11,7 +11,6 @@
         <result property="birthDate" column="birth_date"/>
         <result property="genderId" column="gender_id"/>
         <result property="studentTypeId" column="student_type_id"/>
-        <result property="subjectId" column="subject_id"/>
         <result property="phoneNumber" column="phone_number"/>
         <result property="regionId" column="region_id"/>
         <result property="createDate" column="create_date"/>
@@ -29,7 +28,6 @@
         <result property="universityId" column="university_id"/>
         <result property="graduateStateId" column="graduateState_id"/>
         <result property="phoneNumber" column="phone_number"/>
-        <result property="regionId" column="region_id"/>
         <result property="createDate" column="create_date"/>
         <result property="updateDate" column="update_date"/>
     </resultMap>
@@ -66,26 +64,39 @@
         <result property="createDate" column="create_date" />
         <result property="updateDate" column="update_date" />
     </resultMap>
-
-    <insert id="savePoster"
-            parameterType="com.meeteam4.meeting.entity.Poster"
-            keyProperty="posterId"
-            useGeneratedKeys="true"
-            >
-        insert into
-            poster_tb
-        values
-            (0, #{userId}, #{regionId}, #{genderId}, #{subjectId}, #{classTypeId}, #{content}, now(), now())
-    </insert>
-
     <insert id="saveDates">
             insert into
                 date_register_tb
             VALUES
             <foreach collection="dateIds" item="dateId" separator=",">
-                (0, #{posterId}, #{dateId})
+                (0, #{userId}, #{dateId})
             </foreach>
     </insert>
+    <insert id="saveSubjects">
+            insert into
+                subject_register_tb
+            VALUES
+            <foreach collection="subjectIds" item="subjectId" separator=",">
+                (0, #{userId}, #{subjectId})
+            </foreach>
+    </insert>
+    <insert id="saveRegions">
+            insert into
+                region_register_tb
+            VALUES
+            <foreach collection="regionIds" item="regionId" separator=",">
+                (0, #{userId}, #{regionId})
+            </foreach>
+    </insert>
+    <insert id="saveClassType">
+            insert into
+                class_type_register_tb
+            VALUES
+            <foreach collection="classTypeIds" item="classTypeId" separator=",">
+                (0, #{userId}, #{classTypeId})
+            </foreach>
+    </insert>
+
 
 
     <select id="findStudentByStudentId" resultMap="StudentResultMap">
@@ -103,6 +114,13 @@
             left outer join region_tb rt on(rt.region_id = st.region_id)
         where
             student_id = #{userId};
+    </select>
+    <select id="searchTeacherProfilesByUserId" resultType="com.meeteam4.meeting.dto.SearchProfilesRespDto">
+        select
+            *
+        from
+            user_tb ut
+            left outer join
     </select>
 
 </mapper>

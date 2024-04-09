@@ -2,8 +2,8 @@ package com.meeteam4.meeting.repository;
 
 
 import com.meeteam4.meeting.dto.PosterReqDto;
-import com.meeteam4.meeting.entity.Poster;
-import com.meeteam4.meeting.entity.Student;
+import com.meeteam4.meeting.dto.SearchProfilesRespDto;
+import com.meeteam4.meeting.entity.*;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -15,6 +15,12 @@ import java.util.List;
 public interface AccountMapper {
 
     public Student findStudentByStudentId(int userId);
-    public int savePoster(Poster poster);
-    public int saveDates(@Param("posterId") int posterId, List<Integer> dateIds);
+    public int saveDates(DateRegister dateRegister);
+    public int saveSubjects(SubjectRegister subjectRegister);
+    public int saveRegions(RegionRegister regionRegister);
+    public int saveClassType(ClassTypeRegister classTypeRegister);
+
+    public SearchProfilesRespDto searchTeacherProfilesByUserId(int userId);
+
+
 }

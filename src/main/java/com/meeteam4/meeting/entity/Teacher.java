@@ -21,7 +21,7 @@ public class Teacher {
     private int universityId;
     private int graduateStateId;
     private String phoneNumber;
-    private int regionId;
+    private String department;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
 

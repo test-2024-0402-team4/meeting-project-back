@@ -71,7 +71,6 @@ public class SignupUserDto {
                 .birthDate(birthDate)
                 .genderId(genderId)
                 .studentTypeId(studentTypeId)
-                .subjectId(subjectId)
                 .phoneNumber(phoneNumber)
                 .regionId(regionId)
                 .build();
@@ -84,7 +83,6 @@ public class SignupUserDto {
                 .universityId(universityId)
                 .graduateStateId(graduateStateId)
                 .phoneNumber(phoneNumber)
-                .regionId(regionId)
                 .build();
     }
 }
