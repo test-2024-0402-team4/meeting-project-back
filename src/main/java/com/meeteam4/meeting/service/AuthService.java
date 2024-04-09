@@ -25,17 +25,15 @@ public class AuthService {
     public void signupUser(SignupUserDto signupUserDto) {
 
         User user = signupUserDto.toUserEntity(passwordEncoder);
-        Student student = signupUserDto.toStudentEntity();
-        Teacher teacher = signupUserDto.toTeacherEntity();
-
         userMapper.saveUser(user);
 
+        Student student = signupUserDto.toStudentEntity(user.getUserId());
+        Teacher teacher = signupUserDto.toTeacherEntity(user.getUserId());
         if(user.getRoleId() == 1) {
             userMapper.saveStudent(student);
         }else if(user.getRoleId() == 2) {
             userMapper.saveTeacher(teacher);
         }
-
     }
 
 }

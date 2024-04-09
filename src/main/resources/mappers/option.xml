@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.meeteam4.meeting.repository.AuthOptionMapper">
+
+    <resultMap id="RegionResultMap" type="com.meeteam4.meeting.entity.Region">
+        <id property="regionId" column="region_id" />
+        <result property="regionName" column="region_name" />
+    </resultMap>
+
+    <resultMap id="StudentTypeResultMap" type="com.meeteam4.meeting.entity.StudentType">
+        <id property="studentTypeId" column="student_type_id" />
+        <result property="studentType" column="student_type" />
+    </resultMap>
+
+    <resultMap id="UniversityResultMap" type="com.meeteam4.meeting.entity.University">
+        <id property="universityId" column="university_id" />
+        <result property="universityName" column="university_name" />
+        <result property="universityRegionId" column="university_region_id" />
+    </resultMap>
+
+    <resultMap id="GraduateStateResultMap" type="com.meeteam4.meeting.entity.GraduateState">
+        <id property="graduateStateId" column="graduate_state_id" />
+        <result property="graduateState" column="graduate_state" />
+    </resultMap>
+
+    <select id="getRegion" resultMap="RegionResultMap">
+        select
+            region_id,
+            region_name
+        from
+            region_tb
+    </select>
+
+    <select id="getStudentType" resultMap="StudentTypeResultMap">
+        select
+            student_type_id,
+            student_type
+        from
+            student_type_tb
+    </select>
+
+    <select id="getUniversity" resultMap="UniversityResultMap">
+        select
+            university_id,
+            university_name,
+            university_region_id
+        from
+            university_tb
+    </select>
+
+    <select id="getGraduateState" resultMap="GraduateStateResultMap">
+        select
+            graduate_state_id,
+            graduate_state
+        from
+            graduate_state_tb
+    </select>
+
+
+</mapper>
