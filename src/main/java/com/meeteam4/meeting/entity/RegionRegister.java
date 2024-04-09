@@ -11,10 +11,8 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DateRegister {
-    private int dateRegisterId;
+public class RegionRegister {
+    private int regionRegister;
     private int userId;
-    private List<Integer> dateIds;
-
-    private Date date;
+    private List<Integer> regionIds;
 }

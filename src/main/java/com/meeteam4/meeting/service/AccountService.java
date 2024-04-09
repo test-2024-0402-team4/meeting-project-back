@@ -2,9 +2,9 @@ package com.meeteam4.meeting.service;
 
 
 import com.meeteam4.meeting.dto.PosterReqDto;
+import com.meeteam4.meeting.dto.TeacherProfileReqDto;
 import com.meeteam4.meeting.dto.UserDataRespDto;
-import com.meeteam4.meeting.entity.Poster;
-import com.meeteam4.meeting.entity.Student;
+import com.meeteam4.meeting.entity.*;
 import com.meeteam4.meeting.exception.SaveException;
 import com.meeteam4.meeting.repository.AccountMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,25 +38,44 @@ public class AccountService {
        return userDataRespDto;
     }
     @Transactional(rollbackFor = Exception.class)
-    public int savePoster(PosterReqDto posterReqDto) {
+    public void saveTeacherProfile(TeacherProfileReqDto teacherProfileReqDto) {
+        DateRegister dateRegister = DateRegister.builder()
+                .userId(teacherProfileReqDto.getUserId())
+                .dateIds(teacherProfileReqDto.getDateIds())
+                .build();
+
+        SubjectRegister subjectRegister = SubjectRegister
+                .builder()
+                .userId(teacherProfileReqDto.getUserId())
+                .subjectIds(teacherProfileReqDto.getSubjectIds())
+                .build();
+
+        RegionRegister regionRegister = RegionRegister
+                .builder()
+                .userId(teacherProfileReqDto.getUserId())
+                .regionIds(teacherProfileReqDto.getRegionIds())
+                .build();
+
+        ClassTypeRegister classTypeRegister = ClassTypeRegister
+                .builder()
+                .userId(teacherProfileReqDto.getUserId())
+                .classTypeIds(teacherProfileReqDto.getClassTypeIds())
+                .build();
         int successCount = 0;
+        successCount += accountMapper.saveDates(dateRegister);
+        successCount += accountMapper.saveRegions(regionRegister);
+        successCount += accountMapper.saveSubjects(subjectRegister);
+        successCount += accountMapper.saveClassType(classTypeRegister);
 
-        Poster poster = posterReqDto.toPosterEntity();
-        successCount += accountMapper.savePoster(poster);
-        successCount += accountMapper.saveDates(poster.getPosterId(), posterReqDto.getDateIds());
-
-        if(successCount < 2) {
+        if(successCount < 4) {
             throw new SaveException();
         }
-        return successCount;
+
     }
 
+    public void searchTeacherProfilesByUserId(int userId) {
 
-
-
-
-
-
+    }
 
 
 }

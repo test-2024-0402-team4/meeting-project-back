@@ -1,4 +1,4 @@
-package com.meeteam4.meeting.entity;
+package com.meeteam4.meeting.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -6,15 +6,17 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DateRegister {
-    private int dateRegisterId;
-    private int userId;
-    private List<Integer> dateIds;
+public class TeacherProfileReqDto {
 
-    private Date date;
+    private int userId;
+    private List<Integer> subjectIds;
+    private List<Integer> regionIds;
+    private List<Integer> dateIds;
+    private List<Integer> classTypeIds;
+
+
 }

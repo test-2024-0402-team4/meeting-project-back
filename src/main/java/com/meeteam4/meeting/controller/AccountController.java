@@ -2,6 +2,7 @@ package com.meeteam4.meeting.controller;
 
 
 import com.meeteam4.meeting.dto.PosterReqDto;
+import com.meeteam4.meeting.dto.TeacherProfileReqDto;
 import com.meeteam4.meeting.entity.Poster;
 import com.meeteam4.meeting.entity.Student;
 import com.meeteam4.meeting.security.PrincipalStudent;
@@ -41,12 +42,18 @@ public class AccountController {
         return ResponseEntity.ok(accountService.getStudentInfo(userId));
     }
 
-    @PostMapping("/poster")
-    public ResponseEntity<?> savePoster(@RequestBody PosterReqDto posterReqDto) {
+    @PostMapping("/teacher/profile")
+    public ResponseEntity<?> saveTeacherProfile(@RequestBody TeacherProfileReqDto teacherProfileReqDto) {
 
-
-        return ResponseEntity.ok(accountService.savePoster(posterReqDto));
+        accountService.saveTeacherProfile(teacherProfileReqDto);
+        return ResponseEntity.ok(null);
     }
 
+    @GetMapping("/teacher/profiles")
+    public ResponseEntity<?> searchTeacherProfilesByUserId(int userId) {
 
+
+
+        return ResponseEntity.ok(null);
+    }
 }

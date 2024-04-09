@@ -22,6 +22,7 @@ public class Teacher {
     private String departmentName;
     private int graduateStateId;
     private String phoneNumber;
+
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
 

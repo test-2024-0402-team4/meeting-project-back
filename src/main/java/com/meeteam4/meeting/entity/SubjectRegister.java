@@ -11,10 +11,11 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DateRegister {
-    private int dateRegisterId;
-    private int userId;
-    private List<Integer> dateIds;
+public class SubjectRegister {
 
-    private Date date;
+    private int subjectRegisterId;
+    private int userId;
+    private List<Integer> subjectIds;
+
+    private Subject subject;
 }
