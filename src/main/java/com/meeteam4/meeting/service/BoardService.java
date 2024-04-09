@@ -1,13 +1,11 @@
 package com.meeteam4.meeting.service;
 
-import com.meeteam4.meeting.dto.BoardWriteReqDto;
-import com.meeteam4.meeting.dto.StudentBoardListReqDto;
-import com.meeteam4.meeting.dto.StudentBoardListRespDto;
-import com.meeteam4.meeting.dto.StudentCommentPageRespDto;
+import com.meeteam4.meeting.dto.*;
 import com.meeteam4.meeting.entity.StudentBoard;
 import com.meeteam4.meeting.repository.BoardMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,16 +35,19 @@ public class BoardService {
 
         return boards.stream().map(StudentBoard :: toStudentBoardListRespDto).collect(Collectors.toList());
     }
-     public StudentCommentPageRespDto getSingleBoards(){
+     public StudentCommentPageRespDto getSingleBoards(int studentBoardId){
 
-       StudentBoard board = boardMapper.getSingleBoard();
+       StudentBoard board = boardMapper.getSingleBoard(studentBoardId);
 
        return board.toStudentCommentPageRespDto();
     }
-
+    @Transactional(rollbackFor = Exception.class)
     public void deleteBoard(int studentBoardId){
         boardMapper.deleteBoardByBoardId(studentBoardId);
     }
 
-
+    @Transactional(rollbackFor = Exception.class)
+    public void updateBoard(UpdateBoardReqDto updateBoardReqDto){
+        boardMapper.updateBoardByBoardId(updateBoardReqDto.toEntity());
+    }
 }
