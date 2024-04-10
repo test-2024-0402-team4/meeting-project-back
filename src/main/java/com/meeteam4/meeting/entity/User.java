@@ -1,5 +1,6 @@
 package com.meeteam4.meeting.entity;
 
+import com.meeteam4.meeting.dto.SearchProfilesRespDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -25,5 +26,18 @@ public class User {
 
     private Student student;
     private Teacher teacher;
+
+    public SearchProfilesRespDto toSearchProfilesRespDto() {
+        return SearchProfilesRespDto
+                .builder()
+                .userId(userId)
+                .nickname(nickname)
+                .genderId(teacher.getGenderId())
+                .email(email)
+                .universityId(teacher.getUniversityId())
+                .departmentName(teacher.getDepartmentName())
+                .graduateStateId(teacher.getGraduateStateId())
+                .build();
+    }
 
 }
