@@ -12,7 +12,8 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class RegionRegister {
-    private int regionRegister;
+    private int regionRegisterId;
     private int userId;
     private List<Integer> regionIds;
+    private int regionId;
 }

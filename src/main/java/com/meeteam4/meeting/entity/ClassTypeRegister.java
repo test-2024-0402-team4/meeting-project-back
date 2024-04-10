@@ -17,7 +17,7 @@ public class ClassTypeRegister {
     private int userId;
     private List<Integer> classTypeIds;
 
-    private ClassType classType;
+    private List<Integer> classType;
 
 
 }

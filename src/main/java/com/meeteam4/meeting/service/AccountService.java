@@ -1,9 +1,7 @@
 package com.meeteam4.meeting.service;
 
 
-import com.meeteam4.meeting.dto.PosterReqDto;
-import com.meeteam4.meeting.dto.TeacherProfileReqDto;
-import com.meeteam4.meeting.dto.UserDataRespDto;
+import com.meeteam4.meeting.dto.*;
 import com.meeteam4.meeting.entity.*;
 import com.meeteam4.meeting.exception.SaveException;
 import com.meeteam4.meeting.repository.AccountMapper;
@@ -12,6 +10,7 @@ import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -23,6 +22,9 @@ public class AccountService {
 
     @Autowired
     private AccountMapper accountMapper;
+
+    @Autowired
+    private User user;
 
     public UserDataRespDto getStudentInfo(int userId) {
 
@@ -37,6 +39,7 @@ public class AccountService {
 
        return userDataRespDto;
     }
+    // 필수 정보 등록
     @Transactional(rollbackFor = Exception.class)
     public void saveTeacherProfile(TeacherProfileReqDto teacherProfileReqDto) {
         DateRegister dateRegister = DateRegister.builder()
@@ -72,9 +75,23 @@ public class AccountService {
         }
 
     }
+    // 검색 필터
+    public List<SearchProfilesRespDto> searchTeacherProfiles(SearchProfilesReqDto searchProfilesReqDto) {
+        List<Integer> userIds = new ArrayList<>();
 
-    public void searchTeacherProfilesByUserId(int userId) {
+        userIds.addAll(accountMapper.searchUserIdByRegionIds(searchProfilesReqDto.getRegionIds()));
+        userIds.addAll(accountMapper.searchUserIdBySubjectIds(searchProfilesReqDto.getSubjectIds()));
+        userIds.addAll(accountMapper.searchUserIdByDateIds(searchProfilesReqDto.getDateIds()));
+        userIds.addAll(accountMapper.searchUserIdByClassTypeIds(searchProfilesReqDto.getClassTypeIds()));
 
+        // DB에서 가져온 userId 중복 제거
+        List<Integer> distinctUserIds = userIds.stream().distinct().collect(Collectors.toList());
+
+
+        List<User> users = accountMapper.searchTeacherProfilesByUserId(distinctUserIds);
+
+
+        return users.stream().map(User :: toSearchProfilesRespDto).collect(Collectors.toList());
     }
 
 

@@ -2,6 +2,7 @@ package com.meeteam4.meeting.controller;
 
 
 import com.meeteam4.meeting.dto.PosterReqDto;
+import com.meeteam4.meeting.dto.SearchProfilesReqDto;
 import com.meeteam4.meeting.dto.TeacherProfileReqDto;
 import com.meeteam4.meeting.entity.Poster;
 import com.meeteam4.meeting.entity.Student;
@@ -50,10 +51,9 @@ public class AccountController {
     }
 
     @GetMapping("/teacher/profiles")
-    public ResponseEntity<?> searchTeacherProfilesByUserId(int userId) {
+    public ResponseEntity<?> searchTeacherProfiles(SearchProfilesReqDto searchProfilesReqDto) {
 
 
-
-        return ResponseEntity.ok(null);
+        return ResponseEntity.ok(accountService.searchTeacherProfiles(searchProfilesReqDto));
     }
 }

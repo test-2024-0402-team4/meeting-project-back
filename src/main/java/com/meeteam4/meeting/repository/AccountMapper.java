@@ -20,7 +20,12 @@ public interface AccountMapper {
     public int saveRegions(RegionRegister regionRegister);
     public int saveClassType(ClassTypeRegister classTypeRegister);
 
-    public SearchProfilesRespDto searchTeacherProfilesByUserId(int userId);
+    public List<Integer> searchUserIdByRegionIds(@Param("regionIds") List<Integer> regionId);
+    public List<Integer> searchUserIdBySubjectIds(@Param("subjectIds") List<Integer> subjectId);
+    public List<Integer> searchUserIdByDateIds(@Param("dateIds") List<Integer> dateId);
+    public List<Integer> searchUserIdByClassTypeIds(@Param("classTypeIds") List<Integer> classTypeId);
+    public List<User> searchTeacherProfilesByUserId(@Param("userIds") List<Integer> userId);
 
+    public List<Region> getRegionByUserId(@Param("userIds") List<Integer> userId);
 
 }
