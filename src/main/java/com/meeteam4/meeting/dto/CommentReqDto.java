@@ -1,6 +1,6 @@
 package com.meeteam4.meeting.dto;
 
-import com.meeteam4.meeting.entity.Comment;
+import com.meeteam4.meeting.entity.StudentComment;
 import lombok.Data;
 
 @Data
@@ -11,8 +11,8 @@ public class CommentReqDto {
     private int studentUserId;
     private String comment;
 
-    public Comment toEntity(){
-        return Comment.builder()
+    public StudentComment toEntity(){
+        return StudentComment.builder()
                 .studentCommentId(studentCommentId)
                 .studentBoardId(studentBoardId)
                 .studentUserId(studentUserId)

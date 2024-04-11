@@ -8,16 +8,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/board")
-public class MeetingController {
+@RequestMapping("/student")
+public class StudentBoardController {
     @Autowired
     private BoardService boardService;
 
     @Autowired
     private CommentService commentService;
 
-    @PostMapping("/student")
-    public ResponseEntity<?> studentWrite(@RequestBody BoardWriteReqDto boardWriteReqDto){
+    @PostMapping("/board")
+    public ResponseEntity<?> studentBoardWrite(@RequestBody BoardWriteReqDto boardWriteReqDto){
 
         boardService.saveBoard(boardWriteReqDto);
         System.out.println(boardWriteReqDto);
@@ -25,33 +25,25 @@ public class MeetingController {
         return ResponseEntity.ok(boardWriteReqDto);
     }
 
-    @PostMapping("/student/comment")
-    public ResponseEntity<?> studentComment(@RequestBody CommentReqDto commentReqDto){
 
-        commentService.saveComment(commentReqDto);
-        System.out.println(commentReqDto);
-
-        return ResponseEntity.ok(commentReqDto);
-    }
-
-    @GetMapping("/student/boardList")
+    @GetMapping("/boards")
     public ResponseEntity<?> studentBoardList(StudentBoardListReqDto studentBoardListReqDto){
         return ResponseEntity.ok(boardService.searchBoards(studentBoardListReqDto));
     }
 
-    @GetMapping("/student/boardList/count")
+    @GetMapping("/boards/count")
     public ResponseEntity<?> studentGetCount(StudentBoardListReqDto studentBoardListReqDto){
 
         return ResponseEntity.ok(boardService.getStudentCount(studentBoardListReqDto));
     }
 
-    @GetMapping("/student/comment/{studentBoardId}")
+    @GetMapping("/board/{studentBoardId}")
     public ResponseEntity<?> studentBoardListSingle(@PathVariable int studentBoardId){
 
         return ResponseEntity.ok(boardService.getSingleBoards(studentBoardId));
     }
 
-    @DeleteMapping("/student/comment/{studentBoardId}")
+    @DeleteMapping("/board/{studentBoardId}")
     public ResponseEntity<?> deleteSingleBoard(@PathVariable int studentBoardId){
 
         boardService.deleteBoard(studentBoardId);
@@ -59,10 +51,26 @@ public class MeetingController {
         return ResponseEntity.ok(true);
     }
 
-    @PutMapping("/student/update/{studentBoardId}")
+    @PutMapping("/board/{studentBoardId}")
     public ResponseEntity<?> updateBoard(@PathVariable int studentBoardId, @RequestBody UpdateBoardReqDto updateBoardReqDto){
         boardService.updateBoard(updateBoardReqDto);
-        System.out.println(updateBoardReqDto.toEntity());
+
         return ResponseEntity.ok(true);
     }
+
+    @PostMapping("/board/comment")
+    public ResponseEntity<?> studentBoardComment(@PathVariable int studentBoardId, @RequestBody CommentReqDto commentReqDto){
+
+        commentService.saveComment(commentReqDto);
+
+
+        return ResponseEntity.ok(commentReqDto);
+    }
+
+    @GetMapping("/board/comments/{studentBoardId}")
+    public ResponseEntity<?> getStudentComments(@PathVariable int studentBoardId){
+
+        return ResponseEntity.ok(commentService.getStudentComment(studentBoardId));
+    }
+
 }
