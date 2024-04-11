@@ -29,19 +29,19 @@ public class AccountController {
 
 
 
-    @GetMapping("/mypage")
-    public ResponseEntity<?> getStudentId(@RequestParam int userId) {
-//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//    @GetMapping("/mypage")
+//    public ResponseEntity<?> getStudentId(@RequestParam int userId) {
+//       Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 //
-//        if (authentication.getPrincipal() instanceof PrincipalStudent) {
-//            PrincipalStudent principalStudent = (PrincipalStudent) authentication.getPrincipal();
+//       if (authentication.getPrincipal() instanceof PrincipalStudent) {
+//          PrincipalStudent principalStudent = (PrincipalStudent) authentication.getPrincipal();
 //            int studentId = principalStudent.g; // 아이디 값을 가져옴
-//            return ResponseEntity.ok(null);
-//        } else {
-//            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-//        }
-        return ResponseEntity.ok(accountService.getStudentInfo(userId));
-    }
+//           return ResponseEntity.ok(null);
+//       } else {
+//          return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+//       }
+//        return ResponseEntity.ok(accountService.getStudentInfo(userId));
+//    }
 
     @PostMapping("/teacher/profile")
     public ResponseEntity<?> saveTeacherProfile(@RequestBody TeacherProfileReqDto teacherProfileReqDto) {
@@ -52,8 +52,6 @@ public class AccountController {
 
     @GetMapping("/teacher/profiles")
     public ResponseEntity<?> searchTeacherProfiles(SearchProfilesReqDto searchProfilesReqDto) {
-
-
         return ResponseEntity.ok(accountService.searchTeacherProfiles(searchProfilesReqDto));
     }
 }

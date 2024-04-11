@@ -12,4 +12,6 @@ import lombok.NoArgsConstructor;
 public class Gender {
     private int genderId;
     private String genderType;
+
+
 }
