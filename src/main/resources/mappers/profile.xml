@@ -16,7 +16,9 @@
         <result property="updateDate" column="update_date"/>
         <association property="teacher" resultMap="TeacherResultMap"/>
         <association property="university" resultMap="UniversityResultMap"/>
-        <collection property="regionRegister" javaType="list" resultMap="RegionResultMap"/>
+        <association property="gender" resultMap="GenderResultMap"/>
+        <association property="graduateState" resultMap="GraduateStateResultMap"/>
+        <collection property="regionRegister" javaType="list" resultMap="RegionRegisterResultMap"/>
         <collection property="subjectRegister" javaType="list" resultMap="SubjectRegisterResultMap"/>
         <collection property="dateRegister" javaType="list" resultMap="DateRegisterResultMap"/>
         <collection property="classTypeRegister" javaType="list" resultMap="ClassTypeRegisterResultMap"/>
@@ -94,6 +96,14 @@
         <result property="classTypeName" column="class_type_name" />
         <association property="classType" resultMap="ClassTypeResultMap"/>
     </resultMap>
+    <resultMap id="GenderResultMap" type="com.meeteam4.meeting.entity.Gender">
+        <id property="genderId" column="gender_id"/>
+        <result property="genderType" column="gender_type"/>
+    </resultMap>
+    <resultMap id="GraduateStateResultMap" type="com.meeteam4.meeting.entity.GraduateState">
+        <id property="graduateStateId" column="graduate_state_id"/>
+        <result property="graduateState" column="graduate_state"/>
+    </resultMap>
 
 
     <insert id="saveDates">
@@ -152,8 +162,11 @@
             ut.name,
             ut.nickname,
             ut.email,
-            tt.*,
+            tt.gender_id,
+            tt.department_name,
+            gt.gender_type,
             uvt.university_name,
+            gst.graduate_state,
             srt.subject_id,
             st.subject_name,
             drt.date_id,
@@ -163,9 +176,11 @@
             rrt.region_id,
             rt.region_name
         from
-        user_tb ut
+            user_tb ut
             left outer join teacher_tb tt on(tt.user_id = ut.user_id)
             left outer join university_tb uvt on(uvt.university_id = tt.university_id)
+            left outer join gender_tb gt on(gt.gender_id = tt.gender_id)
+            left outer join graduate_state_tb gst on(gst.graduate_state_id = tt.graduate_state_id)
             left outer join subject_register_tb srt on(srt.user_id = ut.user_id)
             left outer join subject_tb st on(st.subject_id = srt.subject_id)
             left outer join date_register_tb drt on (drt.user_id = ut.user_id)
@@ -175,8 +190,67 @@
             left outer join region_register_tb rrt on(rrt.user_id = ut.user_id)
             left outer join region_tb rt on(rt.region_id = rrt.region_id)
         where
-            ut.user_id = 2;
+            ut.user_id in (
+            <foreach collection="userIds" item="userId" separator=",">
+                #{userId}
+            </foreach>
+            )
+        order by
+            dt.date_id asc;
     </select>
+    <select id="searchUserIds" resultType="integer">
+        select
+            ut.user_id
+        from
+            user_tb ut
+            join teacher_tb tt on (tt.user_id = ut.user_id)
+            join region_register_tb rrt on (rrt.user_id = ut.user_id)
+            join subject_register_tb srt on (srt.user_id = ut.user_id)
+            join date_register_tb drt on (drt.user_id = ut.user_id)
+            join class_type_register_tb ctrt on (ctrt.user_id = ut.user_id)
+        where
+            1=1
+        <!-- nickname -->
+        <if test="nickname != null">
+            and ut.nickname like concat('%',#{nickname},'%')
+        </if>
+        <!-- genderType -->
+        <if test="genderId != 0">
+            and tt.gender_id = #{genderId}
+        </if>
+        <!-- regionIds -->
+        <if test="regionIds != null and regionIds.size() > 0">
+            and rrt.region_id in (
+            <foreach collection="regionIds" item="regionId" separator=",">
+                #{regionId}
+            </foreach>
+            )
+        </if>
+        <!-- subjectIds -->
+        <if test="subjectIds != null and subjectIds.size() > 0">
+            and srt.subject_id in (
+            <foreach collection="subjectIds" item="subjectId" separator=",">
+                #{subjectId}
+            </foreach>
+            )
+        </if>
+        <!-- dateIds -->
+        <if test="dateIds != null and dateIds.size() > 0">
+            and drt.date_id in (
+            <foreach collection="dateIds" item="dateId" separator=",">
+                #{dateId}
+            </foreach>
+            )
+        </if>
+        <!-- classTypeIds -->
+        <if test="classTypeIds != null and classTypeIds.size() > 0">
+            and ctrt.class_type_id in (
+            <foreach collection="classTypeIds" item="classTypeId" separator=",">
+                #{classTypeId}
+            </foreach>
+            )
+        </if>
 
+    </select>
 
 </mapper>

@@ -77,74 +77,69 @@ public class AccountService {
     // 검색 필터
     // 검색 필터
     public List<SearchProfilesRespDto> searchTeacherProfiles(SearchProfilesReqDto searchProfilesReqDto) {
-        System.out.println(accountMapper.getTeacherProfile(searchProfilesReqDto).get(0).getTeacher().getGenderId());
-        List<User> users = accountMapper.getTeacherProfile(searchProfilesReqDto);
-        SearchProfilesRespDto searchProfilesRespDto = new SearchProfilesRespDto();
-        List<SearchProfilesRespDto> searchProfiles = users.stream().map(User::toSearchProfilesRespDto).collect(Collectors.toList());
 
-        for (int i = 0; i < users.size(); i++) {
-            searchProfiles.get(i).setGenderId(users.get(i).getTeacher().getGenderId());
-            searchProfiles.get(i).setUniversityName(users.get(i).getUniversity().getUniversityName());
-            searchProfiles.get(i).setDepartmentName(users.get(i).getTeacher().getDepartmentName());
-            searchProfiles.get(i).setGraduateStateId(users.get(i).getTeacher().getGraduateStateId());
+        List<Integer> userIds = new ArrayList<>();
+        if(searchProfilesReqDto.getGenderId() == null) {
+            searchProfilesReqDto.setGenderId(0);
         }
 
-        List<String> subjects = new ArrayList<>();
-        List<String> subjectList = new ArrayList<>();
-
-        List<String> classTypes = new ArrayList<>();
-        List<String> classTypeList = new ArrayList<>();
-
-        List<String> dateNames = new ArrayList<>();
-        List<String> dateNameList = new ArrayList<>();
-
-        List<String> regions = new ArrayList<>();
-        List<String> regionList = new ArrayList<>();
-
-        for (int j = 0; j < users.size(); j++) {
-            List<SubjectRegister> subjectRegisters = users.get(j).getSubjectRegister();
-            List<ClassTypeRegister> classTypeRegisters = users.get(j).getClassTypeRegister();
-            List<DateRegister> dateRegisters = users.get(j).getDateRegister();
-            List<RegionRegister> regionRegisters = users.get(j).getRegionRegister();
-            System.out.println(dateRegisters);
-            for (int i = 0; i < subjectRegisters.size(); i++) {
-                SubjectRegister subjectRegister = subjectRegisters.get(i);
-                Subject subject = subjectRegister.getSubject();
-                String subjectName = subject.getSubjectName();
-                subjects.add(subjectName);
-            }
-            subjectList = subjects.stream().distinct().collect(Collectors.toList());
-
-            for (int i = 0; i < classTypeRegisters.size(); i++) {
-                ClassTypeRegister classTypeRegister = classTypeRegisters.get(i);
-                ClassType classType = classTypeRegister.getClassType();
-                String classTypeName = classType.getClassType();
-                classTypes.add(classTypeName);
-            }
-            classTypeList = classTypes.stream().distinct().collect(Collectors.toList());
-
-            for (int i = 0; i < classTypeRegisters.size(); i++) {
-                DateRegister dateRegister = dateRegisters.get(i);
-                Date date = dateRegister.getDate();
-                String dateName = date.getDateType();
-                dateNames.add(dateName);
-            }
-            dateNameList = dateNames.stream().distinct().collect(Collectors.toList());
-
-            System.out.println(regionRegisters.get(0));
-            // String regionName = regionRegister.getRegion().getRegionName(); // 예시 메서드 이름입니다. 실제로는 사용 가능한 메서드를 호출해야 합니다.
-            // regions.add(regionName);
-            // regionList = regions.stream().distinct().collect(Collectors.toList());
+        userIds.addAll(accountMapper.searchUserIds(
+                    searchProfilesReqDto.getNickname(),
+                    searchProfilesReqDto.getGenderId(),
+                    searchProfilesReqDto.getRegionIds(),
+                    searchProfilesReqDto.getSubjectIds(),
+                    searchProfilesReqDto.getClassTypeIds(),
+                    searchProfilesReqDto.getDateIds())
+        );
 
 
-            for (int i = 0; i < regionRegisters.size(); i++) {
-                System.out.println(regionRegisters);
-            }
+        // DB에서 가져온 userId 중복 제거
+        List<Integer> distinctUserIds = userIds.stream().distinct().collect(Collectors.toList());
+        System.out.println(distinctUserIds);;
+        if(distinctUserIds.size() == 0) {
+            return null;
+        }
 
-        searchProfiles.get(j).setSubjectNames(subjectList);
-        searchProfiles.get(j).setClassTypeNames(classTypeList);
-        searchProfiles.get(j).setDateNames(dateNameList);
-        searchProfiles.get(j).setRegionNames(regionList);
+        List<User> users = accountMapper.getTeacherProfile(distinctUserIds);
+        List<SearchProfilesRespDto> searchProfiles = new ArrayList<>();
+
+        for (User user : users) {
+            // User 클래스의 toSearchProfilesRespDto 메서드를 호출하여 검색 프로필을 생성
+            SearchProfilesRespDto searchProfile = user.toSearchProfilesRespDto();
+            // Teacher 처리
+                searchProfile.setDepartmentName(user.getTeacher().getDepartmentName());
+            // GraduateState 처리
+                searchProfile.setGraduateState(user.getGraduateState().getGraduateState());
+            // Gender 처리
+                searchProfile.setGenderType(user.getGender().getGenderType());
+            // University 처리
+                searchProfile.setUniversityName(user.getUniversity().getUniversityName());
+            // 과목 등록 정보 처리
+            List<String> subjectNames = user.getSubjectRegister().stream()
+                    .map(sr -> sr.getSubject().getSubjectName())
+                    .distinct()
+                    .collect(Collectors.toList());
+            searchProfile.setSubjectNames(subjectNames);
+            // 수업 유형 등록 정보 처리
+            List<String> classTypeNames = user.getClassTypeRegister().stream()
+                    .map(ctr -> ctr.getClassType().getClassType())
+                    .distinct()
+                    .collect(Collectors.toList());
+            searchProfile.setClassTypeNames(classTypeNames);
+            // 날짜 등록 정보 처리
+            List<String> dateNames = user.getDateRegister().stream()
+                    .map(dr -> dr.getDate().getDateType())
+                    .distinct()
+                    .collect(Collectors.toList());
+            searchProfile.setDateNames(dateNames);
+            // 지역 등록 정보 처리
+            List<String> regionNames = user.getRegionRegister().stream()
+                    .map(rr -> rr.getRegion().getRegionName())
+                    .distinct()
+                    .collect(Collectors.toList());
+            searchProfile.setRegionNames(regionNames);
+            // 생성된 검색 프로필을 리스트에 추가
+            searchProfiles.add(searchProfile);
         }
 
         return searchProfiles;

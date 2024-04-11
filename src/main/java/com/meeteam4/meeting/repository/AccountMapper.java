@@ -9,6 +9,7 @@ import com.meeteam4.meeting.entity.*;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.security.core.parameters.P;
 
 import java.util.Date;
 import java.util.List;
@@ -29,7 +30,14 @@ public interface AccountMapper {
 //    public List<User> searchTeacherProfilesByUserId(@Param("userIds") List<Integer> userId);
 
 //    public List<RegionRegister> getRegionByUserId(@Param("userIds") List<Integer> userId);
-    public List<User> getTeacherProfile(SearchProfilesReqDto searchProfilesReqDto);
+    public List<Integer> searchUserIds(@Param("nickname") String nickname,
+                                       @Param("genderId") int genderId,
+                                       @Param("regionIds") List<Integer> regionId,
+                                       @Param("subjectIds") List<Integer> subjectId,
+                                       @Param("classTypeIds") List<Integer> classTypeId,
+                                       @Param("dateIds") List<Integer> dateId
+                                       );
+    public List<User> getTeacherProfile(@Param("userIds") List<Integer> distinctUserIds);
 
 
 }
