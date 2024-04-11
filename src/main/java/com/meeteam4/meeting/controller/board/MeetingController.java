@@ -39,6 +39,12 @@ public class MeetingController {
         return ResponseEntity.ok(boardService.searchBoards(studentBoardListReqDto));
     }
 
+    @GetMapping("/student/boardList/count")
+    public ResponseEntity<?> studentGetCount(StudentBoardListReqDto studentBoardListReqDto){
+
+        return ResponseEntity.ok(boardService.getStudentCount(studentBoardListReqDto));
+    }
+
     @GetMapping("/student/comment/{studentBoardId}")
     public ResponseEntity<?> studentBoardListSingle(@PathVariable int studentBoardId){
 

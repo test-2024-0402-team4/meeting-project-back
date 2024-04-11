@@ -19,6 +19,11 @@ public interface BoardMapper {
             @Param("searchText") String searchText
     );
 
+    public int getStudentCount(
+            @Param("count") int count,
+            @Param("searchText") String searchText
+            );
+
     public StudentBoard getSingleBoard(int studentBoardId);
 
     public int deleteBoardByBoardId(int studentBoardId);

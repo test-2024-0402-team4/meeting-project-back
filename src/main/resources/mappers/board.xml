@@ -48,21 +48,39 @@
     <select id="searchBoard" resultMap="BoardResultMap">
         select
              sbt.student_board_id,
+             sbt.student_id,
              sbt.title,
              sbt.create_date,
              sbt.view_count
         from
             student_board_tb sbt
-            left outer join student_tb st on(st.student_id = sbt.student_id)
+        where
+            1=1
         <choose>
-        <when test="searchText != 0">
+        <when test="count != -1 ">
             and(
             title like concat('%', #{searchText},'%')
-            or nickname like concat('%', #{searchText},'%')
             )
         </when>
         </choose>
+        limit #{startIndex}, #{count}
 
+    </select>
+
+    <select id="getStudentCount" resultType="integer">
+        select
+            count(*)
+        from
+            student_board_tb
+        where
+        1=1
+        <choose>
+            <when test="count != -1 ">
+                and(
+                title like concat('%', #{searchText},'%')
+                )
+            </when>
+        </choose>
 
     </select>
 
