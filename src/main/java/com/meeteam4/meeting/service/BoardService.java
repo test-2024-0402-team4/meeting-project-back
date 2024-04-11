@@ -35,6 +35,22 @@ public class BoardService {
 
         return boards.stream().map(StudentBoard :: toStudentBoardListRespDto).collect(Collectors.toList());
     }
+
+    public StudentCountRespDto getStudentCount(StudentBoardListReqDto studentBoardListReqDto){
+        int studentCount = boardMapper.getStudentCount(
+                studentBoardListReqDto.getCount(),
+                studentBoardListReqDto.getSearchText()
+        );
+
+        int maxPageNumber = (int) Math.ceil(((double) studentCount) / studentBoardListReqDto.getCount());
+
+        return StudentCountRespDto.builder()
+                .totalCount(studentCount)
+                .maxPageNumber(maxPageNumber)
+                .build();
+    }
+
+
      public StudentCommentPageRespDto getSingleBoards(int studentBoardId){
 
        StudentBoard board = boardMapper.getSingleBoard(studentBoardId);
