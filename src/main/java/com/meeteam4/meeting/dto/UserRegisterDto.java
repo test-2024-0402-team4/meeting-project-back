@@ -1,5 +1,7 @@
-package com.meeteam4.meeting.entity;
+package com.meeteam4.meeting.dto;
 
+import com.meeteam4.meeting.entity.Region;
+import com.meeteam4.meeting.entity.RegionRegister;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,12 +13,10 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class RegionRegister {
-
-    private int regionRegisterId;
+public class UserRegisterDto {
     private int userId;
-    private int regionId;
-    private List<Integer> regionIds;
+    private String regionName;
 
     private Region region;
+    private RegionRegister regionRegister;
 }

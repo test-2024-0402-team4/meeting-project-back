@@ -14,6 +14,7 @@ import java.util.List;
 public class DateRegister {
     private int dateRegisterId;
     private int userId;
+    private int dateId;
     private List<Integer> dateIds;
 
     private Date date;

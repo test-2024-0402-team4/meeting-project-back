@@ -15,9 +15,11 @@ import java.util.List;
 public class ClassTypeRegister {
     private int classTypeRegisterId;
     private int userId;
+    private int classTypeId;
     private List<Integer> classTypeIds;
+    private String classTypeName;
 
-    private List<Integer> classType;
+    private ClassType classType;
 
 
 }

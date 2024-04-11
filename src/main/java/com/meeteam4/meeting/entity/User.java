@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Builder
@@ -24,19 +25,21 @@ public class User {
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
 
-    private Student student;
+    private Gender gender;
     private Teacher teacher;
+    private University university;
+    private List<SubjectRegister> subjectRegister;
+    private List<DateRegister> dateRegister;
+    private List<ClassTypeRegister> classTypeRegister;
+    private List<RegionRegister> regionRegister;
+
 
     public SearchProfilesRespDto toSearchProfilesRespDto() {
         return SearchProfilesRespDto
                 .builder()
                 .userId(userId)
                 .nickname(nickname)
-                .genderId(teacher.getGenderId())
                 .email(email)
-                .universityId(teacher.getUniversityId())
-                .departmentName(teacher.getDepartmentName())
-                .graduateStateId(teacher.getGraduateStateId())
                 .build();
     }
 
