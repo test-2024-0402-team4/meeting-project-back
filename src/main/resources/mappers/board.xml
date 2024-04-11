@@ -17,6 +17,16 @@
 
     </resultMap>
 
+    <resultMap id="CommentResultMap" type="com.meeteam4.meeting.entity.StudentComment">
+        <id property="studentCommentId" column="student_comment_id"/>
+        <result property="studentBoardId" column="student_board_id"/>
+        <result property="studentUserId" column="student_user_id"/>
+        <result property="comment" column="comment"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+
+    </resultMap>
+
 
     <insert id="saveBoard" parameterType="com.meeteam4.meeting.entity.StudentBoard">
         insert into student_board_tb
@@ -30,19 +40,6 @@
             now(),
             now()
         )
-    </insert>
-
-    <insert id="saveComment" parameterType="com.meeteam4.meeting.entity.Comment">
-        insert into student_comment_tb
-        values(
-        0,
-        #{studentBoardId},
-        #{studentUserId},
-        #{comment},
-        now(),
-        now()
-        )
-
     </insert>
 
     <select id="searchBoard" resultMap="BoardResultMap">
@@ -119,4 +116,33 @@
             student_board_id = #{studentBoardId}
 
     </update>
+
+    <insert id="saveComment" parameterType="com.meeteam4.meeting.entity.StudentComment">
+        insert into
+            student_comment_tb
+        values(
+            0,
+            #{studentBoardId},
+            #{studentUserId},
+            #{comment},
+            now(),
+            now()
+        )
+
+    </insert>
+
+    <select id="getStudentComment" resultMap="CommentResultMap">
+        select
+            student_comment_id,
+            student_board_id,
+            student_user_id,
+            comment,
+            create_date,
+            update_date
+        from
+            student_comment_tb
+        where
+        student_board_id = #{studentBoardId};
+
+    </select>
 </mapper>

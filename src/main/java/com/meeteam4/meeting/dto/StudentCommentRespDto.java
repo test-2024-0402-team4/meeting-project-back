@@ -1,23 +1,17 @@
-package com.meeteam4.meeting.entity;
+package com.meeteam4.meeting.dto;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
-@Builder
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-
-public class Comment {
+@Builder
+public class StudentCommentRespDto {
     private int studentCommentId;
     private int studentBoardId;
     private int studentUserId;
     private String comment;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
-
 }
