@@ -23,13 +23,6 @@ public interface AccountMapper {
     public int saveRegions(RegionRegister regionRegister);
     public int saveClassType(ClassTypeRegister classTypeRegister);
 
-//    public List<Integer> searchUserIdByRegionIds(@Param("regionIds") List<Integer> regionId);
-//    public List<Integer> searchUserIdBySubjectIds(@Param("subjectIds") List<Integer> subjectId);
-//    public List<Integer> searchUserIdByDateIds(@Param("dateIds") List<Integer> dateId);
-//    public List<Integer> searchUserIdByClassTypeIds(@Param("classTypeIds") List<Integer> classTypeId);
-//    public List<User> searchTeacherProfilesByUserId(@Param("userIds") List<Integer> userId);
-
-//    public List<RegionRegister> getRegionByUserId(@Param("userIds") List<Integer> userId);
     public List<Integer> searchUserIds(@Param("nickname") String nickname,
                                        @Param("genderId") int genderId,
                                        @Param("regionIds") List<Integer> regionId,
@@ -37,7 +30,15 @@ public interface AccountMapper {
                                        @Param("classTypeIds") List<Integer> classTypeId,
                                        @Param("dateIds") List<Integer> dateId
                                        );
-    public List<User> getTeacherProfile(@Param("userIds") List<Integer> distinctUserIds);
+    public List<User> getTeacherProfiles(@Param("userIds") List<Integer> distinctUserIds);
+
+
+    public int saveStudentPoster(Poster poster);
+    public int savePosterDate(PosterDateRegister posterDateRegister);
+    public int savePosterSubjectIds(PosterSubjectRegister posterSubjectRegister);
+    public int savePosterClassTypeIds(PosterClassTypeRegister posterClassTypeRegister);
+
+
 
 
 }

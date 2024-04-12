@@ -156,7 +156,7 @@
             student_id = #{userId};
     </select>
 
-    <select id="getTeacherProfile" resultMap="UserResultMap">
+    <select id="getTeacherProfiles" resultMap="UserResultMap">
         select
             ut.user_id,
             ut.name,
@@ -164,6 +164,7 @@
             ut.email,
             tt.gender_id,
             tt.department_name,
+            tt.birth_date,
             gt.gender_type,
             uvt.university_name,
             gst.graduate_state,
@@ -252,5 +253,6 @@
         </if>
 
     </select>
+
 
 </mapper>

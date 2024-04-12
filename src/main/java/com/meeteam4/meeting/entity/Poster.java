@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Data
 @Builder
@@ -14,10 +15,10 @@ import java.time.LocalDateTime;
 public class Poster {
     private int posterId;
     private int userId;
-    private int regionId;
+    private String title;
     private int genderId;
-    private int subjectId;
-    private int classTypeId;
+    private int studentTypeId;
+    private int regionId;
     private String content;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;

@@ -15,6 +15,7 @@ public class SearchProfilesRespDto {
     private int userId;
     private String nickname;
     private String email;
+    private String birthDate;
     private String  genderType;
     private String  universityName;
     private String departmentName;

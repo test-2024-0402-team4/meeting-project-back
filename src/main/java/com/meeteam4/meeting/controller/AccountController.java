@@ -54,4 +54,16 @@ public class AccountController {
     public ResponseEntity<?> searchTeacherProfiles(SearchProfilesReqDto searchProfilesReqDto) {
         return ResponseEntity.ok(accountService.searchTeacherProfiles(searchProfilesReqDto));
     }
+
+    @GetMapping("/teacher/profile")
+    public ResponseEntity<?> getTeacherProfile(@RequestParam List<Integer> userId ) {
+
+        return ResponseEntity.ok(accountService.getTeacherProfileRespDto(userId));
+    }
+
+    @PostMapping("/student/poster")
+    public ResponseEntity<?> saveStudentPoster(@RequestBody PosterReqDto posterReqDto) {
+
+        return ResponseEntity.ok(accountService.saveStudentPoster(posterReqDto));
+    }
 }
