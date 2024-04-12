@@ -6,16 +6,12 @@ import com.meeteam4.meeting.entity.*;
 import com.meeteam4.meeting.exception.SaveException;
 import com.meeteam4.meeting.repository.AccountMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static java.util.Arrays.*;
 
 @Service
 public class AccountService {
@@ -74,7 +70,6 @@ public class AccountService {
 
     }
 
-    // 검색 필터
     // 검색 필터
     @Transactional(rollbackFor = Exception.class)
     public List<SearchProfilesRespDto> searchTeacherProfiles(SearchProfilesReqDto searchProfilesReqDto) {
@@ -208,9 +203,8 @@ public class AccountService {
             searchProfiles.add(searchProfile);
         }
         return searchProfiles.get(0);
-
     }
-
+    // 학생 공고 포스터 등록
     @Transactional(rollbackFor = Exception.class)
     public int saveStudentPoster(PosterReqDto posterReqDto) {
         int successCount = 0;
@@ -226,5 +220,21 @@ public class AccountService {
         }
 
         return successCount;
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public List<Integer> getStudentPoster(SearchPosterReqDto searchPosterReqDto) {
+        List<Integer> posterIds = new ArrayList<>();
+        if(searchPosterReqDto.getRegionId() == null) {
+            searchPosterReqDto.setRegionId(0);
+        }
+        posterIds.addAll(accountMapper.searchPosterIds(
+                searchPosterReqDto.getRegionId(),
+                searchPosterReqDto.getSubjectIds(),
+                searchPosterReqDto.getDateIds(),
+                searchPosterReqDto.getClassTypeIds()));
+
+        System.out.println(posterIds);
+        return posterIds;
     }
 }
