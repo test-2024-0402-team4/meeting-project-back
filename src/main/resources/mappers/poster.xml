@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.meeteam4.meeting.repository.AccountMapper">
+    <insert id="saveStudentPoster"
+            parameterType="com.meeteam4.meeting.entity.Poster"
+            keyProperty="posterId"
+            useGeneratedKeys="true">
+        insert into
+            poster_tb
+        values
+        (
+            0,
+            #{userId},
+            #{title},
+            #{genderId},
+            #{studentTypeId},
+            #{regionId},
+            #{content},
+            now(),
+            now()
+        )
+
+    </insert>
+    <insert id="savePosterDate">
+        insert into
+            poster_date_register_tb
+        values
+        <foreach collection="dateIds" item="dateId" separator="," >
+            (0, #{posterId} ,#{dateId})
+        </foreach>
+    </insert>
+    <insert id="savePosterSubjectIds">
+        insert into
+            poster_subject_register_tb
+        values
+        <foreach collection="subjectIds" item="subjectId" separator="," >
+            (0, #{posterId}, #{subjectId})
+        </foreach>
+    </insert>
+    <insert id="savePosterClassTypeIds">
+        insert into
+            poster_class_type_id_register_tb
+        values
+        <foreach collection="classTypeIds" item="classTypeId" separator=",">
+            (0, #{posterId}, #{classTypeId})
+        </foreach>
+    </insert>
+
+
+</mapper>
