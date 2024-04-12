@@ -2,6 +2,7 @@ package com.meeteam4.meeting.controller;
 
 
 import com.meeteam4.meeting.dto.PosterReqDto;
+import com.meeteam4.meeting.dto.SearchPosterReqDto;
 import com.meeteam4.meeting.dto.SearchProfilesReqDto;
 import com.meeteam4.meeting.dto.TeacherProfileReqDto;
 import com.meeteam4.meeting.entity.Poster;
@@ -65,5 +66,11 @@ public class AccountController {
     public ResponseEntity<?> saveStudentPoster(@RequestBody PosterReqDto posterReqDto) {
 
         return ResponseEntity.ok(accountService.saveStudentPoster(posterReqDto));
+    }
+
+    @GetMapping("/student/posters")
+    public ResponseEntity<?> getPosters(SearchPosterReqDto searchPosterReqDto) {
+        System.out.println(searchPosterReqDto);
+        return ResponseEntity.ok(accountService.getStudentPoster(searchPosterReqDto));
     }
 }

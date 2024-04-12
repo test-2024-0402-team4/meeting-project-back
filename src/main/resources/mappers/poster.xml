@@ -48,6 +48,49 @@
             (0, #{posterId}, #{classTypeId})
         </foreach>
     </insert>
+    <select id="searchPosterIds" resultType="integer">
+        select
+            pt.poster_id
+        from
+            poster_tb pt
+            left outer join poster_subject_register_tb psrt on(psrt.poster_id = pt.poster_id)
+            left outer join poster_date_register_tb pdrt on(pdrt.poster_id = pt.poster_id)
+            left outer join poster_class_type_id_register_tb pctirt on(pctirt.poster_id = pt.poster_id)
+        where
+            1=1
+            <!-- regionIds -->
+            <if test="regionId != null and regionId != 0">
+                and pt.region_id in
+                    ( #{regionId} )
+            </if>
+            <!-- subjectIds -->
+            <if test="subjectIds != null and subjectIds.size() > 0">
+                and psrt.subject_id in (
+                <foreach collection="subjectIds" item="subjectId" separator=",">
+                    #{subjectId}
+                </foreach>
+                )
+            </if>
+            <!-- dateIds -->
+            <if test="dateIds != null and dateIds.size() > 0">
+                and pdrt.date_id in (
+                <foreach collection="dateIds" item="dateId" separator=",">
+                    #{dateId}
+                </foreach>
+                )
+            </if>
+            <!-- classTypeIds -->
+            <if test="classTypeIds != null and classTypeIds.size() > 0">
+                and pctirt.class_type_id in (
+                <foreach collection="classTypeIds" item="classTypeId" separator=",">
+                    #{classTypeId}
+                </foreach>
+                )
+            </if>
+        group by
+            pt.poster_id
+
+    </select>
 
 
 </mapper>
