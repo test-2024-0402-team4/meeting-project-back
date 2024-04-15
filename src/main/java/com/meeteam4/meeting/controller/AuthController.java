@@ -2,6 +2,7 @@ package com.meeteam4.meeting.controller;
 
 
 import com.meeteam4.meeting.aop.annotation.ValidAspect;
+import com.meeteam4.meeting.dto.SigninReqDto;
 import com.meeteam4.meeting.dto.SignupUserDto;
 import com.meeteam4.meeting.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,5 +25,11 @@ public class AuthController {
         authService.signupUser(signupUserDto);
         return ResponseEntity.created(null).body(null);
     }
+
+    @PostMapping("/signin")
+    public ResponseEntity<?> signin(@RequestBody SigninReqDto signinReqDto) {
+        return ResponseEntity.ok(authService.signin(signinReqDto));
+    }
+
 
 }

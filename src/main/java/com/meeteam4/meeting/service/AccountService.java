@@ -23,9 +23,6 @@ public class AccountService {
     @Autowired
     private AccountMapper accountMapper;
 
-    @Autowired
-    private User user;
-
     public UserDataRespDto getStudentInfo(int userId) {
 
         UserDataRespDto userDataRespDto = UserDataRespDto
