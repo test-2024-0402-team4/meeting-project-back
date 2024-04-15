@@ -222,6 +222,7 @@ public class AccountService {
         return successCount;
     }
 
+    // 학생 공고 조회
     @Transactional(rollbackFor = Exception.class)
     public List<Integer> getStudentPoster(SearchPosterReqDto searchPosterReqDto) {
         List<Integer> posterIds = new ArrayList<>();
@@ -233,6 +234,12 @@ public class AccountService {
                 searchPosterReqDto.getSubjectIds(),
                 searchPosterReqDto.getDateIds(),
                 searchPosterReqDto.getClassTypeIds()));
+
+        if(posterIds.isEmpty()) {
+            return null;
+        }
+
+         List<Poster> posters = accountMapper.getPosters()
 
         System.out.println(posterIds);
         return posterIds;

@@ -43,6 +43,8 @@ public interface AccountMapper {
                                          @Param("classTypeIds") List<Integer> classTypeId,
                                          @Param("dateIds") List<Integer> dateId);
 
+    public List<Poster> getPosters(@Param("posterIds") List<Integer> posterIds);
+
 
 
 
