@@ -31,4 +31,8 @@ public interface BoardMapper {
     public int saveComment(StudentComment comment);
 
     public List<StudentComment> getStudentComment(int studentBoardId);
+
+    public int deleteStudentCommentByCommentId(int studentCommentId);
+
+    public int updateCommentByCommentId(StudentComment studentComment);
 }

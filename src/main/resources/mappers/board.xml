@@ -145,4 +145,23 @@
         student_board_id = #{studentBoardId};
 
     </select>
+
+    <delete id="deleteStudentCommentByCommentId">
+        delete
+        from
+            student_comment_tb
+        where
+            student_comment_id = #{studentCommentId}
+
+    </delete>
+
+    <update id="updateCommentByCommentId" parameterType="com.meeteam4.meeting.entity.StudentComment">
+        update
+            student_comment_tb
+        set
+            comment = #{comment}
+        where
+            student_comment_id = #{studentCommentId}
+
+    </update>
 </mapper>
