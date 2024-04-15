@@ -58,7 +58,7 @@ public class StudentBoardController {
         return ResponseEntity.ok(true);
     }
 
-    @PostMapping("/board/comment")
+    @PostMapping("/board/comment/{studentBoardId}")
     public ResponseEntity<?> studentBoardComment(@PathVariable int studentBoardId, @RequestBody CommentReqDto commentReqDto){
 
         commentService.saveComment(commentReqDto);
@@ -72,5 +72,17 @@ public class StudentBoardController {
 
         return ResponseEntity.ok(commentService.getStudentComment(studentBoardId));
     }
+    @DeleteMapping("/board/comment/{studentCommentId}")
+    public ResponseEntity<?> deleteStudentComment(@PathVariable int studentCommentId){
+        commentService.deleteStudentComment(studentCommentId);
+        return ResponseEntity.ok(true);
+    }
+
+    @PutMapping("/board/comment/{studentCommentId}")
+    public ResponseEntity<?> updateComment(@PathVariable int studentCommentId , @RequestBody UpdateCommentReqDto updateCommentReqDto){
+        commentService.updateComment(updateCommentReqDto);
+        return ResponseEntity.ok(true);
+    }
+
 
 }

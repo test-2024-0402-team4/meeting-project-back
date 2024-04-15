@@ -4,8 +4,7 @@ import com.meeteam4.meeting.entity.StudentComment;
 import lombok.Data;
 
 @Data
-public class CommentReqDto {
-
+public class UpdateCommentReqDto {
     private int studentCommentId;
     private int studentBoardId;
     private int studentUserId;
@@ -13,9 +12,11 @@ public class CommentReqDto {
 
     public StudentComment toEntity(){
         return StudentComment.builder()
+                .studentCommentId(studentCommentId)
                 .studentBoardId(studentBoardId)
                 .studentUserId(studentUserId)
                 .comment(comment)
                 .build();
     }
+
 }

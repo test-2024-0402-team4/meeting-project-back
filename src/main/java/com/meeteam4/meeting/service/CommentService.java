@@ -2,6 +2,7 @@ package com.meeteam4.meeting.service;
 
 import com.meeteam4.meeting.dto.CommentReqDto;
 import com.meeteam4.meeting.dto.StudentCommentRespDto;
+import com.meeteam4.meeting.dto.UpdateCommentReqDto;
 import com.meeteam4.meeting.entity.StudentComment;
 import com.meeteam4.meeting.repository.BoardMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,5 +29,11 @@ public class CommentService {
         return comments.stream().map(StudentComment :: toStudentCommentRespDto).collect(Collectors.toList());
 
     }
+    public void deleteStudentComment(int studentCommentId){
+        boardMapper.deleteStudentCommentByCommentId(studentCommentId);
+    }
 
+    public void updateComment(UpdateCommentReqDto updateCommentReqDto){
+        boardMapper.updateCommentByCommentId(updateCommentReqDto.toEntity());
+    }
 }
