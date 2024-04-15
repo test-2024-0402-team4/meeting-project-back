@@ -19,20 +19,20 @@ public class AccountService {
     @Autowired
     private AccountMapper accountMapper;
 
-    //
-//    public UserDataRespDto getStudentInfo(int userId) {
-//
-//        UserDataRespDto userDataRespDto = UserDataRespDto
-//                .builder()
-//                .nickname(accountMapper.findStudentByStudentId(userId).getUser().getNickname())
-//                .email(accountMapper.findStudentByStudentId(userId).getUser().getEmail())
-//                .studentType(accountMapper.findStudentByStudentId(userId).getStudentType().getStudentType())
-//                .genderType(accountMapper.findStudentByStudentId(userId).getGender().getGenderType())
-//                .regionName(accountMapper.findStudentByStudentId(userId).getRegion().getRegionName())
-//                .build();
-//
-//       return userDataRespDto;
-//    }
+    public UserDataRespDto getStudentInfo(int userId) {
+
+        UserDataRespDto userDataRespDto = UserDataRespDto
+                .builder()
+                .nickname(accountMapper.findStudentByStudentId(userId).getUser().getNickname())
+                .email(accountMapper.findStudentByStudentId(userId).getUser().getEmail())
+                .studentType(accountMapper.findStudentByStudentId(userId).getStudentType().getStudentType())
+                .genderType(accountMapper.findStudentByStudentId(userId).getGender().getGenderType())
+                .regionName(accountMapper.findStudentByStudentId(userId).getRegion().getRegionName())
+                .build();
+
+       return userDataRespDto;
+    }
+
     // 필수 정보 등록
     @Transactional(rollbackFor = Exception.class)
     public void saveTeacherProfile(TeacherProfileReqDto teacherProfileReqDto) {
