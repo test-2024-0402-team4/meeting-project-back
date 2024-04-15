@@ -91,6 +91,26 @@
             pt.poster_id
 
     </select>
+    <select id="getPosters" resultType="com.meeteam4.meeting.entity.Poster">
+        select
+            *
+        from
+            poster_tb pt
+            left outer join poster_subject_register_tb psrt on(psrt.poster_id = pt.poster_id)
+            left outer join subject_tb st on(st.subject_id = psrt.subject_id)
+            left outer join poster_date_register_tb pdrt on(pdrt.poster_id = pt.poster_id)
+            left outer join date_tb dt on(dt.date_id = pdrt.date_id)
+            left outer join poster_class_type_id_register_tb pctirt on(pctirt.poster_id = pt.poster_id)
+            left outer join class_type_tb ctt on(ctt.class_type_id = pctirt.class_type_id)
+        where
+            pt.poster_id(
+                <foreach collection="posterIds" item="posterId" separator=",">
+                    #{posterId}
+                </foreach>
+            )
+        order by
+            dt.date_id asc;
+    </select>
 
 
 </mapper>
