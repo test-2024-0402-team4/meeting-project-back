@@ -12,6 +12,7 @@ public interface UserMapper {
     public int saveUser(User user);
     public int saveStudent(Student student);
     public int saveTeacher(Teacher teacher);
+    public int saveRole(@Param("userId") int userId, @Param("roleId") int roleId);
 
     public User findByUsername(String username);
     public User findByNickname(String nickname);

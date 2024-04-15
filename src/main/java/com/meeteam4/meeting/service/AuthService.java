@@ -25,6 +25,7 @@ public class AuthService {
     @Autowired
     private JwtProvider jwtProvider;
 
+    // 비밀번호 암호화
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
@@ -41,6 +42,7 @@ public class AuthService {
         }else if(user.getRoleId() == 2) {
             userMapper.saveTeacher(teacher);
         }
+        userMapper.saveRole(user.getUserId(), user.getRoleId());
     }
 
     public String signin(SigninReqDto signinReqDto) {
