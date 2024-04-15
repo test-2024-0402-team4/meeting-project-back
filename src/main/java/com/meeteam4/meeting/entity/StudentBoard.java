@@ -1,7 +1,7 @@
 package com.meeteam4.meeting.entity;
 
 import com.meeteam4.meeting.dto.StudentBoardListRespDto;
-import com.meeteam4.meeting.dto.StudentCommentPageRespDto;
+import com.meeteam4.meeting.dto.StudentBoardPageRespDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -36,8 +36,8 @@ public class StudentBoard {
                 .build();
     }
 
-    public StudentCommentPageRespDto toStudentCommentPageRespDto(){
-        return StudentCommentPageRespDto.builder()
+    public StudentBoardPageRespDto toStudentBoardPageRespDto(){
+        return StudentBoardPageRespDto.builder()
                 .studentBoardId(studentBoardId)
                 .studentId(studentId)
                 .title(title)

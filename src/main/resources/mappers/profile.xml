@@ -4,22 +4,26 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.meeteam4.meeting.repository.AccountMapper">
-
-    <resultMap id="StudentResultMap" type="com.meeteam4.meeting.entity.Student">
-        <id property="studentId" column="student_id" />
-        <result property="userId" column="user_id"/>
-        <result property="birthDate" column="birth_date"/>
-        <result property="genderId" column="gender_id"/>
-        <result property="studentTypeId" column="student_type_id"/>
-        <result property="phoneNumber" column="phone_number"/>
-        <result property="regionId" column="region_id"/>
+    <resultMap id="UserResultMap" type="com.meeteam4.meeting.entity.User">
+        <id property="userId" column="user_id"/>
+        <result property="username" column="username"/>
+        <result property="nickname" column="nickname"/>
+        <result property="password" column="password"/>
+        <result property="name" column="name"/>
+        <result property="email" column="email"/>
+        <result property="roleId" column="role_id"/>
         <result property="createDate" column="create_date"/>
         <result property="updateDate" column="update_date"/>
-<!--        <association property="user" resultMap="UserResultMap"/>-->
-<!--        <association property="gender" resultMap="GenderResultMap"/>-->
-<!--        <association property="studentType" resultMap="StudentTypeResultMap" />-->
-<!--        <association property="region" resultMap="RegionResultMap"/>-->
-    </resultMap>
+        <association property="teacher" resultMap="TeacherResultMap"/>
+        <association property="university" resultMap="UniversityResultMap"/>
+        <association property="gender" resultMap="GenderResultMap"/>
+        <association property="graduateState" resultMap="GraduateStateResultMap"/>
+        <collection property="regionRegister" javaType="list" resultMap="RegionRegisterResultMap"/>
+        <collection property="subjectRegister" javaType="list" resultMap="SubjectRegisterResultMap"/>
+        <collection property="dateRegister" javaType="list" resultMap="DateRegisterResultMap"/>
+        <collection property="classTypeRegister" javaType="list" resultMap="ClassTypeRegisterResultMap"/>
+     </resultMap>
+
     <resultMap id="TeacherResultMap" type="com.meeteam4.meeting.entity.Teacher">
         <id property="teacherId" column="teacher_id" />
         <result property="userId" column="user_id"/>
@@ -32,41 +36,76 @@
         <result property="createDate" column="create_date"/>
         <result property="updateDate" column="update_date"/>
     </resultMap>
-    <resultMap id="UserResultMap" type="com.meeteam4.meeting.entity.User">
-        <id property="userId" column="user_id"/>
-        <result property="username" column="username"/>
-        <result property="nickname" column="nickname"/>
-        <result property="password" column="password"/>
-        <result property="name" column="name"/>
-        <result property="email" column="email"/>
-        <result property="roleId" column="role_id"/>
+    <resultMap id="StudentResultMap" type="com.meeteam4.meeting.entity.Student">
+        <id property="studentId" column="student_id" />
+        <result property="userId" column="user_id"/>
+        <result property="birthDate" column="birth_date"/>
+        <result property="genderId" column="gender_id"/>
+        <result property="studentTypeId" column="student_type_id"/>
+        <result property="phoneNumber" column="phone_number"/>
+        <result property="regionId" column="region_id"/>
         <result property="createDate" column="create_date"/>
         <result property="updateDate" column="update_date"/>
-        <association property="teacher" resultMap="TeacherResultMap"/>
-     </resultMap>
-    <resultMap id="GenderResultMap" type="com.meeteam4.meeting.entity.Gender">
-        <id property="genderId" column="gender_id"/>
-        <result property="genderType" column="gender_type"/>
     </resultMap>
     <resultMap id="StudentTypeResultMap" type="com.meeteam4.meeting.entity.StudentType">
         <id property="studentTypeId" column="student_type_id"/>
         <result property="studentType" column="student_type"/>
     </resultMap>
+    <resultMap id="UniversityResultMap" type="com.meeteam4.meeting.entity.University" >
+        <id property="universityId" column="university_id"/>
+        <result property="universityName" column="university_name"/>
+    </resultMap>
+    <resultMap id="RegionRegisterResultMap" type="com.meeteam4.meeting.entity.RegionRegister">
+        <id property="regionRegisterId" column="region_register_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="regionId" column="region_id"/>
+        <association property="region" resultMap="RegionResultMap"/>
+    </resultMap>
     <resultMap id="RegionResultMap" type="com.meeteam4.meeting.entity.Region">
         <id property="regionId" column="region_id"/>
         <result property="regionName" column="region_name"/>
     </resultMap>
-
-    <resultMap id="PosterResultMap" type="com.meeteam4.meeting.entity.Poster" >
-        <id property="posterId" column="poster_id"/>
+    <resultMap id="SubjectRegisterResultMap" type="com.meeteam4.meeting.entity.SubjectRegister" >
+        <id property="subjectRegisterId" column="subject_register_id" />
         <result property="userId" column="user_id"/>
-        <result property="regionId" column="region_id"/>
         <result property="subjectId" column="subject_id"/>
-        <result property="classTypeId" column="class_type_id"/>
-        <result property="content" column="content"/>
-        <result property="createDate" column="create_date" />
-        <result property="updateDate" column="update_date" />
+        <association property="subject" resultMap="SubjectResultMap" />
     </resultMap>
+    <resultMap id="SubjectResultMap" type="com.meeteam4.meeting.entity.Subject" >
+        <id property="subjectId" column="subject_id" />
+        <result property="subjectName" column="subject_name" />
+    </resultMap>
+    <resultMap id="DateResultMap" type="com.meeteam4.meeting.entity.Date" >
+        <id property="dateId" column="date_id"/>
+        <result property="dateType" column="date_type"/>
+    </resultMap>
+    <resultMap id="DateRegisterResultMap" type="com.meeteam4.meeting.entity.DateRegister">
+        <id property="dateRegisterId" column="date_register_id"/>
+        <result property="userId" column="user_id" />
+        <result property="dateId" column="date_id" />
+        <association property="date" resultMap="DateResultMap"/>
+    </resultMap>
+    <resultMap id="ClassTypeResultMap" type="com.meeteam4.meeting.entity.ClassType">
+        <id property="classTypeId" column="class_type_id"/>
+        <result property="classType" column="class_type"/>
+    </resultMap>
+    <resultMap id="ClassTypeRegisterResultMap" type="com.meeteam4.meeting.entity.ClassTypeRegister" >
+        <id property="classTypeRegisterId" column="class_type_register_id" />
+        <result property="userId" column="user_id"/>
+        <result property="classTypeName" column="class_type"/>
+        <result property="classTypeName" column="class_type_name" />
+        <association property="classType" resultMap="ClassTypeResultMap"/>
+    </resultMap>
+    <resultMap id="GenderResultMap" type="com.meeteam4.meeting.entity.Gender">
+        <id property="genderId" column="gender_id"/>
+        <result property="genderType" column="gender_type"/>
+    </resultMap>
+    <resultMap id="GraduateStateResultMap" type="com.meeteam4.meeting.entity.GraduateState">
+        <id property="graduateStateId" column="graduate_state_id"/>
+        <result property="graduateState" column="graduate_state"/>
+    </resultMap>
+
+
     <insert id="saveDates">
             insert into
                 date_register_tb
@@ -117,102 +156,103 @@
             student_id = #{userId};
     </select>
 
-    <select id="searchTeacherProfilesByUserId" resultMap="UserResultMap">
+    <select id="getTeacherProfiles" resultMap="UserResultMap">
         select
             ut.user_id,
+            ut.name,
             ut.nickname,
             ut.email,
             tt.gender_id,
-            tt.university_id,
             tt.department_name,
-            tt.graduate_state_id,
-            ut.img_url
-        from
-            user_tb ut
-            left outer join teacher_tb tt on (tt.user_id = ut.user_id)
-        where
-            ut.role_id = 2
-    </select>
-
-    <select id="searchUserIdByRegionIds" resultType="integer">
-        select
-            user_id
-        from
-            region_register_tb
-        <where>
-            <if test="regionIds != null and regionIds.size() > 0">
-                and region_id in (
-                <foreach collection="regionIds"  item="regionId" separator=",">
-                    #{regionId}
-                </foreach>
-                )
-            </if>
-        </where>
-        group by
-            user_id;
-    </select>
-    <select id="searchUserIdBySubjectIds" resultType="integer">
-        select
-            user_id
-        from
-            subject_register_tb
-        <where>
-            <if test="subjectIds != null and subjectIds.size() > 0">
-                and subject_id in (
-                <foreach collection="subjectIds"  item="subjectId" separator=",">
-                    #{subjectId}
-                </foreach>
-                )
-            </if>
-        </where>
-        group by
-            user_id;
-    </select>
-    <select id="searchUserIdByDateIds" resultType="integer">
-        select
-            user_id
-        from
-            date_register_tb
-        <where>
-            <if test="dateIds != null and dateIds.size() > 0">
-                and date_id in (
-                <foreach collection="dateIds"  item="dateId" separator=",">
-                    #{dateId}
-                </foreach>
-                )
-            </if>
-        </where>
-        group by
-            user_id;
-    </select>
-    <select id="searchUserIdByClassTypeIds" resultType="integer">
-        select
-            user_id
-        from
-            class_type_register_tb
-        where
-        1 = 1
-        <if test="classTypeIds != null and classTypeIds.size() > 0">
-            and class_type_id in (
-            <foreach collection="classTypeIds"  item="classTypeId" separator=",">
-                #{classTypeId}
-            </foreach>
-            )
-        </if>
-        group by
-            user_id;
-    </select>
-    <select id="getRegionByUserId" resultType="com.meeteam4.meeting.entity.Region">
-        select
+            tt.birth_date,
+            gt.gender_type,
+            uvt.university_name,
+            gst.graduate_state,
+            srt.subject_id,
+            st.subject_name,
+            drt.date_id,
+            dt.date_type,
+            ctrt.class_type_id,
+            ctt.class_type,
+            rrt.region_id,
             rt.region_name
         from
-            region_register_tb rrt
-            left outer join region_tb rt on(rt.region_id = rrt.region_id);
+            user_tb ut
+            left outer join teacher_tb tt on(tt.user_id = ut.user_id)
+            left outer join university_tb uvt on(uvt.university_id = tt.university_id)
+            left outer join gender_tb gt on(gt.gender_id = tt.gender_id)
+            left outer join graduate_state_tb gst on(gst.graduate_state_id = tt.graduate_state_id)
+            left outer join subject_register_tb srt on(srt.user_id = ut.user_id)
+            left outer join subject_tb st on(st.subject_id = srt.subject_id)
+            left outer join date_register_tb drt on (drt.user_id = ut.user_id)
+            left outer join date_tb dt on (dt.date_id = drt.date_id)
+            left outer join class_type_register_tb ctrt on(ctrt.user_id = ut.user_id)
+            left outer join class_type_tb ctt on(ctt.class_type_id = ctrt.class_type_id)
+            left outer join region_register_tb rrt on(rrt.user_id = ut.user_id)
+            left outer join region_tb rt on(rt.region_id = rrt.region_id)
         where
-            rrt.user_id in (
+            ut.user_id in (
             <foreach collection="userIds" item="userId" separator=",">
                 #{userId}
             </foreach>
             )
+        order by
+            dt.date_id asc;
     </select>
+    <select id="searchUserIds" resultType="integer">
+        select
+            ut.user_id
+        from
+            user_tb ut
+            join teacher_tb tt on (tt.user_id = ut.user_id)
+            join region_register_tb rrt on (rrt.user_id = ut.user_id)
+            join subject_register_tb srt on (srt.user_id = ut.user_id)
+            join date_register_tb drt on (drt.user_id = ut.user_id)
+            join class_type_register_tb ctrt on (ctrt.user_id = ut.user_id)
+        where
+            1=1
+        <!-- nickname -->
+        <if test="nickname != null">
+            and ut.nickname like concat('%',#{nickname},'%')
+        </if>
+        <!-- genderType -->
+        <if test="genderId != 0">
+            and tt.gender_id = #{genderId}
+        </if>
+        <!-- regionIds -->
+        <if test="regionIds != null and regionIds.size() > 0">
+            and rrt.region_id in (
+            <foreach collection="regionIds" item="regionId" separator=",">
+                #{regionId}
+            </foreach>
+            )
+        </if>
+        <!-- subjectIds -->
+        <if test="subjectIds != null and subjectIds.size() > 0">
+            and srt.subject_id in (
+            <foreach collection="subjectIds" item="subjectId" separator=",">
+                #{subjectId}
+            </foreach>
+            )
+        </if>
+        <!-- dateIds -->
+        <if test="dateIds != null and dateIds.size() > 0">
+            and drt.date_id in (
+            <foreach collection="dateIds" item="dateId" separator=",">
+                #{dateId}
+            </foreach>
+            )
+        </if>
+        <!-- classTypeIds -->
+        <if test="classTypeIds != null and classTypeIds.size() > 0">
+            and ctrt.class_type_id in (
+            <foreach collection="classTypeIds" item="classTypeId" separator=",">
+                #{classTypeId}
+            </foreach>
+            )
+        </if>
+
+    </select>
+
+
 </mapper>

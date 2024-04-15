@@ -1,6 +1,5 @@
 package com.meeteam4.meeting.entity;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,14 +11,14 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ClassTypeRegister {
-    private int classTypeRegisterId;
-    private int userId;
+public class PosterClassTypeRegister {
+    private int posterClassTypeRegisterId;
+    private int posterId;
     private int classTypeId;
     private List<Integer> classTypeIds;
-    private String classTypeName;
 
     private ClassType classType;
+    private Poster poster;
 
 
 }

@@ -29,8 +29,15 @@ public class User {
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
 
-    private Student student;
+    private Gender gender;
     private Teacher teacher;
+    private University university;
+    private GraduateState graduateState;
+    private List<SubjectRegister> subjectRegister;
+    private List<DateRegister> dateRegister;
+    private List<ClassTypeRegister> classTypeRegister;
+    private List<RegionRegister> regionRegister;
+
 
     private List<RoleRegister> roleRegisters;
 
@@ -63,16 +70,14 @@ public class User {
 
 
     public SearchProfilesRespDto toSearchProfilesRespDto() {
-        return SearchProfilesRespDto
-                .builder()
-                .userId(userId)
-                .nickname(nickname)
-                .genderId(teacher.getGenderId())
-                .email(email)
-                .universityId(teacher.getUniversityId())
-                .departmentName(teacher.getDepartmentName())
-                .graduateStateId(teacher.getGraduateStateId())
-                .build();
-    }
+        SearchProfilesRespDto searchProfile = new SearchProfilesRespDto();
+        searchProfile.setUserId(userId);
+        searchProfile.setNickname(nickname);
+        searchProfile.setEmail(email);
+        searchProfile.setGraduateState(graduateState.getGraduateState());
+        searchProfile.setGenderType(gender.getGenderType());
 
+
+        return searchProfile;
+    }
 }

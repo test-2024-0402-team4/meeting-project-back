@@ -2,6 +2,7 @@ package com.meeteam4.meeting.service;
 
 import com.meeteam4.meeting.dto.*;
 import com.meeteam4.meeting.entity.StudentBoard;
+import com.meeteam4.meeting.entity.StudentComment;
 import com.meeteam4.meeting.repository.BoardMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,12 +36,28 @@ public class BoardService {
 
         return boards.stream().map(StudentBoard :: toStudentBoardListRespDto).collect(Collectors.toList());
     }
-     public StudentCommentPageRespDto getSingleBoards(int studentBoardId){
+
+    public StudentCountRespDto getStudentCount(StudentBoardListReqDto studentBoardListReqDto){
+        int studentCount = boardMapper.getStudentCount(
+                studentBoardListReqDto.getCount(),
+                studentBoardListReqDto.getSearchText()
+        );
+
+        int maxPageNumber = (int) Math.ceil(((double) studentCount) / studentBoardListReqDto.getCount());
+
+        return StudentCountRespDto.builder()
+                .totalCount(studentCount)
+                .maxPageNumber(maxPageNumber)
+                .build();
+    }
+
+     public StudentBoardPageRespDto getSingleBoards(int studentBoardId){
 
        StudentBoard board = boardMapper.getSingleBoard(studentBoardId);
 
-       return board.toStudentCommentPageRespDto();
+       return board.toStudentBoardPageRespDto();
     }
+
     @Transactional(rollbackFor = Exception.class)
     public void deleteBoard(int studentBoardId){
         boardMapper.deleteBoardByBoardId(studentBoardId);
@@ -50,4 +67,8 @@ public class BoardService {
     public void updateBoard(UpdateBoardReqDto updateBoardReqDto){
         boardMapper.updateBoardByBoardId(updateBoardReqDto.toEntity());
     }
+
+
+
+
 }

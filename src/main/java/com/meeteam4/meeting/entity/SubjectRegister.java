@@ -15,6 +15,7 @@ public class SubjectRegister {
 
     private int subjectRegisterId;
     private int userId;
+    private int subjectId;
     private List<Integer> subjectIds;
 
     private Subject subject;

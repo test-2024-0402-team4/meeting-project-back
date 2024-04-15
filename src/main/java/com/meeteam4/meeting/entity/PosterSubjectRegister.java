@@ -6,13 +6,16 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Subject {
+public class PosterSubjectRegister {
+    private int posterSubjectRegisterId;
+    private int posterId;
     private int subjectId;
-    private String subjectName;
+    private List<Integer> subjectIds;
 
+    private Subject subject;
+    private Poster poster;
 }

@@ -15,12 +15,5 @@ import java.util.List;
 public class Region {
     private int regionId;
     private String regionName;
-    private List<String> regionNames;
 
-    public SearchProfilesRespDto toSearchProfilesRespDto() {
-        return SearchProfilesRespDto
-                .builder()
-                .regionNames(regionNames)
-                .build();
-    }
 }

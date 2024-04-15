@@ -17,6 +17,16 @@
 
     </resultMap>
 
+    <resultMap id="CommentResultMap" type="com.meeteam4.meeting.entity.StudentComment">
+        <id property="studentCommentId" column="student_comment_id"/>
+        <result property="studentBoardId" column="student_board_id"/>
+        <result property="studentUserId" column="student_user_id"/>
+        <result property="comment" column="comment"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+
+    </resultMap>
+
 
     <insert id="saveBoard" parameterType="com.meeteam4.meeting.entity.StudentBoard">
         insert into student_board_tb
@@ -32,37 +42,42 @@
         )
     </insert>
 
-    <insert id="saveComment" parameterType="com.meeteam4.meeting.entity.Comment">
-        insert into student_comment_tb
-        values(
-        0,
-        #{studentBoardId},
-        #{studentUserId},
-        #{comment},
-        now(),
-        now()
-        )
-
-    </insert>
-
     <select id="searchBoard" resultMap="BoardResultMap">
         select
              sbt.student_board_id,
+             sbt.student_id,
              sbt.title,
              sbt.create_date,
              sbt.view_count
         from
             student_board_tb sbt
-            left outer join student_tb st on(st.student_id = sbt.student_id)
+        where
+            1=1
         <choose>
-        <when test="searchText != 0">
+        <when test="count != -1 ">
             and(
             title like concat('%', #{searchText},'%')
-            or nickname like concat('%', #{searchText},'%')
             )
         </when>
         </choose>
+        limit #{startIndex}, #{count}
 
+    </select>
+
+    <select id="getStudentCount" resultType="integer">
+        select
+            count(*)
+        from
+            student_board_tb
+        where
+        1=1
+        <choose>
+            <when test="count != -1 ">
+                and(
+                title like concat('%', #{searchText},'%')
+                )
+            </when>
+        </choose>
 
     </select>
 
@@ -99,6 +114,54 @@
             update_date = now()
         where
             student_board_id = #{studentBoardId}
+
+    </update>
+
+    <insert id="saveComment" parameterType="com.meeteam4.meeting.entity.StudentComment">
+        insert into
+            student_comment_tb
+        values(
+            0,
+            #{studentBoardId},
+            #{studentUserId},
+            #{comment},
+            now(),
+            now()
+        )
+
+    </insert>
+
+    <select id="getStudentComment" resultMap="CommentResultMap">
+        select
+            student_comment_id,
+            student_board_id,
+            student_user_id,
+            comment,
+            create_date,
+            update_date
+        from
+            student_comment_tb
+        where
+        student_board_id = #{studentBoardId};
+
+    </select>
+
+    <delete id="deleteStudentCommentByCommentId">
+        delete
+        from
+            student_comment_tb
+        where
+            student_comment_id = #{studentCommentId}
+
+    </delete>
+
+    <update id="updateCommentByCommentId" parameterType="com.meeteam4.meeting.entity.StudentComment">
+        update
+            student_comment_tb
+        set
+            comment = #{comment}
+        where
+            student_comment_id = #{studentCommentId}
 
     </update>
 </mapper>

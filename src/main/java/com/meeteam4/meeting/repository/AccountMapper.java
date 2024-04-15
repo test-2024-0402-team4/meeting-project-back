@@ -2,11 +2,14 @@ package com.meeteam4.meeting.repository;
 
 
 import com.meeteam4.meeting.dto.PosterReqDto;
+import com.meeteam4.meeting.dto.SearchProfilesReqDto;
 import com.meeteam4.meeting.dto.SearchProfilesRespDto;
+import com.meeteam4.meeting.dto.UserRegisterDto;
 import com.meeteam4.meeting.entity.*;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.security.core.parameters.P;
 
 import java.util.Date;
 import java.util.List;
@@ -20,12 +23,27 @@ public interface AccountMapper {
     public int saveRegions(RegionRegister regionRegister);
     public int saveClassType(ClassTypeRegister classTypeRegister);
 
-    public List<Integer> searchUserIdByRegionIds(@Param("regionIds") List<Integer> regionId);
-    public List<Integer> searchUserIdBySubjectIds(@Param("subjectIds") List<Integer> subjectId);
-    public List<Integer> searchUserIdByDateIds(@Param("dateIds") List<Integer> dateId);
-    public List<Integer> searchUserIdByClassTypeIds(@Param("classTypeIds") List<Integer> classTypeId);
-    public List<User> searchTeacherProfilesByUserId(@Param("userIds") List<Integer> userId);
+    public List<Integer> searchUserIds(@Param("nickname") String nickname,
+                                       @Param("genderId") int genderId,
+                                       @Param("regionIds") List<Integer> regionId,
+                                       @Param("subjectIds") List<Integer> subjectId,
+                                       @Param("classTypeIds") List<Integer> classTypeId,
+                                       @Param("dateIds") List<Integer> dateId
+                                       );
+    public List<User> getTeacherProfiles(@Param("userIds") List<Integer> distinctUserIds);
 
-    public List<Region> getRegionByUserId(@Param("userIds") List<Integer> userId);
+
+    public int saveStudentPoster(Poster poster);
+    public int savePosterDate(PosterDateRegister posterDateRegister);
+    public int savePosterSubjectIds(PosterSubjectRegister posterSubjectRegister);
+    public int savePosterClassTypeIds(PosterClassTypeRegister posterClassTypeRegister);
+
+    public List<Integer> searchPosterIds(@Param("regionId") int regionId,
+                                         @Param("subjectIds") List<Integer> subjectId,
+                                         @Param("classTypeIds") List<Integer> classTypeId,
+                                         @Param("dateIds") List<Integer> dateId);
+
+
+
 
 }
