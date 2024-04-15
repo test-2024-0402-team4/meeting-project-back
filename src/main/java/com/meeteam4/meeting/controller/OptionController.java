@@ -14,6 +14,7 @@ public class OptionController {
     @Autowired
     private AuthOptionService authOptionService;
 
+    // Front - <select /> 사용해서 DB에 있는 option 값 불러오기 위함
     @GetMapping("/regions")
     public ResponseEntity<?> getRegion() {
         return ResponseEntity.ok(authOptionService.getRegion());

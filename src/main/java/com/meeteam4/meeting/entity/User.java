@@ -40,7 +40,6 @@ public class User {
 
 
     private List<RoleRegister> roleRegisters;
-
     public List<SimpleGrantedAuthority> getAuthorities() {
 
         String roleName = null;
@@ -51,9 +50,7 @@ public class User {
         }
 
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-
             authorities.add(new SimpleGrantedAuthority(roleName));
-
         return authorities;
     }
 

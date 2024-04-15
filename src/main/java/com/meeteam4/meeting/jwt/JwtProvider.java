@@ -31,6 +31,7 @@ public class JwtProvider {
         this.userMapper = userMapper;
     }
 
+    // Token에 담을 데이터 정보 설정 및 Token 생성
     public String generateToken(User user) {
         int userId = user.getUserId();
         int roleId = user.getRoleId();
@@ -51,6 +52,7 @@ public class JwtProvider {
         return accessToken;
     }
 
+    //
     public Authentication getAuthentication(Claims claims) {
         String username = claims.get("username").toString();
         User user = userMapper.findByUsername(username);

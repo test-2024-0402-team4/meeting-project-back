@@ -239,7 +239,7 @@ public class AccountService {
             return null;
         }
 
-         List<Poster> posters = accountMapper.getPosters()
+//         List<Poster> posters = accountMapper.getPosters()
 
         System.out.println(posterIds);
         return posterIds;
