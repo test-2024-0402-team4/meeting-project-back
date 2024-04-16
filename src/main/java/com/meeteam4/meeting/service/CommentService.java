@@ -1,9 +1,8 @@
 package com.meeteam4.meeting.service;
 
-import com.meeteam4.meeting.dto.CommentReqDto;
-import com.meeteam4.meeting.dto.StudentCommentRespDto;
-import com.meeteam4.meeting.dto.UpdateCommentReqDto;
+import com.meeteam4.meeting.dto.*;
 import com.meeteam4.meeting.entity.StudentComment;
+import com.meeteam4.meeting.entity.TeacherComment;
 import com.meeteam4.meeting.repository.BoardMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,5 +34,23 @@ public class CommentService {
 
     public void updateComment(UpdateCommentReqDto updateCommentReqDto){
         boardMapper.updateCommentByCommentId(updateCommentReqDto.toEntity());
+    }
+
+    public void saveTeacherComment(TeacherCommentReqDto teacherCommentReqDto){
+        boardMapper.saveTeacherComment(teacherCommentReqDto.toEntity());
+    }
+    @Transactional(rollbackFor = Exception.class)
+    public List<TeacherCommentRespDto> getTeacherComment(int teacherBoardId){
+
+        List<TeacherComment> comments = boardMapper.getTeacherComment(teacherBoardId);
+
+        return comments.stream().map(TeacherComment :: toTeacherCommentRespDto).collect(Collectors.toList());
+    }
+    public void deleteTeacherComment(int teacherCommentId){
+        boardMapper.deleteTeacherCommentByCommentId(teacherCommentId);
+    }
+
+    public void updateTeacherComment(UpdateTeacherCommentReqDto updateTeacherCommentReqDto){
+        boardMapper.updateTeacherCommentByCommentId(updateTeacherCommentReqDto.toEntity());
     }
 }
