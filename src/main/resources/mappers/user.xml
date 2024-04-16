@@ -27,7 +27,32 @@
         <result property="roleId" column="role_id" />
         <result property="createDate" column="create_date" />
         <result property="updateDate" column="update_date" />
+        <association property="teacher" resultMap="TeacherResultMap"/>
+        <association property="student" resultMap="StudentResultMap"/>
         <collection property="roleRegisters" javaType="List" resultMap="RoleRegisterResultMap" />
+    </resultMap>
+    <resultMap id="StudentResultMap" type="com.meeteam4.meeting.entity.Student">
+        <id property="studentId" column="student_id" />
+        <result property="userId" column="user_id"/>
+        <result property="birthDate" column="birth_date"/>
+        <result property="genderId" column="gender_id"/>
+        <result property="studentTypeId" column="student_type_id"/>
+        <result property="phoneNumber" column="phone_number"/>
+        <result property="regionId" column="region_id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+    </resultMap>
+    <resultMap id="TeacherResultMap" type="com.meeteam4.meeting.entity.Teacher">
+        <id property="teacherId" column="teacher_id" />
+        <result property="userId" column="user_id"/>
+        <result property="birthDate" column="birth_date"/>
+        <result property="genderId" column="gender_id"/>
+        <result property="universityId" column="university_id"/>
+        <result property="departmentName" column="department_name"/>
+        <result property="graduateStateId" column="graduate_state_id"/>
+        <result property="phoneNumber" column="phone_number"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
     </resultMap>
 
     <insert id="saveUser"
@@ -88,11 +113,16 @@
             ut.update_date,
             rrt.role_register_id,
             rrt.role_id,
-            rt.role_name
+            rt.role_name,
+            tt.teacher_id,
+            st.student_id
         from
             user_tb ut
             left outer join role_register_tb rrt on(rrt.user_id = ut.user_id)
             left outer join role_tb rt on(rt.role_id = rrt.role_id)
+            left outer join teacher_tb tt on(tt.user_id = ut.user_id)
+            left outer join student_tb st on(st.user_id = ut.user_id)
+
         where
             username = #{username}
     </select>
