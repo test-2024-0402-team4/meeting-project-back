@@ -31,6 +31,7 @@ public class User {
 
     private Gender gender;
     private Teacher teacher;
+    private Student student;
     private University university;
     private GraduateState graduateState;
     private List<SubjectRegister> subjectRegister;

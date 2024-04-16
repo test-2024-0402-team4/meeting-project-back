@@ -23,7 +23,6 @@
         <collection property="dateRegister" javaType="list" resultMap="DateRegisterResultMap"/>
         <collection property="classTypeRegister" javaType="list" resultMap="ClassTypeRegisterResultMap"/>
      </resultMap>
-
     <resultMap id="TeacherResultMap" type="com.meeteam4.meeting.entity.Teacher">
         <id property="teacherId" column="teacher_id" />
         <result property="userId" column="user_id"/>

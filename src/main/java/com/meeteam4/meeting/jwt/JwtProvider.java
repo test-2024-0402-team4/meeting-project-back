@@ -35,6 +35,10 @@ public class JwtProvider {
     public String generateToken(User user) {
         int userId = user.getUserId();
         int roleId = user.getRoleId();
+        int studentId = user.getStudent().getStudentId();
+        int teacherId = user.getTeacher().getTeacherId();
+
+
         String username = user.getUsername();
         Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
 
@@ -43,6 +47,8 @@ public class JwtProvider {
         String accessToken = Jwts.builder()
                 .claim("userId", userId)
                 .claim("username", username)
+                .claim("teacherId", teacherId)
+                .claim("studentId", studentId)
                 .claim("roleId", roleId)
                 .claim("authorities", authorities)
                 .setExpiration(expireDate)
