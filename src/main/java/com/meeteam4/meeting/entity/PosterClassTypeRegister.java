@@ -18,7 +18,7 @@ public class PosterClassTypeRegister {
     private List<Integer> classTypeIds;
 
     private ClassType classType;
-    private Poster poster;
+
 
 
 }

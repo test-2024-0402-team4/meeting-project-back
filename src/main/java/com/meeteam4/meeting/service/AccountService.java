@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -224,24 +225,61 @@ public class AccountService {
 
     // 학생 공고 조회
     @Transactional(rollbackFor = Exception.class)
-    public List<Integer> getStudentPoster(SearchPosterReqDto searchPosterReqDto) {
+    public List<SearchPosterRespDto> getStudentPoster(SearchPosterReqDto searchPosterReqDto) {
         List<Integer> posterIds = new ArrayList<>();
         if(searchPosterReqDto.getRegionId() == null) {
             searchPosterReqDto.setRegionId(0);
         }
+        System.out.println(posterIds);
+
         posterIds.addAll(accountMapper.searchPosterIds(
                 searchPosterReqDto.getRegionId(),
                 searchPosterReqDto.getSubjectIds(),
                 searchPosterReqDto.getDateIds(),
                 searchPosterReqDto.getClassTypeIds()));
+        System.out.println(posterIds);
 
         if(posterIds.isEmpty()) {
             return null;
         }
 
-//         List<Poster> posters = accountMapper.getPosters()
 
-        System.out.println(posterIds);
-        return posterIds;
+        List<Poster> posters = accountMapper.getPosters(posterIds);
+        System.out.println(posters);
+        List<SearchPosterRespDto> searchPosters = new ArrayList<>();
+
+        for (Poster poster : posters) {
+            SearchPosterRespDto searchPosterRespDto = poster.toSearchPosterRespDto();
+            searchPosterRespDto.setGenderType(poster.getGender().getGenderType());
+            searchPosterRespDto.setStudentType(poster.getStudentType().getStudentType());
+            searchPosterRespDto.setRegionName(poster.getRegion().getRegionName());
+
+            List<String> subjectNames = poster.getPosterSubjectRegister().stream()
+                    .map(ps -> ps.getSubject().getSubjectName())
+                    .distinct()
+                    .collect(Collectors.toList());
+
+            searchPosterRespDto.setSubjectName(subjectNames);
+            System.out.println(subjectNames);
+
+            List<String> dateTypes = poster.getPosterDateRegister().stream()
+                    .map(pd -> pd.getDate().getDateType())
+                    .distinct()
+                    .collect(Collectors.toList());
+            searchPosterRespDto.setDateType(dateTypes);
+            System.out.println(dateTypes);
+
+            List<String> classTypes = poster.getPosterClassTypeRegister().stream()
+                    .map(pct -> pct.getClassType().getClassType())
+                    .distinct()
+                    .collect(Collectors.toList());
+            searchPosterRespDto.setClassType(classTypes);
+
+            searchPosters.add(searchPosterRespDto);
+
+        }
+
+
+        return searchPosters;
     }
 }

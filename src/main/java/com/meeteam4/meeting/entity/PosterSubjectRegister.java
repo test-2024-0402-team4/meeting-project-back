@@ -17,5 +17,4 @@ public class PosterSubjectRegister {
     private List<Integer> subjectIds;
 
     private Subject subject;
-    private Poster poster;
 }

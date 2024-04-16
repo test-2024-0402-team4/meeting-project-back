@@ -4,6 +4,65 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.meeteam4.meeting.repository.AccountMapper">
+    <resultMap id="PosterResultMap" type="com.meeteam4.meeting.entity.Poster">
+        <id property="posterId" column="poster_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="title" column="title"/>
+        <result property="genderId" column="gender_id"/>
+        <result property="studentTypeId" column="student_type_id"/>
+        <result property="regionId" column="region_id"/>
+        <result property="content" column="content"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+        <association property="gender" resultMap="GenderPosterResultMap"/>
+        <association property="studentType" resultMap="StudentTypePosterResultMap"/>
+        <association property="region" resultMap="RegionPosterResultMap"/>
+        <collection property="posterClassTypeRegister" javaType="list" resultMap="PosterClassTypeRegisterResultMap"/>
+        <collection property="posterDateRegister" javaType="list" resultMap="PosterDateRegisterResultMap"/>
+        <collection property="posterSubjectRegister" javaType="list" resultMap="PosterSubjectRegister"/>
+    </resultMap>
+    <resultMap id="RegionPosterResultMap" type="com.meeteam4.meeting.entity.Region">
+        <id property="regionId" column="region_id"/>
+        <result property="regionName" column="region_name"/>
+    </resultMap>
+    <resultMap id="StudentTypePosterResultMap" type="com.meeteam4.meeting.entity.StudentType">
+        <id property="studentTypeId" column="student_type_id"/>
+        <result property="studentType" column="student_type"/>
+    </resultMap>
+    <resultMap id="GenderPosterResultMap" type="com.meeteam4.meeting.entity.Gender">
+        <id property="genderId" column="gender_id"/>
+        <result property="genderType" column="gender_type"/>
+    </resultMap>
+    <resultMap id="DatePosterResultMap" type="com.meeteam4.meeting.entity.Date" >
+        <id property="dateId" column="date_id"/>
+        <result property="dateType" column="date_type"/>
+    </resultMap>
+    <resultMap id="PosterDateRegisterResultMap" type="com.meeteam4.meeting.entity.PosterDateRegister" >
+        <id property="posterDateRegisterId" column="poster_date_register_id"/>
+        <result property="posterId" column="poster_id"/>
+        <result property="dateId" column="date_id"/>
+        <association property="date" resultMap="DatePosterResultMap"/>
+    </resultMap>
+    <resultMap id="ClassTypePosterResultMap" type="com.meeteam4.meeting.entity.ClassType">
+        <id property="classTypeId" column="class_type_id"/>
+        <result property="classType" column="class_type"/>
+    </resultMap>
+    <resultMap id="PosterClassTypeRegisterResultMap" type="com.meeteam4.meeting.entity.PosterClassTypeRegister">
+        <id property="posterClassTypeRegisterId" column="poster_class_type_register_id"/>
+        <result property="posterId" column="poster_id"/>
+        <result property="classTypeId" column="class_type_id"/>
+        <association property="classType" resultMap="ClassTypePosterResultMap"/>
+    </resultMap>
+    <resultMap id="SubjectPosterResultMap" type="com.meeteam4.meeting.entity.Subject" >
+        <id property="subjectId" column="subject_id" />
+        <result property="subjectName" column="subject_name" />
+    </resultMap>
+    <resultMap id="PosterSubjectRegister" type="com.meeteam4.meeting.entity.PosterSubjectRegister">
+        <id property="posterSubjectRegisterId" column="poster_subject_register_id"/>
+        <result property="posterId" column="poster_id"/>
+        <result property="subjectId" column="subject_id"/>
+        <association property="subject" resultMap="SubjectPosterResultMap"/>
+    </resultMap>
     <insert id="saveStudentPoster"
             parameterType="com.meeteam4.meeting.entity.Poster"
             keyProperty="posterId"
@@ -22,7 +81,6 @@
             now(),
             now()
         )
-
     </insert>
     <insert id="savePosterDate">
         insert into
@@ -89,21 +147,34 @@
             </if>
         group by
             pt.poster_id
-
+        order by
+            pt.poster_id
     </select>
-    <select id="getPosters" resultType="com.meeteam4.meeting.entity.Poster">
+    <select id="getPosters" resultMap="PosterResultMap">
         select
-            *
+            pt.poster_id,
+            pt.user_id,
+            pt.title,
+            gt.gender_type,
+            stt.student_type,
+            rt.region_name,
+            pt.content,
+            st.subject_name,
+            dt.date_type,
+            ctt.class_type
         from
             poster_tb pt
             left outer join poster_subject_register_tb psrt on(psrt.poster_id = pt.poster_id)
+            left outer join gender_tb gt on(gt.gender_id = pt.gender_id)
+            left outer join student_type_tb stt on(stt.student_type_id = pt.student_type_id)
+            left outer join region_tb rt on(rt.region_id = pt.region_id)
             left outer join subject_tb st on(st.subject_id = psrt.subject_id)
             left outer join poster_date_register_tb pdrt on(pdrt.poster_id = pt.poster_id)
             left outer join date_tb dt on(dt.date_id = pdrt.date_id)
             left outer join poster_class_type_id_register_tb pctirt on(pctirt.poster_id = pt.poster_id)
             left outer join class_type_tb ctt on(ctt.class_type_id = pctirt.class_type_id)
         where
-            pt.poster_id(
+            pt.poster_id in(
                 <foreach collection="posterIds" item="posterId" separator=",">
                     #{posterId}
                 </foreach>
