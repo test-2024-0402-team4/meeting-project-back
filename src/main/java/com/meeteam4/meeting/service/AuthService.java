@@ -1,6 +1,7 @@
 package com.meeteam4.meeting.service;
 
 
+import com.meeteam4.meeting.dto.OAuth2SignupReqDto;
 import com.meeteam4.meeting.dto.SigninReqDto;
 import com.meeteam4.meeting.dto.SignupUserDto;
 import com.meeteam4.meeting.entity.Student;
@@ -56,6 +57,24 @@ public class AuthService {
         }
         // 토큰을 만들겠다
         return jwtProvider.generateToken(user);
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public void oAuth2Signup(OAuth2SignupReqDto oAuth2SignupReqDto) {
+
+        User user = oAuth2SignupReqDto.toUserEntity(passwordEncoder);
+
+        userMapper.saveUser(user);
+
+        Student student = oAuth2SignupReqDto.toStudentEntity(user.getUserId());
+        Teacher teacher = oAuth2SignupReqDto.toTeacherEntity(user.getUserId());
+        if(user.getRoleId() == 1) {
+            userMapper.saveStudent(student);
+        }else if(user.getRoleId() == 2) {
+            userMapper.saveTeacher(teacher);
+        }
+        userMapper.saveRole(user.getUserId(), user.getRoleId());
+        userMapper.saveOAuth2(oAuth2SignupReqDto.toOAuth2Entity(user.getUserId()));
     }
 
 }

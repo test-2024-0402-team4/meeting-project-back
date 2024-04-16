@@ -1,6 +1,8 @@
 package com.meeteam4.meeting.config;
 
 import com.meeteam4.meeting.security.exception.AuthEntryPoint;
+import com.meeteam4.meeting.security.handler.OAuth2SuccessHandler;
+import com.meeteam4.meeting.service.OAuth2PrincipalUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,6 +17,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private AuthEntryPoint authEntryPoint;
+
+    @Autowired
+    private OAuth2PrincipalUserService oAuth2PrincipalUserService;
+
+    @Autowired
+    private OAuth2SuccessHandler oAuth2SuccessHandler;
 
     @Bean
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
@@ -31,6 +39,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
                 .and()
                 .exceptionHandling()
-                .authenticationEntryPoint(authEntryPoint);
+                .authenticationEntryPoint(authEntryPoint)
+
+                .and()
+                .oauth2Login()
+                .successHandler(oAuth2SuccessHandler)
+                .userInfoEndpoint()
+                .userService(oAuth2PrincipalUserService);
     }
 }
