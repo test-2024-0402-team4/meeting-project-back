@@ -40,8 +40,8 @@ public interface AccountMapper {
 
     public List<Integer> searchPosterIds(@Param("regionId") int regionId,
                                          @Param("subjectIds") List<Integer> subjectId,
-                                         @Param("classTypeIds") List<Integer> classTypeId,
-                                         @Param("dateIds") List<Integer> dateId);
+                                         @Param("dateIds") List<Integer> dateId,
+                                         @Param("classTypeIds") List<Integer> classTypeId);
 
     public List<Poster> getPosters(@Param("posterIds") List<Integer> posterIds);
 

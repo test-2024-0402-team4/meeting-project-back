@@ -5,7 +5,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
 import java.util.List;
 @Data
 @Builder
@@ -18,5 +17,4 @@ public class PosterDateRegister {
     private List<Integer> dateIds;
 
     private Date date;
-    private Poster poster;
 }
