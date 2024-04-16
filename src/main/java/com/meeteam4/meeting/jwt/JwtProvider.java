@@ -38,7 +38,6 @@ public class JwtProvider {
         int studentId = user.getStudent().getStudentId();
         int teacherId = user.getTeacher().getTeacherId();
 
-
         String username = user.getUsername();
         Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
 

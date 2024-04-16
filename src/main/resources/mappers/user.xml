@@ -97,6 +97,13 @@
             (0, #{userId}, #{roleId}, now(), now())
     </insert>
 
+    <insert id="saveOAuth2" parameterType="com.meeteam4.meeting.entity.OAuth2">
+        insert into
+            oauth2_tb
+        values
+            (0, #{oAuth2Name}, #{userId}, #{providerName}, now(), now())
+    </insert>
+
 
 
     <select id="findByUsername"
@@ -122,7 +129,6 @@
             left outer join role_tb rt on(rt.role_id = rrt.role_id)
             left outer join teacher_tb tt on(tt.user_id = ut.user_id)
             left outer join student_tb st on(st.user_id = ut.user_id)
-
         where
             username = #{username}
     </select>
@@ -153,6 +159,30 @@
             left outer join teacher_tb tt on(tt.user_id = ut.user_id)
         where
             email = #{email}
+    </select>
+
+    <select id="findUserByOAuth2Name" resultMap="UserResultMap">
+        select
+            ut.user_id,
+            ut.username,
+            ut.password,
+            ut.name,
+            ut.email,
+            ut.create_date,
+            ut.update_date,
+            rrt.role_register_id,
+            rrt.role_id,
+            rt.role_name,
+            oat.oauth2_id,
+            oat.oauth2_name,
+            oat.provider_name
+        from
+            user_tb ut
+            left outer join role_register_tb rrt on(rrt.user_id = ut.user_id)
+            left outer join role_tb rt on(rt.role_id = rrt.role_id)
+            left outer join oauth2_tb oat on(oat.user_id = ut.user_id)
+        where
+            oat.oauth2_name = #{oAuth2Name}
     </select>
 
 </mapper>
