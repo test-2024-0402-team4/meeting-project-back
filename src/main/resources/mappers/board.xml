@@ -14,13 +14,32 @@
         <result property="viewCount" column="view_count"/>
         <result property="createDate" column="create_date"/>
         <result property="updateDate" column="update_date"/>
-
     </resultMap>
 
     <resultMap id="CommentResultMap" type="com.meeteam4.meeting.entity.StudentComment">
         <id property="studentCommentId" column="student_comment_id"/>
         <result property="studentBoardId" column="student_board_id"/>
         <result property="studentUserId" column="student_user_id"/>
+        <result property="comment" column="comment"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+
+    </resultMap>
+
+    <resultMap id="BoardTcResultMap" type="com.meeteam4.meeting.entity.TeacherBoard">
+        <id property="teacherBoardId" column="teacher_board_id"/>
+        <result property="teacherId" column="teacher_id"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="viewCount" column="view_count"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+    </resultMap>
+
+    <resultMap id="TeacherCommentResultMap" type="com.meeteam4.meeting.entity.TeacherComment">
+        <id property="teacherCommentId" column="teacher_comment_id"/>
+        <result property="teacherBoardId" column="teacher_board_id"/>
+        <result property="teacherId" column="teacher_id"/>
         <result property="comment" column="comment"/>
         <result property="createDate" column="create_date"/>
         <result property="updateDate" column="update_date"/>
@@ -104,7 +123,7 @@
 
     </delete>
 
-    <update id="updateBoardByBoardId" parameterType="com.meeteam4.meeting.entity.StudyBoard">
+    <update id="updateBoardByBoardId" parameterType="com.meeteam4.meeting.entity.StudentBoard">
         update
             student_board_tb
         set
@@ -162,6 +181,143 @@
             comment = #{comment}
         where
             student_comment_id = #{studentCommentId}
+
+    </update>
+
+
+    <insert id="saveTeacherBoard" parameterType="com.meeteam4.meeting.entity.TeacherBoard">
+        insert into
+            teacher_board_tb
+        values(
+            0,
+            #{teacherId},
+            #{title},
+            #{content},
+            #{viewCount},
+            now(),
+            now()
+            )
+    </insert>
+
+    <select id="searchTeacherBoard" resultMap="BoardTcResultMap">
+        select
+            teacher_board_id,
+            teacher_id,
+            title,
+            create_date,
+            view_count
+        from
+            teacher_board_tb
+        where
+            1=1
+        <choose>
+            <when test="count != -1 ">
+                and(
+                title like concat('%', #{searchText},'%')
+                )
+            </when>
+        </choose>
+        limit #{startIndex}, #{count}
+
+    </select>
+
+    <select id="getTeacherCount" resultType="integer">
+        select
+            count(*)
+        from
+            teacher_board_tb
+        where
+            1=1
+        <choose>
+            <when test="count != -1 ">
+                and(
+                title like concat('%', #{searchText},'%')
+                )
+            </when>
+        </choose>
+
+    </select>
+
+    <select id="getSingleTeacherBoard" resultMap="BoardTcResultMap">
+        select
+            teacher_board_id,
+            title,
+            create_date,
+            content,
+            view_count
+        from
+            teacher_board_tb
+        where
+            teacher_board_id = #{teacherBoardId};
+
+    </select>
+
+    <delete id="deleteTeacherBoardByBoardId">
+        delete
+        from
+            teacher_board_tb
+        where
+            teacher_board_id = #{teacherBoardId}
+
+    </delete>
+
+    <update id="updateTeacherBoardByBoardId" parameterType="com.meeteam4.meeting.entity.TeacherBoard">
+        update
+            teacher_board_tb
+        set
+            title = #{title},
+            content = #{content},
+            update_date = now()
+        where
+            teacher_board_id = #{teacherBoardId}
+
+    </update>
+
+    <insert id="saveTeacherComment" parameterType="com.meeteam4.meeting.entity.TeacherComment">
+        insert into
+            student_comment_tb
+        values(
+            0,
+            #{teacherBoardId},
+            #{teacherId},
+            #{comment},
+            now(),
+            now()
+        )
+
+    </insert>
+
+    <select id="getTeacherComment" resultMap="CommentResultMap">
+        select
+            teacher_comment_id,
+            teacher_board_id,
+            teacher_id,
+            comment,
+            create_date,
+            update_date
+        from
+            teacher_comment_tb
+        where
+            teacher_board_id = #{teacherBoardId};
+
+    </select>
+
+    <delete id="deleteTeacherCommentByCommentId">
+        delete
+        from
+            teacher_comment_tb
+        where
+            teacher_comment_id = #{teacherCommentId}
+
+    </delete>
+
+    <update id="updateTeacherCommentByCommentId" parameterType="com.meeteam4.meeting.entity.TeacherComment">
+        update
+            teacher_comment_tb
+        set
+            comment = #{comment}
+        where
+            teacher_comment_id = #{teacherCommentId}
 
     </update>
 </mapper>

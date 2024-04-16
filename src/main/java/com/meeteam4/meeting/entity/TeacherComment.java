@@ -1,5 +1,6 @@
 package com.meeteam4.meeting.entity;
 
+import com.meeteam4.meeting.dto.TeacherCommentRespDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,11 +13,21 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TeacherComment {
-
     private int teacherCommentId;
     private int teacherBoardId;
     private int teacherId;
     private String comment;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
+
+    public TeacherCommentRespDto toTeacherCommentRespDto(){
+        return TeacherCommentRespDto.builder()
+                .teacherCommentId(teacherCommentId)
+                .teacherBoardId(teacherBoardId)
+                .teacherId(teacherId)
+                .comment(comment)
+                .createDate(createDate)
+                .updateDate(updateDate)
+                .build();
+    }
 }
