@@ -1,9 +1,11 @@
 package com.meeteam4.meeting.service;
 
 
+import com.meeteam4.meeting.dto.OAuth2MergeReqDto;
 import com.meeteam4.meeting.dto.OAuth2SignupReqDto;
 import com.meeteam4.meeting.dto.SigninReqDto;
 import com.meeteam4.meeting.dto.SignupUserDto;
+import com.meeteam4.meeting.entity.OAuth2;
 import com.meeteam4.meeting.entity.Student;
 import com.meeteam4.meeting.entity.Teacher;
 import com.meeteam4.meeting.entity.User;
@@ -23,6 +25,7 @@ public class AuthService {
     @Autowired
     private UserMapper userMapper;
 
+    // 토큰
     @Autowired
     private JwtProvider jwtProvider;
 
@@ -30,6 +33,7 @@ public class AuthService {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
+    // 회원가입
     @Transactional(rollbackFor = Exception.class)
     public void signupUser(SignupUserDto signupUserDto) {
 
@@ -46,6 +50,7 @@ public class AuthService {
         userMapper.saveRole(user.getUserId(), user.getRoleId());
     }
 
+    // 로그인
     public String signin(SigninReqDto signinReqDto) {
 
         User user = userMapper.findByUsername(signinReqDto.getUsername());
@@ -55,10 +60,10 @@ public class AuthService {
         }if(!passwordEncoder.matches(signinReqDto.getPassword(), user.getPassword())) { // matches(암호화된 값을 풀어서 평문으로 만든다, 입력한 값) 두 매개변수를 비교
             throw new BadCredentialsException("사용자 정보를 확인하세요.");
         }
-        // 토큰을 만들겠다
-        return jwtProvider.generateToken(user);
+        return jwtProvider.generateToken(user);     // 토큰 만들기
     }
 
+    // 소셜 회원가입
     @Transactional(rollbackFor = Exception.class)
     public void oAuth2Signup(OAuth2SignupReqDto oAuth2SignupReqDto) {
 
@@ -75,6 +80,25 @@ public class AuthService {
         }
         userMapper.saveRole(user.getUserId(), user.getRoleId());
         userMapper.saveOAuth2(oAuth2SignupReqDto.toOAuth2Entity(user.getUserId()));
+    }
+
+    // 로그인 병합
+    public void oAuth2Merge(OAuth2MergeReqDto oAuth2MergeReqDto) {
+        User user = userMapper.findByUsername(oAuth2MergeReqDto.getUsername());
+
+        if(user == null) {
+            throw new UsernameNotFoundException("사용자 정보를 확인하세요.");
+        }else if(!passwordEncoder.matches(oAuth2MergeReqDto.getPassword(), user.getPassword())){
+            throw new BadCredentialsException("사용자 정보를 확인하세요.");
+        }
+
+        OAuth2 oAuth2 = OAuth2
+                .builder()
+                .userId(user.getUserId())
+                .oAuth2Name(oAuth2MergeReqDto.getOAuth2Name())
+                .providerName(oAuth2MergeReqDto.getProviderName())
+                .build();
+        userMapper.saveOAuth2(oAuth2);
     }
 
 }

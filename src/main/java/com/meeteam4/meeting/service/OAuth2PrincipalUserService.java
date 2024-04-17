@@ -27,6 +27,8 @@ public class OAuth2PrincipalUserService implements OAuth2UserService {
         String id = null;
 
         switch (provider) {
+            case "Google":
+                id = attributes.get("sub").toString();
             case "Kakao":
                 id = attributes.get("id").toString();
                 break;
