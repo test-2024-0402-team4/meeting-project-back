@@ -55,7 +55,7 @@ public class TeacherBoardController {
         return ResponseEntity.ok(true);
     }
     @PostMapping("/board/comment/{teacherBoardId}")  //선생게시판 댓글 등록
-    public ResponseEntity<?> studentBoardComment(@PathVariable int teacherBoardId, @RequestBody TeacherCommentReqDto teacherCommentReqDto){
+    public ResponseEntity<?> teacherBoardComment(@PathVariable int teacherBoardId, @RequestBody TeacherCommentReqDto teacherCommentReqDto){
         commentService.saveTeacherComment(teacherCommentReqDto);
         return ResponseEntity.ok(teacherCommentReqDto);
     }

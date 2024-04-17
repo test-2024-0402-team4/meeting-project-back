@@ -46,6 +46,16 @@
 
     </resultMap>
 
+    <resultMap id="BoardStudyResultMap" type="com.meeteam4.meeting.entity.StudyBoard">
+        <id property="studyBoardId" column="study_board_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="viewCount" column="view_count"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+    </resultMap>
+
 
     <insert id="saveBoard" parameterType="com.meeteam4.meeting.entity.StudentBoard">
         insert into student_board_tb
@@ -275,7 +285,7 @@
 
     <insert id="saveTeacherComment" parameterType="com.meeteam4.meeting.entity.TeacherComment">
         insert into
-            student_comment_tb
+            teacher_comment_tb
         values(
             0,
             #{teacherBoardId},
@@ -287,7 +297,7 @@
 
     </insert>
 
-    <select id="getTeacherComment" resultMap="CommentResultMap">
+    <select id="getTeacherComment" resultMap="TeacherCommentResultMap">
         select
             teacher_comment_id,
             teacher_board_id,
@@ -318,6 +328,94 @@
             comment = #{comment}
         where
             teacher_comment_id = #{teacherCommentId}
+
+    </update>
+
+    <insert id="saveStudyBoard" parameterType="com.meeteam4.meeting.entity.StudyBoard">
+        insert into
+            study_board_tb
+        values(
+            0,
+            #{userId},
+            #{title},
+            #{content},
+            #{viewCount},
+            now(),
+            now()
+        )
+    </insert>
+
+    <select id="searchStudyBoard" resultMap="BoardStudyResultMap">
+        select
+            study_board_id,
+            user_id,
+            title,
+            create_date,
+            view_count
+        from
+            study_board_tb
+        where
+            1=1
+        <choose>
+            <when test="count != -1 ">
+                and(
+                title like concat('%', #{searchText},'%')
+                )
+            </when>
+        </choose>
+        limit #{startIndex}, #{count}
+
+    </select>
+
+    <select id="getStudyCount" resultType="integer">
+        select
+            count(*)
+        from
+            study_board_tb
+        where
+            1=1
+        <choose>
+            <when test="count != -1 ">
+                and(
+                title like concat('%', #{searchText},'%')
+                )
+            </when>
+        </choose>
+
+    </select>
+
+    <select id="getSingleStudyBoard" resultMap="BoardStudyResultMap">
+        select
+            study_board_id,
+            title,
+            create_date,
+            content,
+            view_count
+        from
+            study_board_tb
+        where
+            study_board_id = #{studyBoardId};
+
+    </select>
+
+    <delete id="deleteStudyBoardByBoardId">
+        delete
+        from
+        study_board_tb
+        where
+        study_board_id = #{studyBoardId}
+
+    </delete>
+
+    <update id="updateStudyBoardByBoardId" parameterType="com.meeteam4.meeting.entity.StudyBoard">
+        update
+            study_board_tb
+        set
+            title = #{title},
+            content = #{content},
+            update_date = now()
+        where
+            study_board_id = #{studyBoardId}
 
     </update>
 </mapper>
