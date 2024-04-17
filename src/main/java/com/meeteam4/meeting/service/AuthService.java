@@ -1,10 +1,7 @@
 package com.meeteam4.meeting.service;
 
 
-import com.meeteam4.meeting.dto.OAuth2MergeReqDto;
-import com.meeteam4.meeting.dto.OAuth2SignupReqDto;
-import com.meeteam4.meeting.dto.SigninReqDto;
-import com.meeteam4.meeting.dto.SignupUserDto;
+import com.meeteam4.meeting.dto.*;
 import com.meeteam4.meeting.entity.OAuth2;
 import com.meeteam4.meeting.entity.Student;
 import com.meeteam4.meeting.entity.Teacher;
@@ -99,6 +96,26 @@ public class AuthService {
                 .providerName(oAuth2MergeReqDto.getProviderName())
                 .build();
         userMapper.saveOAuth2(oAuth2);
+    }
+
+    // ID 찾기
+    public String findId(AuthFindIdReqDto authFindIdReqDto ) {
+        User user = userMapper.findByName(authFindIdReqDto.getName(), authFindIdReqDto.getPhoneNumber());
+        System.out.println(user);
+        String studentPhoneNumber = user.getTeacher().getPhoneNumber();
+        String teacherPhoneNumber = user.getStudent().getPhoneNumber();
+        String name = user.getName();
+
+        String result = null;
+
+        if(name == null) {
+            throw new BadCredentialsException("아이디 확인하세요..");
+        }else if(studentPhoneNumber == null && teacherPhoneNumber == null) {
+            throw new BadCredentialsException("폰번호 확인하세요.");
+        }
+
+
+        return name;
     }
 
 }

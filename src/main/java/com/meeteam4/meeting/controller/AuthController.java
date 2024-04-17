@@ -2,10 +2,7 @@ package com.meeteam4.meeting.controller;
 
 
 import com.meeteam4.meeting.aop.annotation.ValidAspect;
-import com.meeteam4.meeting.dto.OAuth2MergeReqDto;
-import com.meeteam4.meeting.dto.OAuth2SignupReqDto;
-import com.meeteam4.meeting.dto.SigninReqDto;
-import com.meeteam4.meeting.dto.SignupUserDto;
+import com.meeteam4.meeting.dto.*;
 import com.meeteam4.meeting.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -48,6 +45,12 @@ public class AuthController {
     public ResponseEntity<?> oAuth2merge(@RequestBody OAuth2MergeReqDto oAuth2MergeReqDto) {
         authService.oAuth2Merge(oAuth2MergeReqDto);
         return ResponseEntity.ok(true);
+    }
+
+    // 아이디 찾기
+    @GetMapping("/findId")
+    public ResponseEntity<?> findId(AuthFindIdReqDto authFindIdReqDto) {
+        return ResponseEntity.ok( authService.findId(authFindIdReqDto));
     }
 
 
