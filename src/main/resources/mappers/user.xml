@@ -185,4 +185,20 @@
             oat.oauth2_name = #{oAuth2Name}
     </select>
 
+    <select id="findByName"
+            parameterType="String"
+            resultMap="UserResultMap"
+    >
+        select
+            ut.name,
+            st.phone_number,
+            tt.phone_number
+        from
+            user_tb ut
+            left outer join student_tb st on(st.user_id = ut.user_id)
+            left outer join teacher_tb tt on(tt.user_id = ut.user_id)
+        where
+            ut.name = #{name} and st.phone_number or tt.phone_number = #{phoneNumber}
+    </select>
+
 </mapper>
