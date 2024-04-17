@@ -14,8 +14,7 @@ import java.time.LocalDateTime;
 public class StudyComment {
     private int studyCommentId;
     private int studyBoardId;
-    private int studentId;
-    private int teacherId;
+    private int userId;
     private String comment;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;

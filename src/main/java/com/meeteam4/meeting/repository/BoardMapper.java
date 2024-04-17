@@ -1,9 +1,6 @@
 package com.meeteam4.meeting.repository;
 
-import com.meeteam4.meeting.entity.StudentBoard;
-import com.meeteam4.meeting.entity.StudentComment;
-import com.meeteam4.meeting.entity.TeacherBoard;
-import com.meeteam4.meeting.entity.TeacherComment;
+import com.meeteam4.meeting.entity.*;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -63,4 +60,34 @@ public interface BoardMapper {
     public int deleteTeacherCommentByCommentId(int teacherCommentId);
 
     public int updateTeacherCommentByCommentId(TeacherComment teacherComment);
+
+    public int saveStudyBoard(StudyBoard studyBoard);
+
+    public List<StudyBoard> searchStudyBoard(
+            @Param("startIndex") int startIndex,
+            @Param("count") int count,
+            @Param("searchText") String searchText
+    );
+    public int getStudyCount(
+            @Param("count") int count,
+            @Param("searchText") String searchText
+    );
+    public StudyBoard getSingleStudyBoard(int studyBoardId);
+
+    public int deleteStudyBoardByBoardId(int studyBoardId);
+
+    public int updateStudyBoardByBoardId(StudyBoard studyBoard);
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
