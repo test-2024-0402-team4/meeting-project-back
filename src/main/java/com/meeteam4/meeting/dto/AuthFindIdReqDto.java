@@ -13,5 +13,5 @@ import lombok.NoArgsConstructor;
 public class AuthFindIdReqDto {
 
     private String name;
-    private String phoneNumber;
+    private String email;
 }

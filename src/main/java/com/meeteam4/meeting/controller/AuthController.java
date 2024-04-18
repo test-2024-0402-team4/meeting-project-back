@@ -48,9 +48,10 @@ public class AuthController {
     }
 
     // 아이디 찾기
+    @ValidAspect
     @GetMapping("/findId")
-    public ResponseEntity<?> findId(AuthFindIdReqDto authFindIdReqDto) {
-        return ResponseEntity.ok( authService.findId(authFindIdReqDto));
+    public ResponseEntity<?> findId(AuthFindIdReqDto authFindIdReqDto, BindingResult bindingResult) {
+        return ResponseEntity.ok(authService.findId(authFindIdReqDto));
     }
 
 

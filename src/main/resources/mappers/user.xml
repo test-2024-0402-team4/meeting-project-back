@@ -138,13 +138,22 @@
             resultMap="UserResultMap"
     >
         select
-            *
+            ut.user_id,
+            ut.username,
+            ut.password,
+            ut.name,
+            ut.nickname,
+            ut.email,
+            ut.create_date,
+            ut.update_date,
+            tt.teacher_id,
+            st.student_id
         from
             user_tb ut
             left outer join student_tb st on(st.user_id = ut.user_id)
             left outer join teacher_tb tt on(tt.user_id = ut.user_id)
         where
-            nickname = #{nickname}
+            ut.nickname = #{nickname}
     </select>
 
     <select id="findByEmail"
@@ -152,13 +161,21 @@
             resultMap="UserResultMap"
     >
         select
-            *
+            ut.user_id,
+            ut.username,
+            ut.password,
+            ut.name,
+            ut.email,
+            ut.create_date,
+            ut.update_date,
+            tt.teacher_id,
+            st.student_id
         from
             user_tb ut
             left outer join student_tb st on(st.user_id = ut.user_id)
             left outer join teacher_tb tt on(tt.user_id = ut.user_id)
         where
-            email = #{email}
+            ut.email = #{email}
     </select>
 
     <select id="findUserByOAuth2Name" resultMap="UserResultMap">
@@ -191,14 +208,14 @@
     >
         select
             ut.name,
-            st.phone_number,
-            tt.phone_number
+            ut.username,
+            ut.email
         from
             user_tb ut
             left outer join student_tb st on(st.user_id = ut.user_id)
             left outer join teacher_tb tt on(tt.user_id = ut.user_id)
         where
-            ut.name = #{name} and st.phone_number or tt.phone_number = #{phoneNumber}
+            name = #{name} and email = #{email}
     </select>
 
 </mapper>

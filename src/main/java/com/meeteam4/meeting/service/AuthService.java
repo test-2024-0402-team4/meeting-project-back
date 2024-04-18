@@ -54,7 +54,7 @@ public class AuthService {
 
         if(user == null) {
             throw new UsernameNotFoundException("사용자 정보를 확인하세요.");
-        }if(!passwordEncoder.matches(signinReqDto.getPassword(), user.getPassword())) { // matches(암호화된 값을 풀어서 평문으로 만든다, 입력한 값) 두 매개변수를 비교
+        }else if(!passwordEncoder.matches(signinReqDto.getPassword(), user.getPassword())) { // matches(암호화된 값을 풀어서 평문으로 만든다, 입력한 값) 두 매개변수를 비교
             throw new BadCredentialsException("사용자 정보를 확인하세요.");
         }
         return jwtProvider.generateToken(user);     // 토큰 만들기
@@ -100,22 +100,23 @@ public class AuthService {
 
     // ID 찾기
     public String findId(AuthFindIdReqDto authFindIdReqDto ) {
-        User user = userMapper.findByName(authFindIdReqDto.getName(), authFindIdReqDto.getPhoneNumber());
+        User user = userMapper.findByName(authFindIdReqDto.getName(), authFindIdReqDto.getEmail());
+
         System.out.println(user);
-        String studentPhoneNumber = user.getTeacher().getPhoneNumber();
-        String teacherPhoneNumber = user.getStudent().getPhoneNumber();
+
         String name = user.getName();
+        String userName = user.getUsername();
+        String email = user.getEmail();
 
-        String result = null;
-
+        // 예외 처리가 안됨 -- 수정 필요
         if(name == null) {
-            throw new BadCredentialsException("아이디 확인하세요..");
-        }else if(studentPhoneNumber == null && teacherPhoneNumber == null) {
-            throw new BadCredentialsException("폰번호 확인하세요.");
+            throw new BadCredentialsException("이름을 확인하세요.");
+//            return "사용자 이름을 찾지 못했습니다.";
+        }else if(email == null) {
+            throw new BadCredentialsException("이메일을 확인하세요.");
+//            return "이메일을 찾지 못했습니다.";
         }
-
-
-        return name;
+        return userName;
     }
 
 }
