@@ -21,6 +21,7 @@ public interface UserMapper {
     public User findByEmail(String email);
 
     public User findByName(@Param("name") String name, @Param("email") String email);
+    public User findPassword(@Param("username") String username, @Param("email") String email);
 
     public User findUserByOAuth2Name(String oAuth2Name);
 }

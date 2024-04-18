@@ -1,5 +1,7 @@
 package com.meeteam4.meeting.aop;
 
+import com.meeteam4.meeting.dto.AuthFindIdReqDto;
+import com.meeteam4.meeting.dto.AuthFindPasswordReqDto;
 import com.meeteam4.meeting.dto.SignupUserDto;
 import com.meeteam4.meeting.exception.ValidException;
 import com.meeteam4.meeting.repository.UserMapper;
@@ -70,6 +72,32 @@ public class ValidAop {
 
             if(userMapper.findByEmail(signupUserDto.getEmail()) != null) {
                 ObjectError objectError = new FieldError("email", "email", "이미 존재하는 이메일입니다.");
+                bindingResult.addError(objectError);
+            }
+        }
+
+        if(methodName.equals("findId")) {
+            AuthFindIdReqDto authFindIdReqDto = null;
+            for(Object arg : args) {
+                if(arg.getClass() == AuthFindIdReqDto.class) {
+                    authFindIdReqDto = (AuthFindIdReqDto) arg;
+                }
+            }
+            if(userMapper.findByName(authFindIdReqDto.getName(), authFindIdReqDto.getEmail()) == null) {
+                ObjectError objectError = new FieldError("name", "name", "존재하는 정보가 없습니다. 다시 확인해주세요.");
+                bindingResult.addError(objectError);
+            }
+        }
+
+        if(methodName.equals("findPassword")) {
+            AuthFindPasswordReqDto authFindPasswordReqDto = null;
+            for(Object arg : args) {
+                if(arg.getClass() == AuthFindPasswordReqDto.class) {
+                    authFindPasswordReqDto = (AuthFindPasswordReqDto) arg;
+                }
+            }
+            if(userMapper.findPassword(authFindPasswordReqDto.getUsername(), authFindPasswordReqDto.getEmail()) == null) {
+                ObjectError objectError = new FieldError("username", "username", "존재하는 정보가 없습니다. 다시 확인해주세요.");
                 bindingResult.addError(objectError);
             }
         }

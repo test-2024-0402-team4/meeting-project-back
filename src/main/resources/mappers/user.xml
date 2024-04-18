@@ -218,4 +218,18 @@
             name = #{name} and email = #{email}
     </select>
 
+    <select id="findPassword"
+            parameterType="String"
+            resultMap="UserResultMap"
+    >
+        select
+            *
+        from
+            user_tb ut
+            left outer join student_tb st on(st.user_id = ut.user_id)
+            left outer join teacher_tb tt on(tt.user_id = ut.user_id)
+        where
+            username = #{username} and email = #{email}
+    </select>
+
 </mapper>
