@@ -20,7 +20,7 @@ public interface UserMapper {
     public User findByNickname(String nickname);
     public User findByEmail(String email);
 
-    public User findByName(@Param("name") String name, @Param("phoneNumber") String phoneNumber);
+    public User findByName(@Param("name") String name, @Param("email") String email);
 
     public User findUserByOAuth2Name(String oAuth2Name);
 }
