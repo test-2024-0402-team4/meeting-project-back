@@ -1,5 +1,6 @@
 package com.meeteam4.meeting.entity;
 
+import com.meeteam4.meeting.dto.StudyCommentRespDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,5 +19,16 @@ public class StudyComment {
     private String comment;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
+
+    public StudyCommentRespDto toStudyCommentRespDto(){
+        return StudyCommentRespDto.builder()
+                .studyCommentId(studyCommentId)
+                .studyBoardId(studyBoardId)
+                .userId(userId)
+                .comment(comment)
+                .createDate(createDate)
+                .updateDate(updateDate)
+                .build();
+    }
 
 }
