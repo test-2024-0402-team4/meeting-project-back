@@ -101,22 +101,42 @@ public class AuthService {
     // ID 찾기
     public String findId(AuthFindIdReqDto authFindIdReqDto ) {
         User user = userMapper.findByName(authFindIdReqDto.getName(), authFindIdReqDto.getEmail());
+//        System.out.println(user);
+
+        String name = user.getName();
+        String username = user.getUsername();
+        String email = user.getEmail();
+
+        // 예외 처리가 안됨 -- 수정 필요
+//        if(name == null) {
+//            throw new BadCredentialsException("이름을 확인하세요.");
+////            return "사용자 이름을 찾지 못했습니다.";
+//        }else if(email == null) {
+//            throw new BadCredentialsException("이메일을 확인하세요.");
+////            return "이메일을 찾지 못했습니다.";
+//        }
+        return username;
+    }
+
+    public int findPassword(AuthFindPasswordReqDto authFindPasswordReqDto) {
+        User user = userMapper.findPassword(authFindPasswordReqDto.getUsername(), authFindPasswordReqDto.getEmail());
 
         System.out.println(user);
 
         String name = user.getName();
-        String userName = user.getUsername();
+        String username = user.getUsername();
         String email = user.getEmail();
 
-        // 예외 처리가 안됨 -- 수정 필요
-        if(name == null) {
-            throw new BadCredentialsException("이름을 확인하세요.");
-//            return "사용자 이름을 찾지 못했습니다.";
-        }else if(email == null) {
-            throw new BadCredentialsException("이메일을 확인하세요.");
-//            return "이메일을 찾지 못했습니다.";
-        }
-        return userName;
+        System.out.println(username);
+        System.out.println(email);
+
+//        if(username == null) {
+//            throw new UsernameNotFoundException("아이디를 확인하세요.");
+//        }else if(email == null) {
+//            throw new BadCredentialsException("이메일을 확인하세요.");
+//        }
+
+        return 1;
     }
 
 }

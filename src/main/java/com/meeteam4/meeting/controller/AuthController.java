@@ -50,9 +50,17 @@ public class AuthController {
     // 아이디 찾기
     @ValidAspect
     @GetMapping("/findId")
-    public ResponseEntity<?> findId(AuthFindIdReqDto authFindIdReqDto, BindingResult bindingResult) {
+    public ResponseEntity<?> findId(@Valid AuthFindIdReqDto authFindIdReqDto, BindingResult bindingResult) {
         return ResponseEntity.ok(authService.findId(authFindIdReqDto));
     }
+
+    // 비밀번호 찾기
+    @ValidAspect
+    @GetMapping("/findPassword")
+    public ResponseEntity<?> findPassword(@Valid AuthFindPasswordReqDto authFindPasswordReqDto, BindingResult bindingResult) {
+        return ResponseEntity.ok(authService.findPassword(authFindPasswordReqDto));
+    }
+
 
 
 }
