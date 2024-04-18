@@ -2,6 +2,7 @@ package com.meeteam4.meeting.controller.board;
 
 import com.meeteam4.meeting.dto.*;
 import com.meeteam4.meeting.repository.BoardMapper;
+import com.meeteam4.meeting.service.CommentService;
 import com.meeteam4.meeting.service.StudyBoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,6 +16,9 @@ public class StudyBoardController {
 
     @Autowired
     private BoardMapper boardMapper;
+
+    @Autowired
+    private CommentService commentService;
 
     @PostMapping("/board")
     public ResponseEntity<?> studyBoardWrite(@RequestBody StudyBoardWriteReqDto studyBoardWriteReqDto) {
@@ -49,6 +53,31 @@ public class StudyBoardController {
     public ResponseEntity<?> updateStudyBoard(@PathVariable int studyBoardId, @RequestBody UpdateStudyBoardReqDto updateStudyBoardReqDto){
         studyBoardService.updateStudyBoard(updateStudyBoardReqDto);
 
+        return ResponseEntity.ok(true);
+    }
+
+    @PostMapping("/board/comment/{studyBoardId}")
+    public ResponseEntity<?> studentBoardComment(@PathVariable int studyBoardId, @RequestBody StudyCommentReqDto studyCommentReqDto){
+
+        commentService.saveStudyComment(studyCommentReqDto);
+
+
+        return ResponseEntity.ok(studyCommentReqDto);
+    }
+
+    @GetMapping("/board/comments/{studyBoardId}")
+    public ResponseEntity<?> getStudyComments(@PathVariable int studyBoardId){
+
+        return ResponseEntity.ok(commentService.getStudyComment(studyBoardId));
+    }
+    @DeleteMapping("/board/comment/{studyCommentId}")
+    public ResponseEntity<?> deleteStudyComment(@PathVariable int studyCommentId){
+        commentService.deleteStudyComment(studyCommentId);
+        return ResponseEntity.ok(true);
+    }
+    @PutMapping("/board/comment/{studyCommentId}")
+    public ResponseEntity<?> updateComment(@PathVariable int studyCommentId , @RequestBody UpdateStudyCommentReqDto updateStudyCommentReqDto){
+        commentService.updateStudyComment(updateStudyCommentReqDto);
         return ResponseEntity.ok(true);
     }
 

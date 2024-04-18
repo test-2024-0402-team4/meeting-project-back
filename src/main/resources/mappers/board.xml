@@ -56,6 +56,25 @@
         <result property="updateDate" column="update_date"/>
     </resultMap>
 
+    <resultMap id="StudyCommentResultMap" type="com.meeteam4.meeting.entity.StudyComment">
+        <id property="studyCommentId" column="study_comment_id"/>
+        <result property="studyBoardId" column="study_board_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="comment" column="comment"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+
+    </resultMap>
+
+    <resultMap id="BoardNoticeResultMap" type="com.meeteam4.meeting.entity.Notice">
+        <id property="noticeId" column="notice_id"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="viewCount" column="view_count"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+    </resultMap>
+
 
     <insert id="saveBoard" parameterType="com.meeteam4.meeting.entity.StudentBoard">
         insert into student_board_tb
@@ -418,4 +437,109 @@
             study_board_id = #{studyBoardId}
 
     </update>
+
+
+
+
+    <insert id="saveStudyComment" parameterType="com.meeteam4.meeting.entity.StudyComment">
+        insert into
+            study_comment_tb
+        values(
+            0,
+            #{studyBoardId},
+            #{userId},
+            #{comment},
+            now(),
+            now()
+        )
+
+    </insert>
+
+    <select id="getStudyComment" resultMap="StudyCommentResultMap">
+        select
+            study_comment_id,
+            study_board_id,
+            user_id,
+            comment,
+            create_date,
+            update_date
+        from
+            study_comment_tb
+        where
+            study_board_id = #{studyBoardId};
+
+    </select>
+
+    <delete id="deleteStudyCommentByCommentId">
+        delete
+        from
+            study_comment_tb
+        where
+            study_comment_id = #{studyCommentId}
+
+    </delete>
+
+    <update id="updateStudyCommentByCommentId" parameterType="com.meeteam4.meeting.entity.StudyComment">
+        update
+            study_comment_tb
+        set
+            comment = #{comment}
+        where
+            study_comment_id = #{studyCommentId}
+
+    </update>
+
+
+    <select id="searchNoticeBoard" resultMap="BoardNoticeResultMap">
+        select
+            notice_id,
+            title,
+            create_date,
+            view_count
+        from
+            notice_tb
+        where
+        1=1
+        <choose>
+            <when test="count != -1 ">
+                and(
+                title like concat('%', #{searchText},'%')
+                )
+            </when>
+        </choose>
+        limit #{startIndex}, #{count}
+
+    </select>
+
+    <select id="getNoticeCount" resultType="integer">
+        select
+            count(*)
+        from
+            notice_tb
+        where
+        1=1
+        <choose>
+            <when test="count != -1 ">
+                and(
+                title like concat('%', #{searchText},'%')
+                )
+            </when>
+        </choose>
+
+    </select>
+
+    <select id="getSingleNoticeBoard" resultMap="BoardNoticeResultMap">
+        select
+            notice_id,
+            title,
+            create_date,
+            content,
+            view_count,
+            update_date
+        from
+            notice_tb
+        where
+            notice_id = #{noticeId};
+
+    </select>
 </mapper>

@@ -79,6 +79,25 @@ public interface BoardMapper {
     public int updateStudyBoardByBoardId(StudyBoard studyBoard);
 
 
+    public int saveStudyComment(StudyComment studyComment);
+
+    public List<StudyComment> getStudyComment(int studyBoardId);
+
+    public int deleteStudyCommentByCommentId(int studyCommentId);
+
+    public int updateStudyCommentByCommentId(StudyComment studyComment);
+
+
+    public List<Notice> searchNoticeBoard(
+            @Param("startIndex") int startIndex,
+            @Param("count") int count,
+            @Param("searchText") String searchText
+    );
+    public int getNoticeCount(
+            @Param("count") int count,
+            @Param("searchText") String searchText
+    );
+    public Notice getSingleNoticeBoard(int noticeId);
 
 
 
