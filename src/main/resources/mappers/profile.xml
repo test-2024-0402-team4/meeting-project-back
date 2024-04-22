@@ -253,5 +253,14 @@
 
     </select>
 
+    <insert id="saveImgUrl" parameterType="com.meeteam4.meeting.entity.UserImgUrl">
+        insert into user_img_url_tb
+        values(
+        0,
+        #{userId},
+        #{userImgUrl}
+        )
+    </insert>
+
 
 </mapper>

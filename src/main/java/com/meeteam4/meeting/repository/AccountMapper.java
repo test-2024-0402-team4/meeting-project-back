@@ -45,7 +45,7 @@ public interface AccountMapper {
 
     public List<Poster> getPosters(@Param("posterIds") List<Integer> posterIds);
 
-
+    public int saveImgUrl(UserImgUrl userImgUrl);
 
 
 }

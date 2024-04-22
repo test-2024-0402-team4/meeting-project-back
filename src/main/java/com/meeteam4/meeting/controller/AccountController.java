@@ -1,14 +1,12 @@
 package com.meeteam4.meeting.controller;
 
 
-import com.meeteam4.meeting.dto.PosterReqDto;
-import com.meeteam4.meeting.dto.SearchPosterReqDto;
-import com.meeteam4.meeting.dto.SearchProfilesReqDto;
-import com.meeteam4.meeting.dto.TeacherProfileReqDto;
+import com.meeteam4.meeting.dto.*;
 import com.meeteam4.meeting.entity.Poster;
 import com.meeteam4.meeting.entity.Student;
 import com.meeteam4.meeting.security.PrincipalStudent;
 import com.meeteam4.meeting.service.AccountService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -72,5 +70,12 @@ public class AccountController {
     public ResponseEntity<?> getPosters(SearchPosterReqDto searchPosterReqDto) {
         System.out.println(searchPosterReqDto);
         return ResponseEntity.ok(accountService.getStudentPoster(searchPosterReqDto));
+    }
+
+    @PostMapping("/profile/image/{userId}")
+    public ResponseEntity<?> saveImgUrl(@RequestBody ImgUrlSaveReqDto imgUrlSaveReqDto){
+        accountService.saveImgUrl(imgUrlSaveReqDto);
+        return ResponseEntity.ok(imgUrlSaveReqDto);
+
     }
 }
