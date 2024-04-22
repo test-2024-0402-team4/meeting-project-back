@@ -5,6 +5,7 @@ import com.meeteam4.meeting.dto.*;
 import com.meeteam4.meeting.entity.Poster;
 import com.meeteam4.meeting.entity.Student;
 import com.meeteam4.meeting.security.PrincipalStudent;
+import com.meeteam4.meeting.security.PrincipalUser;
 import com.meeteam4.meeting.service.AccountService;
 import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,6 +77,14 @@ public class AccountController {
     public ResponseEntity<?> saveImgUrl(@RequestBody ImgUrlSaveReqDto imgUrlSaveReqDto){
         accountService.saveImgUrl(imgUrlSaveReqDto);
         return ResponseEntity.ok(imgUrlSaveReqDto);
+
+
+    @GetMapping("/principal")
+    public ResponseEntity<?> getPrincipal() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        PrincipalUser principalUser = (PrincipalUser) authentication.getPrincipal();
+        System.out.println(principalUser);
+        return ResponseEntity.ok(principalUser);
 
     }
 }

@@ -1,6 +1,8 @@
 package com.meeteam4.meeting.config;
 
 import com.meeteam4.meeting.security.exception.AuthEntryPoint;
+import com.meeteam4.meeting.security.filter.JwtAuthenticationFilter;
+import com.meeteam4.meeting.security.filter.PermitAllFilter;
 import com.meeteam4.meeting.security.handler.OAuth2SuccessHandler;
 import com.meeteam4.meeting.service.OAuth2PrincipalUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +12,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.LogoutFilter;
 
 @EnableWebSecurity
 @Configuration
@@ -20,6 +24,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private OAuth2PrincipalUserService oAuth2PrincipalUserService;
+
+    @Autowired
+    private JwtAuthenticationFilter jwtAuthenticationFilter;
+
+    @Autowired
+    private PermitAllFilter permitAllFilter;
 
     @Autowired
     private OAuth2SuccessHandler oAuth2SuccessHandler;
@@ -34,10 +44,20 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.cors();
         http.csrf().disable();
         http.authorizeRequests()
-                .antMatchers("/**")
+                .antMatchers("/auth")
                 .permitAll()
+//                .anyRequest()
+//                .authenticated()
+//                .antMatchers("/admin/**")
+//                .hasRole("ADMIN")
+//                .antMatchers("/student/**")
+//                .hasRole("STUDENT")
+//                .antMatchers("/teacher/**")
+//                .hasRole("TEACHER")
 
                 .and()
+                .addFilterAfter(permitAllFilter, LogoutFilter.class)
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling()
                 .authenticationEntryPoint(authEntryPoint)
 
