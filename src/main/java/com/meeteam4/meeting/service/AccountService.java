@@ -282,4 +282,9 @@ public class AccountService {
 
         return searchPosters;
     }
+    public void saveImgUrl(ImgUrlSaveReqDto urlSaveReqDto){
+        System.out.println(urlSaveReqDto);
+        accountMapper.saveImgUrl(urlSaveReqDto.toEntity());
+    }
+
 }
