@@ -8,6 +8,7 @@
     <resultMap id="RoleResultMap" type="com.meeteam4.meeting.entity.Role">
         <id property="roleId" column="role_id" />
         <result property="roleName" column="role_name" />
+        <result property="roleNameKor" column="rloe_name_kor" />
     </resultMap>
 
     <resultMap id="RoleRegisterResultMap" type="com.meeteam4.meeting.entity.RoleRegister">
@@ -31,6 +32,7 @@
         <association property="student" resultMap="StudentResultMap"/>
         <collection property="roleRegisters" javaType="List" resultMap="RoleRegisterResultMap" />
     </resultMap>
+
     <resultMap id="StudentResultMap" type="com.meeteam4.meeting.entity.Student">
         <id property="studentId" column="student_id" />
         <result property="userId" column="user_id"/>
@@ -42,6 +44,7 @@
         <result property="createDate" column="create_date"/>
         <result property="updateDate" column="update_date"/>
     </resultMap>
+
     <resultMap id="TeacherResultMap" type="com.meeteam4.meeting.entity.Teacher">
         <id property="teacherId" column="teacher_id" />
         <result property="userId" column="user_id"/>
@@ -121,6 +124,7 @@
             rrt.role_register_id,
             rrt.role_id,
             rt.role_name,
+            rt.role_name_kor,
             tt.teacher_id,
             st.student_id
         from
@@ -190,6 +194,7 @@
             rrt.role_register_id,
             rrt.role_id,
             rt.role_name,
+            rt.role_name_kor,
             oat.oauth2_id,
             oat.oauth2_name,
             oat.provider_name
@@ -223,7 +228,9 @@
             resultMap="UserResultMap"
     >
         select
-            *
+            ut.name,
+            ut.username,
+            ut.email
         from
             user_tb ut
             left outer join student_tb st on(st.user_id = ut.user_id)
@@ -231,5 +238,17 @@
         where
             username = #{username} and email = #{email}
     </select>
+
+    <update id="modifyPassword"
+            parameterType="com.meeteam4.meeting.entity.User"
+    >
+        update
+            user_tb
+        set
+            password = #{password},
+            update_date = now()
+        where
+            username = #{username}
+    </update>
 
 </mapper>

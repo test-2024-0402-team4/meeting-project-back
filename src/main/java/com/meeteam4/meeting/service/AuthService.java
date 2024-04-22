@@ -10,6 +10,8 @@ import com.meeteam4.meeting.jwt.JwtProvider;
 import com.meeteam4.meeting.repository.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -51,6 +53,8 @@ public class AuthService {
     public String signin(SigninReqDto signinReqDto) {
 
         User user = userMapper.findByUsername(signinReqDto.getUsername());
+
+        System.out.println(user);
 
         if(user == null) {
             throw new UsernameNotFoundException("사용자 정보를 확인하세요.");
@@ -118,6 +122,7 @@ public class AuthService {
         return username;
     }
 
+    // 비밀번호 찾기 - 확인
     public int findPassword(AuthFindPasswordReqDto authFindPasswordReqDto) {
         User user = userMapper.findPassword(authFindPasswordReqDto.getUsername(), authFindPasswordReqDto.getEmail());
 
@@ -135,8 +140,17 @@ public class AuthService {
 //        }else if(email == null) {
 //            throw new BadCredentialsException("이메일을 확인하세요.");
 //        }
-
         return 1;
+    }
+
+    // 비밀번호 찾기 - 수정
+    public String modifyPassword(ModifyPasswordReqDto modifyPasswordReqDto) {
+
+        User user = userMapper.findByUsername(modifyPasswordReqDto.getUsername());
+//        System.out.println(user);
+        user.setPassword(passwordEncoder.encode(modifyPasswordReqDto.getNewPassword()));
+        userMapper.modifyPassword(user);
+        return "비밀번호 변경완료";
     }
 
 }

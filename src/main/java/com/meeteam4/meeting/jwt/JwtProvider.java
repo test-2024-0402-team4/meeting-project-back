@@ -15,6 +15,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
 
 import java.security.Key;
 import java.util.Collection;
@@ -43,7 +44,7 @@ public class JwtProvider {
 
         // 토큰 유효기간
         // 1000(1밀리초) * 60(60초) * 60(60분) * 24(24시간) * 20일(일)
-        Date expireDate = new Date(new Date().getTime() + (1000 * 60));
+        Date expireDate = new Date(new Date().getTime() + (1000 * 60 * 60));
 
         String accessToken = Jwts.builder()
                 .claim("userId", userId)
@@ -69,5 +70,26 @@ public class JwtProvider {
         }
         PrincipalUser principalUser = user.toprincipalUser();
         return new UsernamePasswordAuthenticationToken(principalUser, principalUser.getPassword(), principalUser.getAuthorities());
+    }
+
+    public String removeBearer(String token) {
+
+        if(!StringUtils.hasText(token)) {
+            return null;
+        }
+        System.out.println(token);
+
+        return token.substring("Bearer ".length());
+    }
+
+
+    public Claims getClaims(String token) {
+        Claims claims = null;
+        claims = Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody();
+        return claims;
     }
 }
