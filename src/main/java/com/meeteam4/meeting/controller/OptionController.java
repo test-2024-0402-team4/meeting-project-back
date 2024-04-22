@@ -31,5 +31,21 @@ public class OptionController {
     public ResponseEntity<?> getGraduateState() {
         return ResponseEntity.ok(authOptionService.getGraduateState());
     }
+    // 과목 옵션
+    @GetMapping("/subjects")
+    public ResponseEntity<?> getSubject() {
+        return ResponseEntity.ok(authOptionService.getSubject());
+    }
+    // 대면, 비대면 옵션
+    @GetMapping("/classType")
+    public ResponseEntity<?> getClassType() {
+        return ResponseEntity.ok(authOptionService.getClassType());
+    }
+
+    // 요일(월 ~ 일) 옵션
+    @GetMapping("/date")
+    public ResponseEntity<?> getDate() {
+        return ResponseEntity.ok(authOptionService.getDate());
+    }
 
 }

@@ -26,6 +26,22 @@
         <result property="graduateState" column="graduate_state" />
     </resultMap>
 
+    <resultMap id="SubjectResultMap" type="com.meeteam4.meeting.entity.Subject">
+        <id property="subjectId" column="subject_id"/>
+        <result property="subjectName" column="subject_name"/>
+    </resultMap>
+
+    <resultMap id="ClassTypeResultMap" type="com.meeteam4.meeting.entity.ClassType">
+        <id property="classTypeId" column="class_type_id"/>
+        <result property="classType" column="class_type"/>
+    </resultMap>
+
+    <resultMap id="DateResultMap" type="com.meeteam4.meeting.entity.Date">
+        <id property="dateId" column="date_id"/>
+        <result property="dateType" column="date_type"/>
+
+    </resultMap>
+
     <select id="getRegion" resultMap="RegionResultMap">
         select
             region_id,
@@ -57,6 +73,30 @@
             graduate_state
         from
             graduate_state_tb
+    </select>
+
+    <select id="getSubject" resultMap="SubjectResultMap">
+        select
+            subject_id,
+            subject_name
+        from
+            subject_tb
+    </select>
+
+    <select id="getClassType" resultMap="ClassTypeResultMap">
+        select
+            class_type_id,
+            class_type
+        from
+            class_type_tb
+    </select>
+
+    <select id="getDate" resultMap="DateResultMap">
+        select
+            date_id,
+            date_type
+        from
+            date_tb
     </select>
 
 

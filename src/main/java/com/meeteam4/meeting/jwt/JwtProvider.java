@@ -77,7 +77,7 @@ public class JwtProvider {
         if(!StringUtils.hasText(token)) {
             return null;
         }
-        System.out.println(token);
+//        System.out.println(token);
 
         return token.substring("Bearer ".length());
     }

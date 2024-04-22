@@ -79,12 +79,14 @@ public class AccountController {
         return ResponseEntity.ok(imgUrlSaveReqDto);
     }
 
+    }
+
 
     @GetMapping("/principal")
     public ResponseEntity<?> getPrincipal() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         PrincipalUser principalUser = (PrincipalUser) authentication.getPrincipal();
-        System.out.println(principalUser);
+//        System.out.println(principalUser);
         return ResponseEntity.ok(principalUser);
 
     }
