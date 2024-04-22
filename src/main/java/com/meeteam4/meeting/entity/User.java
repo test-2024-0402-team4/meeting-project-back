@@ -1,6 +1,7 @@
 package com.meeteam4.meeting.entity;
 
 import com.meeteam4.meeting.dto.SearchProfilesRespDto;
+import com.meeteam4.meeting.dto.StudentProfileRespDto;
 import com.meeteam4.meeting.security.PrincipalUser;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,6 +35,7 @@ public class User {
     private Student student;
     private University university;
     private GraduateState graduateState;
+    private UserImgUrl userImgUrl;
     private List<SubjectRegister> subjectRegister;
     private List<DateRegister> dateRegister;
     private List<ClassTypeRegister> classTypeRegister;
@@ -76,5 +78,16 @@ public class User {
 
 
         return searchProfile;
+    }
+
+    public StudentProfileRespDto toStudentProfileRespDto(){
+        return StudentProfileRespDto.builder()
+                .userId(userId)
+                .nickname(nickname)
+                .userImgUrl(userImgUrl.getUserImgUrl())
+                .genderType(gender.getGenderType())
+                .regionName(regionRegister.get(0).getRegion().getRegionName())
+                .roleNameKor(roleRegisters.get(0).getRole().getRoleNameKor())
+                .build();
     }
 }

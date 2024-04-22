@@ -47,5 +47,6 @@ public interface AccountMapper {
 
     public int saveImgUrl(UserImgUrl userImgUrl);
 
+    public User getStudentProfile(int userId);
 
 }

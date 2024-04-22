@@ -74,9 +74,10 @@ public class AccountController {
     }
 
     @PostMapping("/profile/image/{userId}")
-    public ResponseEntity<?> saveImgUrl(@RequestBody ImgUrlSaveReqDto imgUrlSaveReqDto){
+    public ResponseEntity<?> saveImgUrl(@RequestBody ImgUrlSaveReqDto imgUrlSaveReqDto) {
         accountService.saveImgUrl(imgUrlSaveReqDto);
         return ResponseEntity.ok(imgUrlSaveReqDto);
+    }
 
 
     @GetMapping("/principal")
@@ -86,5 +87,9 @@ public class AccountController {
         System.out.println(principalUser);
         return ResponseEntity.ok(principalUser);
 
+    }
+    @GetMapping("/student/profile/{userId}")
+    public ResponseEntity<?> getStudentProfile(@PathVariable int userId){
+        return  ResponseEntity.ok(accountService.getStudentProfile(userId));
     }
 }

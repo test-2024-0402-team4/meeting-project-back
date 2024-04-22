@@ -287,4 +287,10 @@ public class AccountService {
         accountMapper.saveImgUrl(urlSaveReqDto.toEntity());
     }
 
+    public StudentProfileRespDto getStudentProfile(int userId){
+        User studentProfile = accountMapper.getStudentProfile(userId);
+        System.out.println(studentProfile);
+        return studentProfile.toStudentProfileRespDto();
+    }
+
 }
