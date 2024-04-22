@@ -8,6 +8,7 @@ import com.meeteam4.meeting.dto.TeacherProfileReqDto;
 import com.meeteam4.meeting.entity.Poster;
 import com.meeteam4.meeting.entity.Student;
 import com.meeteam4.meeting.security.PrincipalStudent;
+import com.meeteam4.meeting.security.PrincipalUser;
 import com.meeteam4.meeting.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -72,5 +73,13 @@ public class AccountController {
     public ResponseEntity<?> getPosters(SearchPosterReqDto searchPosterReqDto) {
         System.out.println(searchPosterReqDto);
         return ResponseEntity.ok(accountService.getStudentPoster(searchPosterReqDto));
+    }
+
+    @GetMapping("/principal")
+    public ResponseEntity<?> getPrincipal() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        PrincipalUser principalUser = (PrincipalUser) authentication.getPrincipal();
+        System.out.println(principalUser);
+        return ResponseEntity.ok(principalUser);
     }
 }

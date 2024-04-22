@@ -39,15 +39,14 @@ public class User {
     private List<ClassTypeRegister> classTypeRegister;
     private List<RegionRegister> regionRegister;
 
-
     private List<RoleRegister> roleRegisters;
     public List<SimpleGrantedAuthority> getAuthorities() {
 
         String roleName = null;
         if(roleId == 1) {
-            roleName = "학생";
+            roleName = "USER_STUDENT";
         } else if (roleId== 2) {
-            roleName = "선생";
+            roleName = "USER_TEACHER";
         }
 
         List<SimpleGrantedAuthority> authorities = new ArrayList<>();

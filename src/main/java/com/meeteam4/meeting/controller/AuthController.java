@@ -3,9 +3,12 @@ package com.meeteam4.meeting.controller;
 
 import com.meeteam4.meeting.aop.annotation.ValidAspect;
 import com.meeteam4.meeting.dto.*;
+import com.meeteam4.meeting.security.PrincipalUser;
 import com.meeteam4.meeting.service.AuthService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -54,12 +57,21 @@ public class AuthController {
         return ResponseEntity.ok(authService.findId(authFindIdReqDto));
     }
 
-    // 비밀번호 찾기
+    // 비밀번호 찾기 - 확인
     @ValidAspect
     @GetMapping("/findPassword")
     public ResponseEntity<?> findPassword(@Valid AuthFindPasswordReqDto authFindPasswordReqDto, BindingResult bindingResult) {
         return ResponseEntity.ok(authService.findPassword(authFindPasswordReqDto));
     }
+
+    // 비밀번호 찾기 - 수정
+    @ValidAspect
+    @PutMapping("/modifyPassword")
+    public ResponseEntity<?> modifyPassword(@Valid @RequestBody ModifyPasswordReqDto modifyPasswordReqDto, BindingResult bindingResult) {
+        return ResponseEntity.ok(authService.modifyPassword(modifyPasswordReqDto));
+    }
+
+
 
 
 
