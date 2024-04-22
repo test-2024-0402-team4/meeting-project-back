@@ -18,10 +18,12 @@
         <association property="university" resultMap="UniversityResultMap"/>
         <association property="gender" resultMap="GenderResultMap"/>
         <association property="graduateState" resultMap="GraduateStateResultMap"/>
+        <association property="userImgUrl" resultMap="UserImgUrlResultMap"/>
         <collection property="regionRegister" javaType="list" resultMap="RegionRegisterResultMap"/>
         <collection property="subjectRegister" javaType="list" resultMap="SubjectRegisterResultMap"/>
         <collection property="dateRegister" javaType="list" resultMap="DateRegisterResultMap"/>
         <collection property="classTypeRegister" javaType="list" resultMap="ClassTypeRegisterResultMap"/>
+        <collection property="roleRegisters" javaType="list" resultMap="RoleRegisterResultMap"/>
      </resultMap>
     <resultMap id="TeacherResultMap" type="com.meeteam4.meeting.entity.Teacher">
         <id property="teacherId" column="teacher_id" />
@@ -53,6 +55,19 @@
     <resultMap id="UniversityResultMap" type="com.meeteam4.meeting.entity.University" >
         <id property="universityId" column="university_id"/>
         <result property="universityName" column="university_name"/>
+    </resultMap>
+
+    <resultMap id="UserImgUrlResultMap" type="com.meeteam4.meeting.entity.UserImgUrl">
+        <id property="userImgUrlId" column="user_img_url_id"/>
+        <result property="userId" column="user_id" />
+        <result property="userImgUrl" column="user_img_url" />
+    </resultMap>
+
+    <resultMap id="RoleResultMap" type="com.meeteam4.meeting.entity.Role">
+        <id property="roleId" column="role_id"/>
+        <result property="roleName" column="role_name" />
+        <result property="roleNameKor" column="role_name_kor" />
+
     </resultMap>
     <resultMap id="RegionRegisterResultMap" type="com.meeteam4.meeting.entity.RegionRegister">
         <id property="regionRegisterId" column="region_register_id"/>
@@ -102,6 +117,15 @@
     <resultMap id="GraduateStateResultMap" type="com.meeteam4.meeting.entity.GraduateState">
         <id property="graduateStateId" column="graduate_state_id"/>
         <result property="graduateState" column="graduate_state"/>
+    </resultMap>
+
+    <resultMap id="RoleRegisterResultMap" type="com.meeteam4.meeting.entity.RoleRegister">
+        <id property="roleRegisterId" column="role_register_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="roleId" column="role_id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+        <association property="role" resultMap="RoleResultMap"/>
     </resultMap>
 
 
@@ -261,6 +285,31 @@
         #{userImgUrl}
         )
     </insert>
+    
+    <select id="getStudentProfile" resultMap="UserResultMap">
+        select
+            ut.user_id,
+            ut.nickname,
+            uiut.user_img_url,
+            gt.gender_type,
+            rgt.region_name,
+            rrt.role_id,
+            rt.role_name_kor
+        from
+            user_tb ut
+
+            left outer join user_img_url_tb uiut on(uiut.user_id = ut.user_id)
+            left outer join student_tb st on(st.user_id = ut.user_id)
+            left outer join gender_tb gt on(gt.gender_id = st.gender_id)
+            left outer join region_tb rgt on(rgt.region_id= st.region_id)
+            left outer join role_register_tb rrt on(rrt.user_id = ut.user_id)
+            left outer join role_tb rt on(rt.role_id = rrt.role_id)
+        where
+            ut.user_id = #{userId};
+
+    </select>
+
+
 
 
 </mapper>
