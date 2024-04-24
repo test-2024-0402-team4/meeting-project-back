@@ -182,6 +182,63 @@
         order by
             dt.date_id asc;
     </select>
+    <select id="getStudentMyPosters" resultMap="PosterResultMap">
+        select
+            pt.poster_id,
+            pt.user_id,
+            pt.title,
+            gt.gender_type,
+            stt.student_type,
+            rt.region_name,
+            pt.content,
+            st.subject_name,
+            dt.date_type,
+            ctt.class_type
+        from
+            poster_tb pt
+            left outer join poster_subject_register_tb psrt on(psrt.poster_id = pt.poster_id)
+            left outer join gender_tb gt on(gt.gender_id = pt.gender_id)
+            left outer join student_type_tb stt on(stt.student_type_id = pt.student_type_id)
+            left outer join region_tb rt on(rt.region_id = pt.region_id)
+            left outer join subject_tb st on(st.subject_id = psrt.subject_id)
+            left outer join poster_date_register_tb pdrt on(pdrt.poster_id = pt.poster_id)
+            left outer join date_tb dt on(dt.date_id = pdrt.date_id)
+            left outer join poster_class_type_id_register_tb pctirt on(pctirt.poster_id = pt.poster_id)
+            left outer join class_type_tb ctt on(ctt.class_type_id = pctirt.class_type_id)
+        where
+            pt.user_id = #{userId}
+        order by
+            dt.date_id asc;
+    </select>
+    <select id="getStudentMyPoster" resultMap="PosterResultMap">
+        select
+            pt.poster_id,
+            pt.user_id,
+            pt.title,
+            gt.gender_type,
+            stt.student_type,
+            rt.region_name,
+            pt.content,
+            st.subject_name,
+            dt.date_type,
+            ctt.class_type
+        from
+            poster_tb pt
+            left outer join poster_subject_register_tb psrt on(psrt.poster_id = pt.poster_id)
+            left outer join gender_tb gt on(gt.gender_id = pt.gender_id)
+            left outer join student_type_tb stt on(stt.student_type_id = pt.student_type_id)
+            left outer join region_tb rt on(rt.region_id = pt.region_id)
+            left outer join subject_tb st on(st.subject_id = psrt.subject_id)
+            left outer join poster_date_register_tb pdrt on(pdrt.poster_id = pt.poster_id)
+            left outer join date_tb dt on(dt.date_id = pdrt.date_id)
+            left outer join poster_class_type_id_register_tb pctirt on(pctirt.poster_id = pt.poster_id)
+            left outer join class_type_tb ctt on(ctt.class_type_id = pctirt.class_type_id)
+        where
+            pt.poster_id = #{posterId}
+        order by
+            dt.date_id asc;
+
+    </select>
 
 
 </mapper>

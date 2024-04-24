@@ -34,7 +34,7 @@ public class AccountService {
        return userDataRespDto;
     }
 
-    // 필수 정보 등록
+    // 선생님 필수 정보 등록
     @Transactional(rollbackFor = Exception.class)
     public void saveTeacherProfile(TeacherProfileReqDto teacherProfileReqDto) {
         DateRegister dateRegister = DateRegister.builder()
@@ -70,6 +70,8 @@ public class AccountService {
         }
 
     }
+
+
 
     // 검색 필터
     @Transactional(rollbackFor = Exception.class)
@@ -151,10 +153,12 @@ public class AccountService {
     }
     // 단건 프로필 조회
     @Transactional(rollbackFor = Exception.class)
-    public SearchProfilesRespDto getTeacherProfileRespDto(List<Integer> userId) {
+    public SearchProfilesRespDto getTeacherProfileRespDto(Integer userId) {
+        List<Integer> userIds = new ArrayList<>();
+        userIds.add(userId);
 
-        List<User> users = accountMapper.getTeacherProfiles(userId);
-        if(userId.isEmpty()) {
+        List<User> users = accountMapper.getTeacherProfiles(userIds);
+        if(userIds.isEmpty()) {
             return null;
         }
         List<SearchProfilesRespDto> searchProfiles = new ArrayList<>();
@@ -163,6 +167,7 @@ public class AccountService {
             // User 클래스의 toSearchProfilesRespDto 메서드를 호출하여 검색 프로필을 생성
             SearchProfilesRespDto searchProfile = user.toSearchProfilesRespDto();
 
+            searchProfile.setUserImgUrl(user.getUserImgUrl().getUserImgUrl());
             // Teacher 처리
             searchProfile.setDepartmentName(user.getTeacher().getDepartmentName());
             searchProfile.setBirthDate(user.getTeacher().getBirthDate());
@@ -251,6 +256,7 @@ public class AccountService {
 
         for (Poster poster : posters) {
             SearchPosterRespDto searchPosterRespDto = poster.toSearchPosterRespDto();
+            searchPosterRespDto.setPosterId(poster.getPosterId());
             searchPosterRespDto.setGenderType(poster.getGender().getGenderType());
             searchPosterRespDto.setStudentType(poster.getStudentType().getStudentType());
             searchPosterRespDto.setRegionName(poster.getRegion().getRegionName());
@@ -279,8 +285,6 @@ public class AccountService {
             searchPosters.add(searchPosterRespDto);
 
         }
-
-
         return searchPosters;
     }
     public void saveImgUrl(ImgUrlSaveReqDto urlSaveReqDto){
@@ -292,6 +296,75 @@ public class AccountService {
         User studentProfile = accountMapper.getStudentProfile(userId);
         System.out.println(studentProfile);
         return studentProfile.toStudentProfileRespDto();
+    }
+    public List<SearchPosterRespDto> getStudentMyPosters(int userId) {
+
+        List<Poster> posters = accountMapper.getStudentMyPosters(userId);
+        System.out.println(posters);
+        List<SearchPosterRespDto> searchPosters = new ArrayList<>();
+
+        for (Poster poster : posters) {
+            SearchPosterRespDto searchPosterRespDto = poster.toSearchPosterRespDto();
+            searchPosterRespDto.setPosterId(poster.getPosterId());
+            searchPosterRespDto.setGenderType(poster.getGender().getGenderType());
+            searchPosterRespDto.setStudentType(poster.getStudentType().getStudentType());
+            searchPosterRespDto.setRegionName(poster.getRegion().getRegionName());
+
+            List<String> subjectNames = poster.getPosterSubjectRegister().stream()
+                    .map(ps -> ps.getSubject().getSubjectName())
+                    .distinct()
+                    .collect(Collectors.toList());
+
+            searchPosterRespDto.setSubjectName(subjectNames);
+            System.out.println(subjectNames);
+
+            List<String> dateTypes = poster.getPosterDateRegister().stream()
+                    .map(pd -> pd.getDate().getDateType())
+                    .distinct()
+                    .collect(Collectors.toList());
+            searchPosterRespDto.setDateType(dateTypes);
+            System.out.println(dateTypes);
+
+            List<String> classTypes = poster.getPosterClassTypeRegister().stream()
+                    .map(pct -> pct.getClassType().getClassType())
+                    .distinct()
+                    .collect(Collectors.toList());
+            searchPosterRespDto.setClassType(classTypes);
+
+            searchPosters.add(searchPosterRespDto);
+        }
+        return searchPosters;
+    }
+    public SearchPosterRespDto getMyposter(int posterId) {
+        Poster poster = accountMapper.getStudentMyPoster(posterId);
+        SearchPosterRespDto searchPosterRespDto = poster.toSearchPosterRespDto();
+        searchPosterRespDto.setPosterId(poster.getPosterId());
+        searchPosterRespDto.setGenderType(poster.getGender().getGenderType());
+        searchPosterRespDto.setStudentType(poster.getStudentType().getStudentType());
+        searchPosterRespDto.setRegionName(poster.getRegion().getRegionName());
+
+        List<String> subjectNames = poster.getPosterSubjectRegister().stream()
+                .map(ps -> ps.getSubject().getSubjectName())
+                .distinct()
+                .collect(Collectors.toList());
+
+        searchPosterRespDto.setSubjectName(subjectNames);
+        System.out.println(subjectNames);
+
+        List<String> dateTypes = poster.getPosterDateRegister().stream()
+                .map(pd -> pd.getDate().getDateType())
+                .distinct()
+                .collect(Collectors.toList());
+        searchPosterRespDto.setDateType(dateTypes);
+        System.out.println(dateTypes);
+
+        List<String> classTypes = poster.getPosterClassTypeRegister().stream()
+                .map(pct -> pct.getClassType().getClassType())
+                .distinct()
+                .collect(Collectors.toList());
+        searchPosterRespDto.setClassType(classTypes);
+
+        return searchPosterRespDto;
     }
 
 }
