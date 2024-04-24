@@ -32,7 +32,6 @@ public interface AccountMapper {
                                        );
     public List<User> getTeacherProfiles(@Param("userIds") List<Integer> distinctUserIds);
 
-
     public int saveStudentPoster(Poster poster);
     public int savePosterDate(PosterDateRegister posterDateRegister);
     public int savePosterSubjectIds(PosterSubjectRegister posterSubjectRegister);
@@ -44,6 +43,10 @@ public interface AccountMapper {
                                          @Param("classTypeIds") List<Integer> classTypeId);
 
     public List<Poster> getPosters(@Param("posterIds") List<Integer> posterIds);
+
+    public List<Poster> getStudentMyPosters(@Param("userId") int userId);
+
+    public Poster getStudentMyPoster(@Param("posterId") int posterId);
 
     public int saveImgUrl(UserImgUrl userImgUrl);
 

@@ -57,8 +57,7 @@ public class AccountController {
     }
 
     @GetMapping("/teacher/profile")
-    public ResponseEntity<?> getTeacherProfile(@RequestParam List<Integer> userId ) {
-
+    public ResponseEntity<?> getTeacherProfile(@RequestParam("userId") Integer userId) {
         return ResponseEntity.ok(accountService.getTeacherProfileRespDto(userId));
     }
 
@@ -74,6 +73,20 @@ public class AccountController {
         return ResponseEntity.ok(accountService.getStudentPoster(searchPosterReqDto));
     }
 
+    @GetMapping("/student/myposters")
+    public ResponseEntity<?> getMyPosters(@RequestParam("userId") Integer userId) {
+        System.out.println(accountService.getStudentMyPosters(userId));
+
+        return ResponseEntity.ok(accountService.getStudentMyPosters(userId));
+    }
+
+    @GetMapping("/student/myposter")
+    public ResponseEntity<?> getMyPoster(@RequestParam("posterId") Integer posterId) {
+        System.out.println(accountService.getMyposter(posterId));
+
+        return ResponseEntity.ok(accountService.getMyposter(posterId));
+    }
+
     @PostMapping("/profile/image/{userId}")
     public ResponseEntity<?> saveImgUrl(@RequestBody ImgUrlSaveReqDto imgUrlSaveReqDto) {
         accountService.saveImgUrl(imgUrlSaveReqDto);
@@ -85,7 +98,6 @@ public class AccountController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         PrincipalUser principalUser = (PrincipalUser) authentication.getPrincipal();
         return ResponseEntity.ok(principalUser);
-
     }
 
     @GetMapping("/student/profile/{userId}")

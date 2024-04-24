@@ -15,7 +15,4 @@ public class SearchProfilesReqDto {
     private List<Integer> regionIds;
     private List<Integer> dateIds;
     private List<Integer> classTypeIds;
-
-
-
 }
