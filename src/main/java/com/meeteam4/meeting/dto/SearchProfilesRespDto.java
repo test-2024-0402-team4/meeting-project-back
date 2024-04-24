@@ -13,6 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 public class SearchProfilesRespDto {
     private int userId;
+    private String userImgUrl;
     private String nickname;
     private String email;
     private String birthDate;

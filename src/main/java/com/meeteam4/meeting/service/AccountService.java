@@ -92,7 +92,7 @@ public class AccountService {
 
         // DB에서 가져온 userIds 중복 제거
         List<Integer> distinctUserIds = userIds.stream().distinct().collect(Collectors.toList());
-        System.out.println(distinctUserIds);;
+        System.out.println(distinctUserIds);
 
         if(distinctUserIds.isEmpty()) {
             return null;
@@ -105,6 +105,7 @@ public class AccountService {
             // User 클래스의 toSearchProfilesRespDto 메서드를 호출하여 검색 프로필을 생성
             SearchProfilesRespDto searchProfile = user.toSearchProfilesRespDto();
 
+                searchProfile.setUserImgUrl(user.getUserImgUrl().getUserImgUrl());
             // Teacher 처리
                 searchProfile.setDepartmentName(user.getTeacher().getDepartmentName());
             // GraduateState 처리
