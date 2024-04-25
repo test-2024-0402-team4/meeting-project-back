@@ -33,6 +33,8 @@ public interface AccountMapper {
     public List<User> getTeacherProfiles(@Param("userIds") List<Integer> distinctUserIds);
 
     public int saveStudentPoster(Poster poster);
+    public int modifyStudentPoster(Poster poster);
+
     public int savePosterDate(PosterDateRegister posterDateRegister);
     public int savePosterSubjectIds(PosterSubjectRegister posterSubjectRegister);
     public int savePosterClassTypeIds(PosterClassTypeRegister posterClassTypeRegister);
