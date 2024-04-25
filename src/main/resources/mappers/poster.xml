@@ -117,13 +117,16 @@
         where
             1=1
             <!-- regionIds -->
-            <if test="regionId != null and regionId != 0">
-                and pt.region_id in
-                    ( #{regionId} )
+            <if test="regionIds != null and regionIds.size() > 0">
+                and rrt.region_id in (
+                <foreach collection="regionIds" item="regionId" separator=",">
+                    #{regionId}
+                </foreach>
+                )
             </if>
             <!-- subjectIds -->
             <if test="subjectIds != null and subjectIds.size() > 0">
-                and psrt.subject_id in (
+                and srt.subject_id in (
                 <foreach collection="subjectIds" item="subjectId" separator=",">
                     #{subjectId}
                 </foreach>
@@ -131,7 +134,7 @@
             </if>
             <!-- dateIds -->
             <if test="dateIds != null and dateIds.size() > 0">
-                and pdrt.date_id in (
+                and drt.date_id in (
                 <foreach collection="dateIds" item="dateId" separator=",">
                     #{dateId}
                 </foreach>
@@ -139,7 +142,7 @@
             </if>
             <!-- classTypeIds -->
             <if test="classTypeIds != null and classTypeIds.size() > 0">
-                and pctirt.class_type_id in (
+                and ctrt.class_type_id in (
                 <foreach collection="classTypeIds" item="classTypeId" separator=",">
                     #{classTypeId}
                 </foreach>
@@ -238,6 +241,34 @@
         order by
             dt.date_id asc;
 
+    </select>
+    <select id="getPoster" resultMap="PosterResultMap">
+        select
+            pt.poster_id,
+            pt.user_id,
+            pt.title,
+            gt.gender_type,
+            stt.student_type,
+            rt.region_name,
+            pt.content,
+            st.subject_name,
+            dt.date_type,
+            ctt.class_type
+        from
+            poster_tb pt
+            left outer join poster_subject_register_tb psrt on(psrt.poster_id = pt.poster_id)
+            left outer join gender_tb gt on(gt.gender_id = pt.gender_id)
+            left outer join student_type_tb stt on(stt.student_type_id = pt.student_type_id)
+            left outer join region_tb rt on(rt.region_id = pt.region_id)
+            left outer join subject_tb st on(st.subject_id = psrt.subject_id)
+            left outer join poster_date_register_tb pdrt on(pdrt.poster_id = pt.poster_id)
+            left outer join date_tb dt on(dt.date_id = pdrt.date_id)
+            left outer join poster_class_type_id_register_tb pctirt on(pctirt.poster_id = pt.poster_id)
+            left outer join class_type_tb ctt on(ctt.class_type_id = pctirt.class_type_id)
+        where
+            pt.poster_id = #{posterId}
+        order by
+            dt.date_id asc;
     </select>
 
 

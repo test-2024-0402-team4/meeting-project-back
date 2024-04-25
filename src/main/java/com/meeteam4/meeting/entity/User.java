@@ -13,6 +13,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @Builder
@@ -44,16 +45,10 @@ public class User {
     private List<RoleRegister> roleRegisters;
     public List<SimpleGrantedAuthority> getAuthorities() {
 
-        String roleName = null;
-        if(roleId == 1) {
-            roleName = "USER_STUDENT";
-        } else if (roleId== 2) {
-            roleName = "USER_TEACHER";
-        }
-
-        List<SimpleGrantedAuthority> authorities = new ArrayList<>();
-            authorities.add(new SimpleGrantedAuthority(roleName));
-        return authorities;
+        return roleRegisters.stream()
+                .map(roleRegister ->
+                        new SimpleGrantedAuthority(roleRegister.getRole().getRoleName()))
+                .collect(Collectors.toList());
     }
 
     public PrincipalUser toprincipalUser() {

@@ -225,17 +225,14 @@ public class AccountService {
         if(successCount < 4 ){
             throw new SaveException();
         }
-
         return successCount;
     }
 
     // 학생 공고 조회
     @Transactional(rollbackFor = Exception.class)
-    public List<SearchPosterRespDto> getStudentPoster(SearchPosterReqDto searchPosterReqDto) {
+    public List<SearchPosterRespDto> getStudentPosters(SearchPosterReqDto searchPosterReqDto) {
         List<Integer> posterIds = new ArrayList<>();
-        if(searchPosterReqDto.getRegionId() == null) {
-            searchPosterReqDto.setRegionId(0);
-        }
+
         System.out.println(posterIds);
 
         posterIds.addAll(accountMapper.searchPosterIds(
@@ -248,8 +245,6 @@ public class AccountService {
         if(posterIds.isEmpty()) {
             return null;
         }
-
-
         List<Poster> posters = accountMapper.getPosters(posterIds);
         System.out.println(posters);
         List<SearchPosterRespDto> searchPosters = new ArrayList<>();
@@ -287,6 +282,43 @@ public class AccountService {
         }
         return searchPosters;
     }
+
+    public SearchPosterRespDto getStudentPoster(int posterId) {
+
+        Poster poster = accountMapper.getPoster(posterId);
+        System.out.println(poster);
+
+        SearchPosterRespDto searchPosterRespDto = poster.toSearchPosterRespDto();
+        searchPosterRespDto.setPosterId(poster.getPosterId());
+        searchPosterRespDto.setGenderType(poster.getGender().getGenderType());
+        searchPosterRespDto.setStudentType(poster.getStudentType().getStudentType());
+        searchPosterRespDto.setRegionName(poster.getRegion().getRegionName());
+
+        List<String> subjectNames = poster.getPosterSubjectRegister().stream()
+                .map(ps -> ps.getSubject().getSubjectName())
+                .distinct()
+                .collect(Collectors.toList());
+
+        searchPosterRespDto.setSubjectName(subjectNames);
+        System.out.println(subjectNames);
+
+        List<String> dateTypes = poster.getPosterDateRegister().stream()
+                .map(pd -> pd.getDate().getDateType())
+                .distinct()
+                .collect(Collectors.toList());
+        searchPosterRespDto.setDateType(dateTypes);
+        System.out.println(dateTypes);
+
+        List<String> classTypes = poster.getPosterClassTypeRegister().stream()
+                .map(pct -> pct.getClassType().getClassType())
+                .distinct()
+                .collect(Collectors.toList());
+        searchPosterRespDto.setClassType(classTypes);
+
+        return searchPosterRespDto;
+
+    }
+
     public void saveImgUrl(ImgUrlSaveReqDto urlSaveReqDto){
         System.out.println(urlSaveReqDto);
         accountMapper.saveImgUrl(urlSaveReqDto.toEntity());

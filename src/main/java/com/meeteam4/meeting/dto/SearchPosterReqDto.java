@@ -11,7 +11,7 @@ import java.util.List;
 @Builder
 public class SearchPosterReqDto {
 
-    private Integer regionId;
+    private List<Integer> regionId;
     private List<Integer> subjectIds;
     private List<Integer> dateIds;
     private List<Integer> classTypeIds;

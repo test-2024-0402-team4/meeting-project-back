@@ -43,49 +43,8 @@ public class AccountController {
 //        return ResponseEntity.ok(accountService.getStudentInfo(userId));
 //    }
 
-    @PostMapping("/teacher/profile")
-    public ResponseEntity<?> saveTeacherProfile(@RequestBody TeacherProfileReqDto teacherProfileReqDto) {
 
-        accountService.saveTeacherProfile(teacherProfileReqDto);
-        return ResponseEntity.ok(null);
-    }
 
-    @GetMapping("/teacher/profiles")
-    public ResponseEntity<?> searchTeacherProfiles(SearchProfilesReqDto searchProfilesReqDto) {
-        System.out.println(searchProfilesReqDto);
-        return ResponseEntity.ok(accountService.searchTeacherProfiles(searchProfilesReqDto));
-    }
-
-    @GetMapping("/teacher/profile")
-    public ResponseEntity<?> getTeacherProfile(@RequestParam("userId") Integer userId) {
-        return ResponseEntity.ok(accountService.getTeacherProfileRespDto(userId));
-    }
-
-    @PostMapping("/student/poster")
-    public ResponseEntity<?> saveStudentPoster(@RequestBody PosterReqDto posterReqDto) {
-
-        return ResponseEntity.ok(accountService.saveStudentPoster(posterReqDto));
-    }
-
-    @GetMapping("/student/posters")
-    public ResponseEntity<?> getPosters(SearchPosterReqDto searchPosterReqDto) {
-        System.out.println(searchPosterReqDto);
-        return ResponseEntity.ok(accountService.getStudentPoster(searchPosterReqDto));
-    }
-
-    @GetMapping("/student/myposters")
-    public ResponseEntity<?> getMyPosters(@RequestParam("userId") Integer userId) {
-        System.out.println(accountService.getStudentMyPosters(userId));
-
-        return ResponseEntity.ok(accountService.getStudentMyPosters(userId));
-    }
-
-    @GetMapping("/student/myposter")
-    public ResponseEntity<?> getMyPoster(@RequestParam("posterId") Integer posterId) {
-        System.out.println(accountService.getMyposter(posterId));
-
-        return ResponseEntity.ok(accountService.getMyposter(posterId));
-    }
 
     @PostMapping("/profile/image/{userId}")
     public ResponseEntity<?> saveImgUrl(@RequestBody ImgUrlSaveReqDto imgUrlSaveReqDto) {
@@ -100,10 +59,7 @@ public class AccountController {
         return ResponseEntity.ok(principalUser);
     }
 
-    @GetMapping("/student/profile/{userId}")
-    public ResponseEntity<?> getStudentProfile(@PathVariable int userId){
-        return  ResponseEntity.ok(accountService.getStudentProfile(userId));
-    }
+
 }
 
 
