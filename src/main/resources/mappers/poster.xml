@@ -118,7 +118,7 @@
             1=1
             <!-- regionIds -->
             <if test="regionIds != null and regionIds.size() > 0">
-                and rrt.region_id in (
+                and pt.region_id in (
                 <foreach collection="regionIds" item="regionId" separator=",">
                     #{regionId}
                 </foreach>
@@ -126,7 +126,7 @@
             </if>
             <!-- subjectIds -->
             <if test="subjectIds != null and subjectIds.size() > 0">
-                and srt.subject_id in (
+                and psrt.subject_id in (
                 <foreach collection="subjectIds" item="subjectId" separator=",">
                     #{subjectId}
                 </foreach>
@@ -134,17 +134,17 @@
             </if>
             <!-- dateIds -->
             <if test="dateIds != null and dateIds.size() > 0">
-                and drt.date_id in (
+                and pdrt.date_id in (
                 <foreach collection="dateIds" item="dateId" separator=",">
                     #{dateId}
                 </foreach>
                 )
             </if>
             <!-- classTypeIds -->
-            <if test="classTypeIds != null and classTypeIds.size() > 0">
-                and ctrt.class_type_id in (
-                <foreach collection="classTypeIds" item="classTypeId" separator=",">
-                    #{classTypeId}
+            <if test="studentTypeIds != null and studentTypeIds.size() > 0">
+                and pt.student_type_id in (
+                <foreach collection="studentTypeIds" item="studentTypeId" separator=",">
+                    #{studentTypeId}
                 </foreach>
                 )
             </if>

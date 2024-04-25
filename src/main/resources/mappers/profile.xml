@@ -292,6 +292,7 @@
         select
             ut.user_id,
             ut.nickname,
+            st.birth_date,
             uiut.user_img_url,
             gt.gender_type,
             rgt.region_name,
@@ -307,7 +308,6 @@
             left outer join role_tb rt on(rt.role_id = rrt.role_id)
         where
             ut.user_id = #{userId};
-
     </select>
 
 

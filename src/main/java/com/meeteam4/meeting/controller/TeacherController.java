@@ -40,5 +40,12 @@ public class TeacherController {
 
         return ResponseEntity.ok(accountService.saveStudentPoster(posterReqDto));
     }
+    @GetMapping("/tutee/profile")
+    public ResponseEntity<?> getTuteeProfile(Integer userId) {
+        System.out.println(accountService.getStudentProfile(userId));
+        return ResponseEntity.ok(accountService.getStudentProfile(userId));
+    }
+
+
 
 }

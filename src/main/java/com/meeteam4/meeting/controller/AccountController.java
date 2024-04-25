@@ -43,9 +43,6 @@ public class AccountController {
 //        return ResponseEntity.ok(accountService.getStudentInfo(userId));
 //    }
 
-
-
-
     @PostMapping("/profile/image/{userId}")
     public ResponseEntity<?> saveImgUrl(@RequestBody ImgUrlSaveReqDto imgUrlSaveReqDto) {
         accountService.saveImgUrl(imgUrlSaveReqDto);

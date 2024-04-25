@@ -233,13 +233,13 @@ public class AccountService {
     public List<SearchPosterRespDto> getStudentPosters(SearchPosterReqDto searchPosterReqDto) {
         List<Integer> posterIds = new ArrayList<>();
 
-        System.out.println(posterIds);
+        System.out.println(searchPosterReqDto);
 
         posterIds.addAll(accountMapper.searchPosterIds(
-                searchPosterReqDto.getRegionId(),
+                searchPosterReqDto.getRegionIds(),
                 searchPosterReqDto.getSubjectIds(),
                 searchPosterReqDto.getDateIds(),
-                searchPosterReqDto.getClassTypeIds()));
+                searchPosterReqDto.getStudentTypeIds()));
         System.out.println(posterIds);
 
         if(posterIds.isEmpty()) {
@@ -325,6 +325,9 @@ public class AccountService {
     }
 
     public StudentProfileRespDto getStudentProfile(int userId){
+        if(userId == 0) {
+            return null;
+        }
         User studentProfile = accountMapper.getStudentProfile(userId);
         System.out.println(studentProfile);
         return studentProfile.toStudentProfileRespDto();
