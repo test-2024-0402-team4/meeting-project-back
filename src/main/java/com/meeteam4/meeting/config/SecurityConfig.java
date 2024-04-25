@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configurers.oauth2.client.OAuth2LoginConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.authentication.logout.LogoutFilter;
@@ -46,21 +47,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.authorizeRequests()
                 .antMatchers("/auth/**")
                 .permitAll()
+                .antMatchers("/account/**")
+                .permitAll()
+                .antMatchers("/student/**")
+                .hasRole("USER_STUDENT")
+                .antMatchers("/teacher/**")
+                .hasRole("USER_TEACHER")
                 .anyRequest()
                 .authenticated()
-//                .antMatchers("/admin/**")
-//                .hasRole("ADMIN")
-//                .antMatchers("/student/**")
-//                .hasRole("STUDENT")
-//                .antMatchers("/teacher/**")
-//                .hasRole("TEACHER")
-
                 .and()
                 .addFilterAfter(permitAllFilter, LogoutFilter.class)
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling()
                 .authenticationEntryPoint(authEntryPoint)
-
                 .and()
                 .oauth2Login()
                 .successHandler(oAuth2SuccessHandler)

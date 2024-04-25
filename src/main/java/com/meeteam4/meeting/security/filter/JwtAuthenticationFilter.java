@@ -26,7 +26,7 @@ public class JwtAuthenticationFilter extends GenericFilter {
 
         Boolean isPermitAll = (Boolean) request.getAttribute("isPermitAll");
 
-//        System.out.println(isPermitAll);
+        System.out.println(isPermitAll);
 
         if(!isPermitAll) {
             String accessToken = request.getHeader("Authorization");
@@ -41,7 +41,8 @@ public class JwtAuthenticationFilter extends GenericFilter {
                 response.sendError(HttpStatus.UNAUTHORIZED.value());
                 return;
             }
-            Authentication authentication =jwtProvider.getAuthentication(claims);
+            Authentication authentication = jwtProvider.getAuthentication(claims);
+            System.out.println(authentication.getAuthorities());
 
             if(authentication == null) {
                 response.sendError(HttpStatus.UNAUTHORIZED.value());
