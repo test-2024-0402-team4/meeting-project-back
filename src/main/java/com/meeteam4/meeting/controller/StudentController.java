@@ -3,6 +3,7 @@ package com.meeteam4.meeting.controller;
 
 import com.meeteam4.meeting.dto.PosterReqDto;
 import com.meeteam4.meeting.dto.SearchProfilesReqDto;
+import com.meeteam4.meeting.dto.StudentPosterModify;
 import com.meeteam4.meeting.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +16,15 @@ public class StudentController {
     @Autowired
     private AccountService accountService;
 
+    // 공고 등록
     @PostMapping("/poster")
     public ResponseEntity<?> saveStudentPoster(@RequestBody PosterReqDto posterReqDto) {
         return ResponseEntity.ok(accountService.saveStudentPoster(posterReqDto));
+    }
+    // 올린 공고 수정
+    @PutMapping("/poster")
+    public ResponseEntity<?> modifyPoster(@RequestBody StudentPosterModify studentPosterModify) {
+        return ResponseEntity.ok(accountService.modifyStudentPoster(studentPosterModify));
     }
 
     @GetMapping("/tutor/profiles")

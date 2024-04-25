@@ -228,6 +228,25 @@ public class AccountService {
         return successCount;
     }
 
+    // 학생 올린 공고 포스터 수정
+    @Transactional(rollbackFor = Exception.class)
+    public int modifyStudentPoster(StudentPosterModify studentPosterModify) {
+        int successCount = 0;
+
+        Poster poster = studentPosterModify.toEntity();
+
+        successCount += accountMapper.modifyStudentPoster(poster);
+        successCount += accountMapper.savePosterDate(studentPosterModify.toPosterDateRegisterEntity(poster.getPosterId()));
+        successCount += accountMapper.savePosterSubjectIds(studentPosterModify.toPosterSubjectRegisterEntity(poster.getPosterId()));
+        successCount += accountMapper.savePosterClassTypeIds(studentPosterModify.toPosterClassTypeRegisterEntity(poster.getPosterId()));
+
+        if(successCount < 4 ){
+            throw new SaveException();
+        }
+        return successCount;
+    }
+
+
     // 학생 공고 조회
     @Transactional(rollbackFor = Exception.class)
     public List<SearchPosterRespDto> getStudentPosters(SearchPosterReqDto searchPosterReqDto) {

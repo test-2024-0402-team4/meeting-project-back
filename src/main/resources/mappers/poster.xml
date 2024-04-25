@@ -82,6 +82,25 @@
             now()
         )
     </insert>
+
+    <update id="modifyStudentPoster"
+            parameterType="com.meeteam4.meeting.entity.Poster"
+    >
+        update
+            poster_tb
+        set
+            title = #{title},
+            gender_id = #{genderId},
+            student_type_id = #{studentTypeId},
+            class_type_id = #{classTypeId},
+            region_id = #{regionId},
+            content = #{content},
+            update_date = now()
+        where
+            poster_id = #{posterId}
+
+    </update>
+
     <insert id="savePosterDate">
         insert into
             poster_date_register_tb
