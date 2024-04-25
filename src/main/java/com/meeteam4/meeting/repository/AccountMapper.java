@@ -37,10 +37,10 @@ public interface AccountMapper {
     public int savePosterSubjectIds(PosterSubjectRegister posterSubjectRegister);
     public int savePosterClassTypeIds(PosterClassTypeRegister posterClassTypeRegister);
 
-    public List<Integer> searchPosterIds(@Param("regionId") List<Integer> regionId,
+    public List<Integer> searchPosterIds(@Param("regionIds") List<Integer> regionId,
                                          @Param("subjectIds") List<Integer> subjectId,
                                          @Param("dateIds") List<Integer> dateId,
-                                         @Param("classTypeIds") List<Integer> classTypeId);
+                                         @Param("studentTypeIds") List<Integer> studentTypeId);
 
     public List<Poster> getPosters(@Param("posterIds") List<Integer> posterIds);
 

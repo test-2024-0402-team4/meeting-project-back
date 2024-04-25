@@ -17,7 +17,6 @@ public class StudentController {
 
     @PostMapping("/poster")
     public ResponseEntity<?> saveStudentPoster(@RequestBody PosterReqDto posterReqDto) {
-
         return ResponseEntity.ok(accountService.saveStudentPoster(posterReqDto));
     }
 
@@ -42,7 +41,6 @@ public class StudentController {
     @GetMapping("/myposter")
     public ResponseEntity<?> getMyPoster(@RequestParam("posterId") Integer posterId) {
         System.out.println(accountService.getMyposter(posterId));
-
         return ResponseEntity.ok(accountService.getMyposter(posterId));
     }
 

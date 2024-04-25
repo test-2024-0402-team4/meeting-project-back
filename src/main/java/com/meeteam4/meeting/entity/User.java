@@ -41,10 +41,9 @@ public class User {
     private List<DateRegister> dateRegister;
     private List<ClassTypeRegister> classTypeRegister;
     private List<RegionRegister> regionRegister;
-
     private List<RoleRegister> roleRegisters;
-    public List<SimpleGrantedAuthority> getAuthorities() {
 
+    public List<SimpleGrantedAuthority> getAuthorities() {
         return roleRegisters.stream()
                 .map(roleRegister ->
                         new SimpleGrantedAuthority(roleRegister.getRole().getRoleName()))
@@ -60,9 +59,6 @@ public class User {
                 .authorities(getAuthorities())
                 .build();
     }
-
-
-
     public SearchProfilesRespDto toSearchProfilesRespDto() {
         SearchProfilesRespDto searchProfile = new SearchProfilesRespDto();
         searchProfile.setUserId(userId);
@@ -81,6 +77,7 @@ public class User {
                 .nickname(nickname)
                 .userImgUrl(userImgUrl.getUserImgUrl())
                 .genderType(gender.getGenderType())
+                .birthDate(teacher.getBirthDate())
                 .regionName(regionRegister.get(0).getRegion().getRegionName())
                 .roleNameKor(roleRegisters.get(0).getRole().getRoleNameKor())
                 .build();
