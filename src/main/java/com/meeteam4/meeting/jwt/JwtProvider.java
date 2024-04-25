@@ -34,6 +34,7 @@ public class JwtProvider {
 
     // Token에 담을 데이터 정보 설정 및 Token 생성
     public String generateToken(User user) {
+        System.out.println(user);
         int userId = user.getUserId();
         int roleId = user.getRoleId();
         int studentId = user.getStudent().getStudentId();
