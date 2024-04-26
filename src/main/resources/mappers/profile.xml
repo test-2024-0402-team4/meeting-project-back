@@ -15,6 +15,7 @@
         <result property="createDate" column="create_date"/>
         <result property="updateDate" column="update_date"/>
         <association property="teacher" resultMap="TeacherResultMap"/>
+        <association property="student" resultMap="StudentResultMap"/>
         <association property="university" resultMap="UniversityResultMap"/>
         <association property="gender" resultMap="GenderResultMap"/>
         <association property="graduateState" resultMap="GraduateStateResultMap"/>
@@ -296,7 +297,9 @@
             gt.gender_type,
             rgt.region_name,
             rrt.role_id,
-            rt.role_name_kor
+            rt.role_name_kor,
+            stt.student_id,
+            tt.teacher_id
         from
             user_tb ut
             left outer join user_img_url_tb uiut on(uiut.user_id = ut.user_id)
@@ -305,6 +308,8 @@
             left outer join region_tb rgt on(rgt.region_id= st.region_id)
             left outer join role_register_tb rrt on(rrt.user_id = ut.user_id)
             left outer join role_tb rt on(rt.role_id = rrt.role_id)
+            left outer join student_tb stt on(stt.user_id = ut.user_id)
+            left outer join teacher_tb tt on(tt.user_id = ut.user_id)
         where
             ut.user_id = #{userId};
 

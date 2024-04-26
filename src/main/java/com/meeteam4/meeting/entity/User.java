@@ -88,6 +88,8 @@ public class User {
                 .genderType(gender.getGenderType())
                 .regionName(regionRegister.get(0).getRegion().getRegionName())
                 .roleNameKor(roleRegisters.get(0).getRole().getRoleNameKor())
+                .studentId(student.getStudentId())
+                .teacherId(teacher.getTeacherId())
                 .build();
     }
 }

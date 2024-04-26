@@ -11,6 +11,8 @@ public class StudentProfileRespDto {
     private String genderType;
     private String regionName;
     private String roleNameKor;
+    private int studentId;
+    private int teacherId;
 
 }
 
