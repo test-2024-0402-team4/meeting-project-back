@@ -16,6 +16,7 @@ public class SearchPosterRespDto {
     private String studentType;
     private String regionName;
     private String content;
+    private String email;
     private List<String> subjectName;
     private List<String> dateType;
     private List<String> classType;
