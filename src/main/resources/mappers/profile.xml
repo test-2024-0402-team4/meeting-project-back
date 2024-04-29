@@ -25,6 +25,7 @@
         <collection property="classTypeRegister" javaType="list" resultMap="ClassTypeRegisterResultMap"/>
         <collection property="roleRegisters" javaType="list" resultMap="RoleRegisterResultMap"/>
      </resultMap>
+
     <resultMap id="TeacherResultMap" type="com.meeteam4.meeting.entity.Teacher">
         <id property="teacherId" column="teacher_id" />
         <result property="userId" column="user_id"/>
