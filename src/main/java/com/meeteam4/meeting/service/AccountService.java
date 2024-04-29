@@ -372,9 +372,12 @@ public class AccountService {
             return null;
         }
         User studentProfile = accountMapper.getStudentProfile(userId);
+
         System.out.println(studentProfile);
+
         return studentProfile.toStudentProfileRespDto();
     }
+
     public List<SearchPosterRespDto> getStudentMyPosters(int userId) {
 
         List<Poster> posters = accountMapper.getStudentMyPosters(userId);

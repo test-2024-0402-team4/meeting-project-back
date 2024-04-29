@@ -58,6 +58,7 @@ public class StudentController {
 
     @GetMapping("/profile/{userId}")
     public ResponseEntity<?> getStudentProfile(@PathVariable int userId){
-        return  ResponseEntity.ok(accountService.getStudentProfile(userId));
+        System.out.println(accountService.getStudentProfile(userId));
+        return ResponseEntity.ok(accountService.getStudentProfile(userId));
     }
 }
