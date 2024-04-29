@@ -92,13 +92,11 @@
             title = #{title},
             gender_id = #{genderId},
             student_type_id = #{studentTypeId},
-            class_type_id = #{classTypeId},
             region_id = #{regionId},
             content = #{content},
             update_date = now()
         where
             poster_id = #{posterId}
-
     </update>
 
     <insert id="savePosterDate">
@@ -125,6 +123,40 @@
             (0, #{posterId}, #{classTypeId})
         </foreach>
     </insert>
+
+    <delete id="deleteStudentPoster">
+        delete
+        from
+            poster_tb
+        where
+            poster_id = #{posterId}
+    </delete>
+
+    <delete id="deletePosterDate">
+        delete
+        from
+            poster_date_register_tb
+        where
+            poster_id = #{posterId}
+    </delete>
+
+    <delete id="deletePosterSubjectIds">
+        delete
+        from
+            poster_subject_register_tb
+        where
+            poster_id = #{posterId}
+    </delete>
+
+    <delete id="deletePosterClassTypeIds">
+        delete
+        from
+            poster_class_type_id_register_tb
+        where
+            poster_id = #{posterId}
+    </delete>
+
+
     <select id="searchPosterIds" resultType="integer">
         select
             pt.poster_id
