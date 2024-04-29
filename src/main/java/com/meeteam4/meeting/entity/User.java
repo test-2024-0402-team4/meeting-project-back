@@ -34,6 +34,7 @@ public class User {
     private Gender gender;
     private Teacher teacher;
     private Student student;
+    private StudentType studentType;
     private University university;
     private GraduateState graduateState;
     private UserImgUrl userImgUrl;
@@ -74,7 +75,10 @@ public class User {
     public StudentProfileRespDto toStudentProfileRespDto(){
         return StudentProfileRespDto.builder()
                 .userId(userId)
+                .name(name)
+                .email(email)
                 .nickname(nickname)
+                .studentType(studentType.getStudentType())
                 .userImgUrl(userImgUrl.getUserImgUrl())
                 .genderType(gender.getGenderType())
                 .birthDate(teacher.getBirthDate())

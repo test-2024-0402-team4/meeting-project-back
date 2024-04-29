@@ -19,6 +19,7 @@
         <association property="gender" resultMap="GenderResultMap"/>
         <association property="graduateState" resultMap="GraduateStateResultMap"/>
         <association property="userImgUrl" resultMap="UserImgUrlResultMap"/>
+        <association property="studentType" resultMap="StudentTypeResultMap"/>
         <collection property="regionRegister" javaType="list" resultMap="RegionRegisterResultMap"/>
         <collection property="subjectRegister" javaType="list" resultMap="SubjectRegisterResultMap"/>
         <collection property="dateRegister" javaType="list" resultMap="DateRegisterResultMap"/>
@@ -48,6 +49,7 @@
         <result property="regionId" column="region_id"/>
         <result property="createDate" column="create_date"/>
         <result property="updateDate" column="update_date"/>
+        <association property="studentType" resultMap="StudentTypeResultMap" />
     </resultMap>
     <resultMap id="StudentTypeResultMap" type="com.meeteam4.meeting.entity.StudentType">
         <id property="studentTypeId" column="student_type_id"/>
@@ -293,7 +295,10 @@
         select
             ut.user_id,
             ut.nickname,
+            ut.name,
+            ut.email,
             st.birth_date,
+            stt.student_type,
             uiut.user_img_url,
             gt.gender_type,
             rgt.region_name,
@@ -303,6 +308,7 @@
             user_tb ut
             left outer join user_img_url_tb uiut on(uiut.user_id = ut.user_id)
             left outer join student_tb st on(st.user_id = ut.user_id)
+            left outer join student_type_tb stt on(stt.student_type_id = st.student_type_id)
             left outer join gender_tb gt on(gt.gender_id = st.gender_id)
             left outer join region_tb rgt on(rgt.region_id= st.region_id)
             left outer join role_register_tb rrt on(rrt.user_id = ut.user_id)

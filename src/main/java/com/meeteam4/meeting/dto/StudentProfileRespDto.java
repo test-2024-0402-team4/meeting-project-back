@@ -6,7 +6,10 @@ import lombok.Data;
 @Builder
 public class StudentProfileRespDto {
     private int userId;
+    private String name;
+    private String email;
     private String nickname;
+    private String studentType;
     private String userImgUrl;
     private String genderType;
     private String regionName;
