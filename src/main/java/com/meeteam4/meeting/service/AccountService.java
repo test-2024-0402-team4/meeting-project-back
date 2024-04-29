@@ -230,15 +230,39 @@ public class AccountService {
 
     // 학생 올린 공고 포스터 수정
     @Transactional(rollbackFor = Exception.class)
-    public int modifyStudentPoster(StudentPosterModify studentPosterModify) {
+    public int modifyStudentPoster(PosterReqDto posterReqDto) {
         int successCount = 0;
 
-        Poster poster = studentPosterModify.toEntity();
+        Poster poster = posterReqDto.toEntity();
 
+        // 삭제
+        successCount += accountMapper.deletePosterDate(posterReqDto.getPosterId());
+        successCount += accountMapper.deletePosterSubjectIds(posterReqDto.getPosterId());
+        successCount += accountMapper.deletePosterClassTypeIds(posterReqDto.getPosterId());
+
+        //다시 등록
+        successCount += accountMapper.savePosterDate(posterReqDto.toPosterDateRegisterEntity(poster.getPosterId()));
+        successCount += accountMapper.savePosterSubjectIds(posterReqDto.toPosterSubjectRegisterEntity(poster.getPosterId()));
+        successCount += accountMapper.savePosterClassTypeIds(posterReqDto.toPosterClassTypeRegisterEntity(poster.getPosterId()));
+
+        //poster_tb 은 수정
         successCount += accountMapper.modifyStudentPoster(poster);
-        successCount += accountMapper.savePosterDate(studentPosterModify.toPosterDateRegisterEntity(poster.getPosterId()));
-        successCount += accountMapper.savePosterSubjectIds(studentPosterModify.toPosterSubjectRegisterEntity(poster.getPosterId()));
-        successCount += accountMapper.savePosterClassTypeIds(studentPosterModify.toPosterClassTypeRegisterEntity(poster.getPosterId()));
+
+        if(successCount < 7 ){
+            throw new SaveException();
+        }
+        return successCount;
+    }
+
+    // 학생(본인) 공고포스터 삭제
+    public int deleteStudentPoster(int posterId) {
+
+        int successCount = 0;
+
+        successCount += accountMapper.deleteStudentPoster(posterId);
+        successCount += accountMapper.deletePosterDate(posterId);
+        successCount += accountMapper.deletePosterSubjectIds(posterId);
+        successCount += accountMapper.deletePosterClassTypeIds(posterId);
 
         if(successCount < 4 ){
             throw new SaveException();
