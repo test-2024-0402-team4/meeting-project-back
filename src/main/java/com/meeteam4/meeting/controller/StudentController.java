@@ -3,6 +3,7 @@ package com.meeteam4.meeting.controller;
 
 import com.meeteam4.meeting.dto.PosterReqDto;
 import com.meeteam4.meeting.dto.SearchProfilesReqDto;
+import com.meeteam4.meeting.dto.StudentProfileModifyDto;
 import com.meeteam4.meeting.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -59,5 +60,13 @@ public class StudentController {
     @GetMapping("/profile/{userId}")
     public ResponseEntity<?> getStudentProfile(@PathVariable int userId){
         return  ResponseEntity.ok(accountService.getStudentProfile(userId));
+    }
+
+    // 학생 프로필 수정
+    @PutMapping("/profile")
+    public ResponseEntity<?> modifyProfile(@RequestBody StudentProfileModifyDto studentProfileModifyDto) {
+        System.out.println(studentProfileModifyDto);
+        accountService.modifyStudentProfile(studentProfileModifyDto);
+        return ResponseEntity.ok(true);
     }
 }

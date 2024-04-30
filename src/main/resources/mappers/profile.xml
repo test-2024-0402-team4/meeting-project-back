@@ -310,7 +310,25 @@
             ut.user_id = #{userId};
     </select>
 
-
+    <update id="modifyStudentProfile" parameterType="com.meeteam4.meeting.entity.Student">
+        update
+            student_tb
+        set
+            phone_number = #{phoneNumber},
+            region_id = #{regionId},
+            update_date = now()
+        where
+            user_id = #{userId}
+    </update>
+    <update id="modifyUserProfile" parameterType="com.meeteam4.meeting.entity.User">
+        update
+            user_tb
+        set
+            nickname = #{nickname},
+            update_date = now()
+        where
+            user_id = #{userId}
+    </update>
 
 
 </mapper>
