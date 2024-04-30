@@ -1,9 +1,7 @@
 package com.meeteam4.meeting.controller;
 
 
-import com.meeteam4.meeting.dto.PosterReqDto;
-import com.meeteam4.meeting.dto.SearchProfilesReqDto;
-import com.meeteam4.meeting.dto.StudentPosterModify;
+import com.meeteam4.meeting.dto.*;
 import com.meeteam4.meeting.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -55,4 +53,27 @@ public class StudentController {
     public ResponseEntity<?> getStudentProfile(@PathVariable int userId){
         return  ResponseEntity.ok(accountService.getStudentProfile(userId));
     }
+
+    @GetMapping("/mypage/boards/{userId}")
+    public ResponseEntity<?> getStudentMypageBoards(@PathVariable int userId,StudentBoardListReqDto studentBoardListReqDto){
+        return ResponseEntity.ok(accountService.searchStudentMypageBoards(studentBoardListReqDto));
+    }
+
+    @GetMapping("/boards/count/{userId}")
+    public ResponseEntity<?> studentGetCount(@PathVariable int userId,StudentBoardListReqDto studentBoardListReqDto){
+
+        return ResponseEntity.ok(accountService.getStudentMypageCount(studentBoardListReqDto));
+    }
+
+    @GetMapping("/mypage/boards/study/{userId}")
+    public ResponseEntity<?> getStudyMypageBoards(@PathVariable int userId, StudyBoardListReqDto studyBoardListReqDto){
+        return ResponseEntity.ok(accountService.searchStudyMypageBoards(studyBoardListReqDto));
+    }
+
+    @GetMapping("/boards/count/study/{userId}")
+    public ResponseEntity<?> studyGetCount(@PathVariable int userId,StudyBoardListReqDto studyBoardListReqDto){
+
+        return ResponseEntity.ok(accountService.getStudyMypageCount(studyBoardListReqDto));
+    }
+
 }

@@ -2,6 +2,7 @@ package com.meeteam4.meeting.entity;
 
 import com.meeteam4.meeting.dto.StudentBoardListRespDto;
 import com.meeteam4.meeting.dto.StudentBoardPageRespDto;
+import com.meeteam4.meeting.dto.StudyBoardListRespDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -17,6 +18,7 @@ import java.time.LocalDateTime;
 public class StudentBoard {
     private int studentBoardId;
     private int studentId;
+    private int userId;
     private String title;
     private String content;
     private String theme;
@@ -27,7 +29,7 @@ public class StudentBoard {
     public StudentBoardListRespDto toStudentBoardListRespDto(){
         return StudentBoardListRespDto.builder()
                 .studentBoardId(studentBoardId)
-                .studentId(studentId)
+                .userId(userId)
                 .title(title)
                 .content(content)
                 .theme(theme)
@@ -40,10 +42,14 @@ public class StudentBoard {
         return StudentBoardPageRespDto.builder()
                 .studentBoardId(studentBoardId)
                 .studentId(studentId)
+                .userId(userId)
                 .title(title)
                 .content(content)
                 .viewCount(viewCount)
                 .createDate(createDate)
                 .build();
     }
+
+
+
 }

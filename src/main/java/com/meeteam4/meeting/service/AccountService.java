@@ -5,7 +5,10 @@ import com.meeteam4.meeting.dto.*;
 import com.meeteam4.meeting.entity.*;
 import com.meeteam4.meeting.exception.SaveException;
 import com.meeteam4.meeting.repository.AccountMapper;
+import com.meeteam4.meeting.security.PrincipalStudent;
+import com.meeteam4.meeting.security.PrincipalUser;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -351,6 +354,7 @@ public class AccountService {
         System.out.println(studentProfile);
         return studentProfile.toStudentProfileRespDto();
     }
+
     public List<SearchPosterRespDto> getStudentMyPosters(int userId) {
 
         List<Poster> posters = accountMapper.getStudentMyPosters(userId);
@@ -419,6 +423,139 @@ public class AccountService {
         searchPosterRespDto.setClassType(classTypes);
 
         return searchPosterRespDto;
+    }
+
+    public List<StudentBoardListRespDto> searchStudentMypageBoards(StudentBoardListReqDto studentBoardListReqDto){
+
+        int startIndex = (studentBoardListReqDto.getPage()-1)* studentBoardListReqDto.getCount();
+
+        List<StudentBoard> boards = accountMapper.searchStudentMypageBoards(
+                studentBoardListReqDto.getUserId(),
+                startIndex,
+                studentBoardListReqDto.getCount(),
+                studentBoardListReqDto.getSearchText()
+        );
+
+        return boards.stream().map(StudentBoard :: toStudentBoardListRespDto).collect(Collectors.toList());
+    }
+
+    public StudentCountRespDto getStudentMypageCount(StudentBoardListReqDto studentBoardListReqDto){
+        int studentCount = accountMapper.getStudentMypageCount(
+                studentBoardListReqDto.getUserId(),
+                studentBoardListReqDto.getCount(),
+                studentBoardListReqDto.getSearchText()
+        );
+
+        int maxPageNumber = (int) Math.ceil(((double) studentCount) / studentBoardListReqDto.getCount());
+
+        return StudentCountRespDto.builder()
+                .totalCount(studentCount)
+                .maxPageNumber(maxPageNumber)
+                .build();
+    }
+
+
+    public List<StudyBoardListRespDto> searchStudyMypageBoards(StudyBoardListReqDto studyBoardListReqDto){
+        PrincipalUser principalUser = (PrincipalUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        int startIndex = (studyBoardListReqDto.getPage()-1)* studyBoardListReqDto.getCount();
+
+        List<StudyBoard> boards = accountMapper.searchStudyMypageBoards(
+                principalUser.getUserId(),
+                startIndex,
+                studyBoardListReqDto.getCount(),
+                studyBoardListReqDto.getSearchText()
+        );
+
+        return boards.stream().map(StudyBoard :: toStudyBoardListRespDto).collect(Collectors.toList());
+    }
+
+    public StudyCountRespDto getStudyMypageCount(StudyBoardListReqDto studyBoardListReqDto){
+        PrincipalUser principalUser = (PrincipalUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        int studyCount = accountMapper.getStudentMypageCount(
+                principalUser.getUserId(),
+                studyBoardListReqDto.getCount(),
+                studyBoardListReqDto.getSearchText()
+        );
+
+        int maxPageNumber = (int) Math.ceil(((double) studyCount) / studyBoardListReqDto.getCount());
+
+        return StudyCountRespDto.builder()
+                .totalCount(studyCount)
+                .maxPageNumber(maxPageNumber)
+                .build();
+    }
+
+
+
+
+
+
+
+
+
+
+    public List<TeacherBoardListRespDto> searchTeacherMypageBoards(TeacherBoardListReqDto teacherBoardListReqDto){
+
+        int startIndex = (teacherBoardListReqDto.getPage()-1)* teacherBoardListReqDto.getCount();
+
+        List<TeacherBoard> boards = accountMapper.searchTeacherMypageBoards(
+                teacherBoardListReqDto.getUserId(),
+                startIndex,
+                teacherBoardListReqDto.getCount(),
+                teacherBoardListReqDto.getSearchText()
+        );
+
+        return boards.stream().map(TeacherBoard :: toTeacherBoardListRespDto).collect(Collectors.toList());
+    }
+
+    public TeacherCountRespDto getTeacherMypageCount(TeacherBoardListReqDto teacherBoardListReqDto){
+        int teacherCount = accountMapper.getTeacherMypageCount(
+                teacherBoardListReqDto.getUserId(),
+                teacherBoardListReqDto.getCount(),
+                teacherBoardListReqDto.getSearchText()
+        );
+
+        int maxPageNumber = (int) Math.ceil(((double) teacherCount) / teacherBoardListReqDto.getCount());
+
+        return TeacherCountRespDto.builder()
+                .totalCount(teacherCount)
+                .maxPageNumber(maxPageNumber)
+                .build();
+    }
+
+
+    public List<StudyBoardListRespDto> searchTeacherStudyMypageBoards(StudyBoardListReqDto studyBoardListReqDto){
+        PrincipalUser principalUser = (PrincipalUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        int startIndex = (studyBoardListReqDto.getPage()-1)* studyBoardListReqDto.getCount();
+
+        List<StudyBoard> boards = accountMapper.searchTeacherStudyMypageBoards(
+                principalUser.getUserId(),
+                startIndex,
+                studyBoardListReqDto.getCount(),
+                studyBoardListReqDto.getSearchText()
+        );
+
+        return boards.stream().map(StudyBoard :: toStudyBoardListRespDto).collect(Collectors.toList());
+    }
+
+    public StudyCountRespDto getTeacherStudyMypageCount(StudyBoardListReqDto studyBoardListReqDto){
+        PrincipalUser principalUser = (PrincipalUser) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        int studyCount = accountMapper.getTeacherStudyMypageCount(
+                principalUser.getUserId(),
+                studyBoardListReqDto.getCount(),
+                studyBoardListReqDto.getSearchText()
+        );
+
+        int maxPageNumber = (int) Math.ceil(((double) studyCount) / studyBoardListReqDto.getCount());
+
+        return StudyCountRespDto.builder()
+                .totalCount(studyCount)
+                .maxPageNumber(maxPageNumber)
+                .build();
     }
 
 }

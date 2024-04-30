@@ -24,6 +24,7 @@ public class TeacherBoard {
     private int viewCount;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
+    private int userId;
 
     public TeacherBoardListRespDto toTeacherBoardListRespDto(){
         return TeacherBoardListRespDto.builder()

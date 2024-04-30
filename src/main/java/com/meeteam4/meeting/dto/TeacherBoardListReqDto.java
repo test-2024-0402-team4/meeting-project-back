@@ -7,4 +7,5 @@ public class TeacherBoardListReqDto {
     private int page;
     private int count;
     private String searchText;
+    private int userId;
 }

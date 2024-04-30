@@ -27,8 +27,6 @@ public class AccountController {
     @Autowired
     private AccountService accountService;
 
-
-
 //    @GetMapping("/mypage")
 //    public ResponseEntity<?> getStudentId(@RequestParam int userId) {
 //       Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
