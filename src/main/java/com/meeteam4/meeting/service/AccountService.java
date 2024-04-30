@@ -86,8 +86,19 @@ public class AccountService {
 
         accountMapper.modifyUserProfile(user);
         accountMapper.modifyStudentProfile(student);
-
     }
+
+    // 선생님 프로필 수정
+    @Transactional(rollbackFor = Exception.class)
+    public void modifyTeacherProfile(TeacherProfileModifyDto teacherProfileModifyDto) {
+
+        User user = teacherProfileModifyDto.toUserEntity();
+        Teacher teacher = teacherProfileModifyDto.toTeacherEntity();
+
+        accountMapper.modifyUserProfile(user);
+        accountMapper.modifyTeacherProfile(teacher);
+    }
+
 
 
     // 검색 필터

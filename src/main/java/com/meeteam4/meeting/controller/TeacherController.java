@@ -44,12 +44,18 @@ public class TeacherController {
         return ResponseEntity.ok(accountService.getStudentProfile(userId));
     }
 
+
+    // 선생님 프로필 수정
+    @PutMapping("/profile")
+    public ResponseEntity<?> modifyProfile(@RequestBody TeacherProfileModifyDto teacherProfileModifyDto) {
+        accountService.modifyTeacherProfile(teacherProfileModifyDto);
+        return ResponseEntity.ok(true);
+    }
+
     @GetMapping("/profile/{userId}")
     public ResponseEntity<?> getTeacherProfile(@PathVariable int userId){
         return  ResponseEntity.ok(accountService.getStudentProfile(userId));
     }
-
-
 
     @GetMapping("/mypage/boards/{userId}")
     public ResponseEntity<?> getTeacherMypageBoards(@PathVariable int userId, TeacherBoardListReqDto teacherBoardListReqDto){
@@ -78,9 +84,5 @@ public class TeacherController {
 
         return ResponseEntity.ok(accountService.getTeacherProfileRespDto(userId));
     }
-
-
-
-
 
 }

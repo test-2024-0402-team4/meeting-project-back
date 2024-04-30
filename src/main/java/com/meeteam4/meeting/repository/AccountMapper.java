@@ -30,6 +30,7 @@ public interface AccountMapper {
     public List<User> getTeacherProfiles(@Param("userIds") List<Integer> distinctUserIds);
 
     public int modifyStudentProfile(Student student);
+    public int modifyTeacherProfile(Teacher teacher);
     public int modifyUserProfile(User user);
 
     public int saveStudentPoster(Poster poster);

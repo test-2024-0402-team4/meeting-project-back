@@ -66,7 +66,7 @@ public class StudentController {
     // 학생 프로필 수정
     @PutMapping("/profile")
     public ResponseEntity<?> modifyProfile(@RequestBody StudentProfileModifyDto studentProfileModifyDto) {
-        System.out.println(studentProfileModifyDto);
+//        System.out.println(studentProfileModifyDto);
         accountService.modifyStudentProfile(studentProfileModifyDto);
         return ResponseEntity.ok(true);
     }

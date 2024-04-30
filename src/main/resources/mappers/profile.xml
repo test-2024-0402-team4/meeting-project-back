@@ -552,6 +552,18 @@
         where
             user_id = #{userId}
     </update>
+    <update id="modifyTeacherProfile" parameterType="com.meeteam4.meeting.entity.Teacher">
+        update
+            teacher_tb
+        set
+            university_id = #{universityId},
+            department_name = #{departmentName}
+            graduate_state_id = #{graduateStateId}
+            phone_number = #{phoneNumber},
+            update_date = now()
+        where
+            user_id = #{userId}
+    </update>
     <update id="modifyUserProfile" parameterType="com.meeteam4.meeting.entity.User">
         update
             user_tb
