@@ -1,8 +1,6 @@
 package com.meeteam4.meeting.controller;
 
-import com.meeteam4.meeting.dto.PosterReqDto;
-import com.meeteam4.meeting.dto.SearchPosterReqDto;
-import com.meeteam4.meeting.dto.TeacherProfileReqDto;
+import com.meeteam4.meeting.dto.*;
 import com.meeteam4.meeting.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -46,6 +44,12 @@ public class TeacherController {
         return ResponseEntity.ok(accountService.getStudentProfile(userId));
     }
 
+    // 선생님 프로필 수정
+    @PutMapping("/profile")
+    public ResponseEntity<?> modifyProfile(@RequestBody TeacherProfileModifyDto teacherProfileModifyDto) {
+        accountService.modifyTeacherProfile(teacherProfileModifyDto);
+        return ResponseEntity.ok(true);
+    }
 
 
 }
