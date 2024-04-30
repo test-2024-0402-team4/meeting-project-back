@@ -54,7 +54,7 @@ public class AuthService {
 
         User user = userMapper.findByUsername(signinReqDto.getUsername());
 
-        System.out.println(user);
+//        System.out.println(user);
 
         if(user == null) {
             throw new UsernameNotFoundException("사용자 정보를 확인하세요.");

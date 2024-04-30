@@ -5,6 +5,7 @@ import com.meeteam4.meeting.dto.*;
 import com.meeteam4.meeting.entity.*;
 import com.meeteam4.meeting.exception.SaveException;
 import com.meeteam4.meeting.repository.AccountMapper;
+import com.meeteam4.meeting.repository.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,6 +20,9 @@ public class AccountService {
 
     @Autowired
     private AccountMapper accountMapper;
+
+    @Autowired
+    private UserMapper userMapper;
 
     public UserDataRespDto getStudentInfo(int userId) {
 
@@ -71,6 +75,17 @@ public class AccountService {
 
     }
 
+    // 학생 프로필 수정
+    @Transactional(rollbackFor = Exception.class)
+    public void modifyStudentProfile(StudentProfileModifyDto studentProfileModifyDto) {
+
+        User user = studentProfileModifyDto.toUserEntity();
+        Student student = studentProfileModifyDto.toStudentEntity();
+
+        accountMapper.modifyUserProfile(user);
+        accountMapper.modifyStudentProfile(student);
+
+    }
 
 
     // 검색 필터

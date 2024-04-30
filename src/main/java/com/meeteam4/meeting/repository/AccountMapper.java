@@ -1,10 +1,7 @@
 package com.meeteam4.meeting.repository;
 
 
-import com.meeteam4.meeting.dto.PosterReqDto;
-import com.meeteam4.meeting.dto.SearchProfilesReqDto;
-import com.meeteam4.meeting.dto.SearchProfilesRespDto;
-import com.meeteam4.meeting.dto.UserRegisterDto;
+import com.meeteam4.meeting.dto.*;
 import com.meeteam4.meeting.entity.*;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -31,6 +28,9 @@ public interface AccountMapper {
                                        @Param("dateIds") List<Integer> dateId
                                        );
     public List<User> getTeacherProfiles(@Param("userIds") List<Integer> distinctUserIds);
+
+    public int modifyStudentProfile(Student student);
+    public int modifyUserProfile(User user);
 
     public int saveStudentPoster(Poster poster);
     public int savePosterDate(PosterDateRegister posterDateRegister);
