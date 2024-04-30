@@ -52,6 +52,12 @@ public class TeacherController {
         return ResponseEntity.ok(true);
     }
 
+    // 선생님 프로필 정보 가져오기
+    @GetMapping("/tutor/profile")
+    public ResponseEntity<?> getTeacherProfile(@RequestParam("userId") Integer userId) {
+        return ResponseEntity.ok(accountService.getTeacherProfileRespDto(userId));
+    }
+
     @GetMapping("/profile/{userId}")
     public ResponseEntity<?> getTeacherProfile(@PathVariable int userId){
         return  ResponseEntity.ok(accountService.getStudentProfile(userId));
