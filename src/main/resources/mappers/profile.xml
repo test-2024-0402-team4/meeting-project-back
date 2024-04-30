@@ -131,6 +131,40 @@
         <association property="role" resultMap="RoleResultMap"/>
     </resultMap>
 
+    <resultMap id="BoardResultMap" type="com.meeteam4.meeting.entity.StudentBoard">
+        <id property="studentBoardId" column="student_board_id"/>
+        <result property="studentId" column="student_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="theme" column="theme"/>
+        <result property="viewCount" column="view_count"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+    </resultMap>
+
+    <resultMap id="TeacherBoardResultMap" type="com.meeteam4.meeting.entity.TeacherBoard">
+        <id property="teacherBoardId" column="teacher_board_id"/>
+        <result property="teacherId" column="teacher_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="viewCount" column="view_count"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+    </resultMap>
+
+    <resultMap id="StudyBoardResultMap" type="com.meeteam4.meeting.entity.StudyBoard">
+        <id property="studyBoardId" column="study_board_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="viewCount" column="view_count"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+    </resultMap>
+
+
 
     <insert id="saveDates">
             insert into
@@ -317,6 +351,197 @@
             ut.user_id = #{userId};
     </select>
 
+    <select id="searchStudentMypageBoards" resultMap="BoardResultMap">
+        select
+            sbt.student_board_id,
+            sbt.student_id,
+            sbt.title,
+            sbt.content,
+            sbt.view_count,
+            sbt.create_date
+        from
+            student_board_tb sbt
+        left outer join student_tb st on(st.student_id = sbt.student_id)
+        where
+            sbt.student_id =
+                (
+                    select
+                    student_id
+                    from
+                    student_tb
+                    where
+                    user_id = #{userId})
+        <choose>
+            <when test="count != -1 ">
+                and(
+                title like concat('%', #{searchText},'%')
+                )
+            </when>
+        </choose>
+        limit #{startIndex}, #{count}
+
+    </select>
+
+    <select id="getStudentMypageCount" resultType="integer">
+        select
+            count(*)
+        from
+            student_board_tb sbt
+        left outer join student_tb st on(st.student_id = sbt.student_id)
+        where
+            sbt.student_id =
+                (
+                select
+                student_id
+                from
+                student_tb
+                where
+                user_id = #{userId})
+        <choose>
+            <when test="count != -1 ">
+                and(
+                title like concat('%', #{searchText},'%')
+                )
+            </when>
+        </choose>
+
+    </select>
+
+    <select id="searchStudyMypageBoards" resultMap="StudyBoardResultMap">
+        select
+            stbt.study_board_id,
+            stbt.title,
+            stbt.content,
+            stbt.view_count,
+            stbt.create_date
+        from
+            student_tb st
+        left outer join study_board_tb stbt on(stbt.user_id = st.user_id)
+        where
+            st.user_id = #{userId}
+        <choose>
+            <when test="count != -1 ">
+                and(
+                title like concat('%', #{searchText},'%')
+                )
+            </when>
+        </choose>
+        limit #{startIndex}, #{count}
+    </select>
+
+    <select id="getStudyMypageCount" resultType="integer">
+        select
+            count(*)
+        from
+            student_tb st
+        left outer join study_board_tb stbt on(stbt.user_id = st.user_id)
+        where
+            st.user_id = #{userId}
+        <choose>
+            <when test="count != -1 ">
+                and(
+                title like concat('%', #{searchText},'%')
+                )
+            </when>
+        </choose>
+    </select>
+
+    <select id="searchTeacherMypageBoards" resultMap="TeacherBoardResultMap">
+        select
+            tbt.teacher_board_id,
+            tbt.teacher_id,
+            tbt.title,
+            tbt.content,
+            tbt.view_count,
+            tbt.create_date
+        from
+            teacher_board_tb tbt
+        left outer join teacher_tb tt on(tt.teacher_id = tbt.teacher_id)
+        where
+            tbt.teacher_id =
+            (
+            select
+            teacher_id
+            from
+            teacher_tb
+            where
+            user_id = #{userId})
+        <choose>
+            <when test="count != -1 ">
+                and(
+                title like concat('%', #{searchText},'%')
+                )
+            </when>
+        </choose>
+        limit #{startIndex}, #{count}
+
+    </select>
+
+    <select id="getTeacherMypageCount" resultType="integer">
+        select
+        count(*)
+        from
+            teacher_board_tb tbt
+        left outer join teacher_tb tt on(tt.teacher_id = tbt.teacher_id)
+            where
+            tbt.teacher_id =
+            (
+            select
+            teacher_id
+            from
+            teacher_tb
+            where
+            user_id = #{userId})
+        <choose>
+            <when test="count != -1 ">
+                and(
+                title like concat('%', #{searchText},'%')
+                )
+            </when>
+        </choose>
+
+    </select>
+
+    <select id="searchTeacherStudyMypageBoards" resultMap="StudyBoardResultMap">
+        select
+            stbt.study_board_id,
+            stbt.title,
+            stbt.content,
+            stbt.view_count,
+            stbt.create_date
+        from
+            teacher_tb tt
+        left outer join study_board_tb stbt on(stbt.user_id = tt.user_id)
+        where
+            tt.user_id = #{userId}
+        <choose>
+            <when test="count != -1 ">
+                and(
+                title like concat('%', #{searchText},'%')
+                )
+            </when>
+        </choose>
+        limit #{startIndex}, #{count}
+
+    </select>
+
+    <select id="getTeacherStudyMypageCount" resultType="integer">
+        select
+            count(*)
+        from
+            teacher_tb tt
+        left outer join study_board_tb stbt on(stbt.user_id = tt.user_id)
+        where
+            tt.user_id = #{userId}
+        <choose>
+            <when test="count != -1 ">
+                and(
+                title like concat('%', #{searchText},'%')
+                )
+            </when>
+        </choose>
+    </select>
+
     <update id="modifyStudentProfile" parameterType="com.meeteam4.meeting.entity.Student">
         update
             student_tb
@@ -336,6 +561,4 @@
         where
             user_id = #{userId}
     </update>
-
-
 </mapper>

@@ -61,4 +61,56 @@ public interface AccountMapper {
 
     public User getStudentProfile(int userId);
 
+    public List<StudentBoard> searchStudentMypageBoards(
+            @Param("userId") int userId,
+            @Param("startIndex") int startIndex,
+            @Param("count") int count,
+            @Param("searchText") String searchText
+    );
+
+    public int getStudentMypageCount(
+            @Param("userId") int userId,
+            @Param("count") int count,
+            @Param("searchText") String searchText
+    );
+
+    public List<StudyBoard> searchStudyMypageBoards(
+            @Param("userId") int userId,
+            @Param("startIndex") int startIndex,
+            @Param("count") int count,
+            @Param("searchText") String searchText
+    );
+
+    public int getStudyMypageCount(
+            @Param("userId") int userId,
+            @Param("count") int count,
+            @Param("searchText") String searchText
+    );
+
+    public List<TeacherBoard> searchTeacherMypageBoards(
+            @Param("userId") int userId,
+            @Param("startIndex") int startIndex,
+            @Param("count") int count,
+            @Param("searchText") String searchText
+    );
+
+    public int getTeacherMypageCount(
+            @Param("userId") int userId,
+            @Param("count") int count,
+            @Param("searchText") String searchText
+    );
+
+    public List<StudyBoard> searchTeacherStudyMypageBoards(
+            @Param("userId") int userId,
+            @Param("startIndex") int startIndex,
+            @Param("count") int count,
+            @Param("searchText") String searchText
+    );
+
+    public int getTeacherStudyMypageCount(
+            @Param("userId") int userId,
+            @Param("count") int count,
+            @Param("searchText") String searchText
+    );
+
 }

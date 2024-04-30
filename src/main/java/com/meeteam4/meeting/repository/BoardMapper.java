@@ -68,6 +68,7 @@ public interface BoardMapper {
             @Param("count") int count,
             @Param("searchText") String searchText
     );
+
     public int getStudyCount(
             @Param("count") int count,
             @Param("searchText") String searchText

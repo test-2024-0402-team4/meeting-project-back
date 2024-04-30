@@ -11,6 +11,7 @@ import java.time.LocalDateTime;
 public class StudentBoardListRespDto {
     private int studentBoardId;
     private int studentId;
+    private int userId;
     private String title;
     private String content;
     private String theme;
