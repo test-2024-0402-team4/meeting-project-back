@@ -27,7 +27,7 @@ public class StudyBoardController {
     }
 
     @GetMapping("/boards")
-    public ResponseEntity<?> studentBoardList(StudyBoardListReqDto studyBoardListReqDto){
+    public ResponseEntity<?> studyBoardList(StudyBoardListReqDto studyBoardListReqDto){
         return ResponseEntity.ok(studyBoardService.searchStudyBoards(studyBoardListReqDto));
     }
 

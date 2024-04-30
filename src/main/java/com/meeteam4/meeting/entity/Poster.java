@@ -24,7 +24,6 @@ public class Poster {
     private String content;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
-    private String email;
 
     private User user;
     private List<PosterClassTypeRegister> posterClassTypeRegister;

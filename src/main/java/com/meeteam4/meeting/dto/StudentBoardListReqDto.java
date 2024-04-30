@@ -9,4 +9,5 @@ public class StudentBoardListReqDto {
    private int page;
    private int count;
    private String searchText;
+   private int userId;
 }

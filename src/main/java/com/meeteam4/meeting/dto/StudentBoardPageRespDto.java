@@ -10,6 +10,7 @@ import java.time.LocalDateTime;
 public class StudentBoardPageRespDto {
     private int studentBoardId;
     private int studentId;
+    private int userId;
     private String title;
     private String content;
     private int viewCount;

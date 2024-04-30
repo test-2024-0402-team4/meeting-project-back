@@ -29,6 +29,8 @@ public class StudyBoardService {
                 studyBoardListReqDto.getSearchText()
         );
 
+        System.out.println("스터디보드 : " + studyBoards);
+
         return studyBoards.stream().map(StudyBoard::toStudyBoardListRespDto).collect(Collectors.toList());
         }
 

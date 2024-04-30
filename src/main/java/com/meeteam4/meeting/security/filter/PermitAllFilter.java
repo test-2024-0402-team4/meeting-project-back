@@ -18,7 +18,8 @@ public class PermitAllFilter extends GenericFilter {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
-        List<String> antMatchers = List.of("/auth", "/auth/oauth2", "/notice", "/study", "/main", "/mail");
+        List<String> antMatchers = List.of("/auth", "/auth/oauth2","/study/**", "/notice", "/main");
+
 
         String uri = request.getRequestURI();
         request.setAttribute("isPermitAll", false);

@@ -17,6 +17,7 @@
         <association property="gender" resultMap="GenderPosterResultMap"/>
         <association property="studentType" resultMap="StudentTypePosterResultMap"/>
         <association property="region" resultMap="RegionPosterResultMap"/>
+        <association property="user" resultMap="UserResultMap"/>
         <collection property="posterClassTypeRegister" javaType="list" resultMap="PosterClassTypeRegisterResultMap"/>
         <collection property="posterDateRegister" javaType="list" resultMap="PosterDateRegisterResultMap"/>
         <collection property="posterSubjectRegister" javaType="list" resultMap="PosterSubjectRegister"/>
@@ -215,7 +216,8 @@
             pt.content,
             st.subject_name,
             dt.date_type,
-            ctt.class_type
+            ctt.class_type,
+            ut.email
         from
             poster_tb pt
             left outer join poster_subject_register_tb psrt on(psrt.poster_id = pt.poster_id)
@@ -227,6 +229,7 @@
             left outer join date_tb dt on(dt.date_id = pdrt.date_id)
             left outer join poster_class_type_id_register_tb pctirt on(pctirt.poster_id = pt.poster_id)
             left outer join class_type_tb ctt on(ctt.class_type_id = pctirt.class_type_id)
+            left outer join user_tb ut on(ut.user_id = pt.user_id)
         where
             pt.poster_id in(
                 <foreach collection="posterIds" item="posterId" separator=",">
@@ -304,7 +307,8 @@
             pt.content,
             st.subject_name,
             dt.date_type,
-            ctt.class_type
+            ctt.class_type,
+            ut.email
         from
             poster_tb pt
             left outer join poster_subject_register_tb psrt on(psrt.poster_id = pt.poster_id)
@@ -316,6 +320,8 @@
             left outer join date_tb dt on(dt.date_id = pdrt.date_id)
             left outer join poster_class_type_id_register_tb pctirt on(pctirt.poster_id = pt.poster_id)
             left outer join class_type_tb ctt on(ctt.class_type_id = pctirt.class_type_id)
+            left outer join user_tb ut on(ut.user_id = pt.user_id)
+
         where
             pt.poster_id = #{posterId}
         order by

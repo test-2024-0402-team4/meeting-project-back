@@ -44,6 +44,7 @@ public class TeacherController {
         return ResponseEntity.ok(accountService.getStudentProfile(userId));
     }
 
+
     // 선생님 프로필 수정
     @PutMapping("/profile")
     public ResponseEntity<?> modifyProfile(@RequestBody TeacherProfileModifyDto teacherProfileModifyDto) {
@@ -51,5 +52,37 @@ public class TeacherController {
         return ResponseEntity.ok(true);
     }
 
+    @GetMapping("/profile/{userId}")
+    public ResponseEntity<?> getTeacherProfile(@PathVariable int userId){
+        return  ResponseEntity.ok(accountService.getStudentProfile(userId));
+    }
+
+    @GetMapping("/mypage/boards/{userId}")
+    public ResponseEntity<?> getTeacherMypageBoards(@PathVariable int userId, TeacherBoardListReqDto teacherBoardListReqDto){
+        return ResponseEntity.ok(accountService.searchTeacherMypageBoards(teacherBoardListReqDto));
+    }
+
+    @GetMapping("/boards/count/{userId}")
+    public ResponseEntity<?> teacherGetCount(@PathVariable int userId,TeacherBoardListReqDto teacherBoardListReqDto){
+
+        return ResponseEntity.ok(accountService.getTeacherMypageCount(teacherBoardListReqDto));
+    }
+
+    @GetMapping("/mypage/boards/study/{userId}")
+    public ResponseEntity<?> getTeacherStudyMypageBoards(@PathVariable int userId, StudyBoardListReqDto studyBoardListReqDto){
+        return ResponseEntity.ok(accountService.searchTeacherStudyMypageBoards(studyBoardListReqDto));
+    }
+
+    @GetMapping("/boards/count/study/{userId}")
+    public ResponseEntity<?> teacherStudyGetCount(@PathVariable int userId,StudyBoardListReqDto studyBoardListReqDto){
+
+        return ResponseEntity.ok(accountService.getTeacherStudyMypageCount(studyBoardListReqDto));
+    }
+
+    @GetMapping("/mypage/profile/{userId}")
+    public ResponseEntity<?> getTeacherMypageProfile(@PathVariable int userId){
+
+        return ResponseEntity.ok(accountService.getTeacherProfileRespDto(userId));
+    }
 
 }
