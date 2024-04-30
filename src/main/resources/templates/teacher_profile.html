@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>선생님 프로필 이동 안내</title>
+</head>
+<body>
+<div align="center" style="font-size: 15px">
+    <!-- 버튼을 a 태그로 변경하고 href 속성에 profileLink를 설정합니다. -->
+    <a th:href="${profileLink}">
+        <button>프로필로 이동</button>
+    </a>
+</div>
+</body>
+</html>

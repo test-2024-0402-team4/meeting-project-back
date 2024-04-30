@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>선생님 프로필 이동 안내</title>
+</head>
+<body>
+<div align="center" style="font-size: 15px">
+    이름<div th:text="${applyData.name}"></div>
+    나이<div th:text="${applyData.age}"></div>
+    성별<div th:text="${applyData.gender}"></div>
+    이메일 <div th:text="${applyData.email}"></div>
+    학생 타입 <div th:text="${applyData.studentType}"></div>
+    과목 <div th:text="${applyData.subjects}"></div>
+    지역 <div th:text="${applyData.region}"></div>
+    요일 <div th:text="${applyData.dates}"></div>
+    수업 방식 <div th:text="${applyData.classType}"></div>
+</div>
+</body>
+</html>

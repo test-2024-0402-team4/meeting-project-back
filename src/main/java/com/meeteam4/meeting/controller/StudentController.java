@@ -1,7 +1,9 @@
 package com.meeteam4.meeting.controller;
 
 
+
 import com.meeteam4.meeting.dto.*;
+
 import com.meeteam4.meeting.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -20,9 +22,15 @@ public class StudentController {
         return ResponseEntity.ok(accountService.saveStudentPoster(posterReqDto));
     }
     // 올린 공고 수정
-    @PutMapping("/poster")
-    public ResponseEntity<?> modifyPoster(@RequestBody StudentPosterModify studentPosterModify) {
-        return ResponseEntity.ok(accountService.modifyStudentPoster(studentPosterModify));
+    @PostMapping("/poster/modify")
+    public ResponseEntity<?> modifyPoster(@RequestBody PosterReqDto posterReqDto) {
+        return ResponseEntity.ok(accountService.modifyStudentPoster(posterReqDto));
+    }
+
+    // 올린 공고 삭제
+    @DeleteMapping("/poster/{posterId}")
+    public ResponseEntity<?> deletePoster(@PathVariable int posterId) {
+        return ResponseEntity.ok(accountService.deleteStudentPoster(posterId));
     }
 
     @GetMapping("/tutor/profiles")
@@ -51,7 +59,16 @@ public class StudentController {
 
     @GetMapping("/profile/{userId}")
     public ResponseEntity<?> getStudentProfile(@PathVariable int userId){
-        return  ResponseEntity.ok(accountService.getStudentProfile(userId));
+        System.out.println(accountService.getStudentProfile(userId));
+        return ResponseEntity.ok(accountService.getStudentProfile(userId));
+    }
+
+    // 학생 프로필 수정
+    @PutMapping("/profile")
+    public ResponseEntity<?> modifyProfile(@RequestBody StudentProfileModifyDto studentProfileModifyDto) {
+        System.out.println(studentProfileModifyDto);
+        accountService.modifyStudentProfile(studentProfileModifyDto);
+        return ResponseEntity.ok(true);
     }
 
     @GetMapping("/mypage/boards/{userId}")

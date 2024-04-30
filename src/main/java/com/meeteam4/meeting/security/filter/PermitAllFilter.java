@@ -20,6 +20,7 @@ public class PermitAllFilter extends GenericFilter {
 
         List<String> antMatchers = List.of("/auth", "/auth/oauth2","/study/**", "/notice", "/main");
 
+
         String uri = request.getRequestURI();
         request.setAttribute("isPermitAll", false);
 

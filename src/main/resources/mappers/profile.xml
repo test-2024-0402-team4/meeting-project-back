@@ -19,12 +19,14 @@
         <association property="gender" resultMap="GenderResultMap"/>
         <association property="graduateState" resultMap="GraduateStateResultMap"/>
         <association property="userImgUrl" resultMap="UserImgUrlResultMap"/>
+        <association property="studentType" resultMap="StudentTypeResultMap"/>
         <collection property="regionRegister" javaType="list" resultMap="RegionRegisterResultMap"/>
         <collection property="subjectRegister" javaType="list" resultMap="SubjectRegisterResultMap"/>
         <collection property="dateRegister" javaType="list" resultMap="DateRegisterResultMap"/>
         <collection property="classTypeRegister" javaType="list" resultMap="ClassTypeRegisterResultMap"/>
         <collection property="roleRegisters" javaType="list" resultMap="RoleRegisterResultMap"/>
      </resultMap>
+
     <resultMap id="TeacherResultMap" type="com.meeteam4.meeting.entity.Teacher">
         <id property="teacherId" column="teacher_id" />
         <result property="userId" column="user_id"/>
@@ -47,6 +49,7 @@
         <result property="regionId" column="region_id"/>
         <result property="createDate" column="create_date"/>
         <result property="updateDate" column="update_date"/>
+        <association property="studentType" resultMap="StudentTypeResultMap" />
     </resultMap>
     <resultMap id="StudentTypeResultMap" type="com.meeteam4.meeting.entity.StudentType">
         <id property="studentTypeId" column="student_type_id"/>
@@ -326,7 +329,10 @@
         select
             ut.user_id,
             ut.nickname,
+            ut.name,
+            ut.email,
             st.birth_date,
+            stt.student_type,
             uiut.user_img_url,
             gt.gender_type,
             rgt.region_name,
@@ -336,6 +342,7 @@
             user_tb ut
             left outer join user_img_url_tb uiut on(uiut.user_id = ut.user_id)
             left outer join student_tb st on(st.user_id = ut.user_id)
+            left outer join student_type_tb stt on(stt.student_type_id = st.student_type_id)
             left outer join gender_tb gt on(gt.gender_id = st.gender_id)
             left outer join region_tb rgt on(rgt.region_id= st.region_id)
             left outer join role_register_tb rrt on(rrt.user_id = ut.user_id)
@@ -343,7 +350,6 @@
         where
             ut.user_id = #{userId};
     </select>
-
 
     <select id="searchStudentMypageBoards" resultMap="BoardResultMap">
         select
@@ -401,7 +407,6 @@
 
     </select>
 
-
     <select id="searchStudyMypageBoards" resultMap="StudyBoardResultMap">
         select
             stbt.study_board_id,
@@ -422,7 +427,6 @@
             </when>
         </choose>
         limit #{startIndex}, #{count}
-
     </select>
 
     <select id="getStudyMypageCount" resultType="integer">
@@ -441,10 +445,6 @@
             </when>
         </choose>
     </select>
-
-
-
-
 
     <select id="searchTeacherMypageBoards" resultMap="TeacherBoardResultMap">
         select
@@ -502,7 +502,6 @@
 
     </select>
 
-
     <select id="searchTeacherStudyMypageBoards" resultMap="StudyBoardResultMap">
         select
             stbt.study_board_id,
@@ -543,8 +542,23 @@
         </choose>
     </select>
 
-
-
-
-
+    <update id="modifyStudentProfile" parameterType="com.meeteam4.meeting.entity.Student">
+        update
+            student_tb
+        set
+            phone_number = #{phoneNumber},
+            region_id = #{regionId},
+            update_date = now()
+        where
+            user_id = #{userId}
+    </update>
+    <update id="modifyUserProfile" parameterType="com.meeteam4.meeting.entity.User">
+        update
+            user_tb
+        set
+            nickname = #{nickname},
+            update_date = now()
+        where
+            user_id = #{userId}
+    </update>
 </mapper>

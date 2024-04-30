@@ -1,10 +1,7 @@
 package com.meeteam4.meeting.repository;
 
 
-import com.meeteam4.meeting.dto.PosterReqDto;
-import com.meeteam4.meeting.dto.SearchProfilesReqDto;
-import com.meeteam4.meeting.dto.SearchProfilesRespDto;
-import com.meeteam4.meeting.dto.UserRegisterDto;
+import com.meeteam4.meeting.dto.*;
 import com.meeteam4.meeting.entity.*;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
@@ -32,12 +29,20 @@ public interface AccountMapper {
                                        );
     public List<User> getTeacherProfiles(@Param("userIds") List<Integer> distinctUserIds);
 
-    public int saveStudentPoster(Poster poster);
-    public int modifyStudentPoster(Poster poster);
+    public int modifyStudentProfile(Student student);
+    public int modifyUserProfile(User user);
 
+    public int saveStudentPoster(Poster poster);
     public int savePosterDate(PosterDateRegister posterDateRegister);
     public int savePosterSubjectIds(PosterSubjectRegister posterSubjectRegister);
     public int savePosterClassTypeIds(PosterClassTypeRegister posterClassTypeRegister);
+
+    public int deleteStudentPoster(@Param("posterId") int posterId);
+    public int deletePosterDate(@Param("posterId") int posterId);
+    public int deletePosterSubjectIds(@Param("posterId") int posterId);
+    public int deletePosterClassTypeIds(@Param("posterId") int posterId);
+
+    public int modifyStudentPoster(Poster poster);
 
     public List<Integer> searchPosterIds(@Param("regionIds") List<Integer> regionId,
                                          @Param("subjectIds") List<Integer> subjectId,

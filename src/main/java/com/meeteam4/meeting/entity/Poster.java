@@ -24,7 +24,9 @@ public class Poster {
     private String content;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
+    private String email;
 
+    private User user;
     private List<PosterClassTypeRegister> posterClassTypeRegister;
     private List<PosterDateRegister> posterDateRegister;
     private List<PosterSubjectRegister> posterSubjectRegister;
@@ -41,6 +43,7 @@ public class Poster {
                 .genderType(gender.getGenderType())
                 .studentType(studentType.getStudentType())
                 .regionName(region.getRegionName())
+                .email(user.getEmail())
                 .build();
     }
 }
