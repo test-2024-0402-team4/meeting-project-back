@@ -557,8 +557,8 @@
             teacher_tb
         set
             university_id = #{universityId},
-            department_name = #{departmentName}
-            graduate_state_id = #{graduateStateId}
+            department_name = #{departmentName},
+            graduate_state_id = #{graduateStateId},
             phone_number = #{phoneNumber},
             update_date = now()
         where
