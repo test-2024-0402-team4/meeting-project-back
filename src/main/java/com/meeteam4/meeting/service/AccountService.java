@@ -609,8 +609,9 @@ public class AccountService {
     }
 
 
-    public void updateImgUrl(UpdateImgUrlReqDto updateImgUrlReqDto){
+    public void updateImgUrl(UpdateImgUrlReqDto updateImgUrlReqDto) {
         accountMapper.updateImgUrl(updateImgUrlReqDto.toEntity());
+    }
 
     public void saveApplicationDetails(int studentUserId, int teacherUserId) {
         accountMapper.saveApplicationDetails(studentUserId, teacherUserId);

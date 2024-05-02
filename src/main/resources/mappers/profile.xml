@@ -253,7 +253,7 @@
             ctt.class_type,
             rrt.region_id,
             rt.region_name,
-            ut.user_img_url
+            ut.user_img_url,
             tit.teacher_introduce_content
 
         from
