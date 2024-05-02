@@ -17,6 +17,7 @@ public class TeacherProfileReqDto {
     private List<Integer> regionIds;
     private List<Integer> dateIds;
     private List<Integer> classTypeIds;
+    private String teacherIntroduceContent;
 
 
 }

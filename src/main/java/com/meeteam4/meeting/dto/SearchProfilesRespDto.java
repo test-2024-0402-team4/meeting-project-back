@@ -21,6 +21,8 @@ public class SearchProfilesRespDto {
     private String  universityName;
     private String departmentName;
     private String  graduateState;
+    private String teacherIntroduceContent;
+
     private List<String> subjectNames;
     private List<String> classTypeNames;
     private List<String> dateNames;
