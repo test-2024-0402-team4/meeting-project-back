@@ -14,11 +14,11 @@
         <result property="roleId" column="role_id"/>
         <result property="createDate" column="create_date"/>
         <result property="updateDate" column="update_date"/>
+        <result property="userImgUrl" column="user_img_url"/>
         <association property="teacher" resultMap="TeacherResultMap"/>
         <association property="university" resultMap="UniversityResultMap"/>
         <association property="gender" resultMap="GenderResultMap"/>
         <association property="graduateState" resultMap="GraduateStateResultMap"/>
-        <association property="userImgUrl" resultMap="UserImgUrlResultMap"/>
         <association property="studentType" resultMap="StudentTypeResultMap"/>
         <collection property="regionRegister" javaType="list" resultMap="RegionRegisterResultMap"/>
         <collection property="subjectRegister" javaType="list" resultMap="SubjectRegisterResultMap"/>
@@ -58,12 +58,6 @@
     <resultMap id="UniversityResultMap" type="com.meeteam4.meeting.entity.University" >
         <id property="universityId" column="university_id"/>
         <result property="universityName" column="university_name"/>
-    </resultMap>
-
-    <resultMap id="UserImgUrlResultMap" type="com.meeteam4.meeting.entity.UserImgUrl">
-        <id property="userImgUrlId" column="user_img_url_id"/>
-        <result property="userId" column="user_id" />
-        <result property="userImgUrl" column="user_img_url" />
     </resultMap>
 
     <resultMap id="RoleResultMap" type="com.meeteam4.meeting.entity.Role">
@@ -243,7 +237,7 @@
             ctt.class_type,
             rrt.region_id,
             rt.region_name,
-            uiut.user_img_url
+            ut.user_img_url
         from
             user_tb ut
             left outer join teacher_tb tt on(tt.user_id = ut.user_id)
@@ -258,7 +252,6 @@
             left outer join class_type_tb ctt on(ctt.class_type_id = ctrt.class_type_id)
             left outer join region_register_tb rrt on(rrt.user_id = ut.user_id)
             left outer join region_tb rt on(rt.region_id = rrt.region_id)
-            left outer join user_img_url_tb uiut on (uiut.user_id = ut.user_id)
         where
             ut.user_id in (
             <foreach collection="userIds" item="userId" separator=",">
