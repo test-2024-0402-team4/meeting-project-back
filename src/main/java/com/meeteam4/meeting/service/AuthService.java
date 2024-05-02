@@ -152,9 +152,25 @@ public class AuthService {
         userMapper.modifyPassword(user);
         return "비밀번호 변경완료";
     }
-
+    @Transactional(rollbackFor = Exception.class)
     public void deleteAccount(int userId) {
         userMapper.deleteAccount(userId);
+        userMapper.deleteTeacher(userId);
+        userMapper.deleteTeacherIntroduce(userId);
+        userMapper.deleteSubjectRegister(userId);
+        userMapper.deleteStudyComment(userId);
+        userMapper.deleteStudyBoard(userId);
+        userMapper.deleteStudent(userId);
+        userMapper.deleteRoleRegister(userId);
+        userMapper.deleteRegionRegister(userId);
+        userMapper.deletePoster(userId);
+        userMapper.deleteOauth2(userId);
+        userMapper.deleteDateRegister(userId);
+        userMapper.deleteClassTypeRegister(userId);
+        userMapper.deleteTeacherComment(userId);
+        userMapper.deleteTeacherBoard(userId);
+        userMapper.deleteStudentBoard(userId);
+        userMapper.deleteStudentComment(userId);
     }
 
 }

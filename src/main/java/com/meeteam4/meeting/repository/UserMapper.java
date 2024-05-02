@@ -28,4 +28,21 @@ public interface UserMapper {
     public int modifyPassword(User user);
 
     public int deleteAccount(int userId);
+    public int deleteTeacher(int userId);
+    public int deleteTeacherIntroduce(int userId);
+    public int deleteSubjectRegister(int userId);
+    public int deleteStudyComment(int userId);
+    public int deleteStudyBoard(int userId);
+    public int deleteStudent(int userId);
+    public int deleteRoleRegister(int userId);
+    public int deleteRegionRegister(int userId);
+    public int deletePoster(int userId);
+    public int deleteOauth2(int userId);
+    public int deleteDateRegister(int userId);
+    public int deleteClassTypeRegister(int userId);
+    public int deleteTeacherComment(int userId);
+    public int deleteTeacherBoard(int userId);
+    public int deleteStudentBoard(int userId);
+    public int deleteStudentComment(int userId);
+
 }
