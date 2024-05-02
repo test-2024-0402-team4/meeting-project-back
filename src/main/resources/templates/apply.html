@@ -2,19 +2,54 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>선생님 프로필 이동 안내</title>
+    <title>과외 신청 메일</title>
 </head>
 <body>
-<div align="center" style="font-size: 15px">
-    이름<div th:text="${applyData.name}"></div>
-    나이<div th:text="${applyData.age}"></div>
-    성별<div th:text="${applyData.gender}"></div>
-    이메일 <div th:text="${applyData.email}"></div>
-    학생 타입 <div th:text="${applyData.studentType}"></div>
-    과목 <div th:text="${applyData.subjects}"></div>
-    지역 <div th:text="${applyData.region}"></div>
-    요일 <div th:text="${applyData.dates}"></div>
-    수업 방식 <div th:text="${applyData.classType}"></div>
+<div class="container" style="width: 380px; background-color: #fff; border: 1px solid #dbdbdb; border-radius: 5px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); padding: 20px; margin: 50px auto;">
+    <div class="header" style="font-size: 20px; font-weight: bold; margin-bottom: 20px; border-bottom: 1px solid #dbdbdb; padding-bottom: 10px;">
+        과외나무에서 과외신청이 도착했습니다!
+    </div>
+    <div class="studentInfo" style="font-size: 20px; font-weight: bold;">
+        학생정보
+    </div>
+    <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+        <tr>
+            <td style="padding: 10px; border-bottom: 1px solid #dbdbdb; font-size: 16px; font-weight: bold; width: 40%; color: #555;">이름</td>
+            <td th:text="${applyData.name}" style="padding: 10px; border-bottom: 1px solid #dbdbdb; font-size: 16px;"></td>
+        </tr>
+        <tr>
+            <td style="padding: 10px; border-bottom: 1px solid #dbdbdb; font-size: 16px; font-weight: bold;">나이</td>
+            <td th:text="만 + ${applyData.age} +세" style="padding: 10px; border-bottom: 1px solid #dbdbdb; font-size: 16px;"></td>
+        </tr>
+        <tr>
+            <td style="padding: 10px; border-bottom: 1px solid #dbdbdb; font-size: 16px; font-weight: bold;">이메일</td>
+            <td th:text="${applyData.email}" style="padding: 10px; border-bottom: 1px solid #dbdbdb; font-size: 16px;"></td>
+        </tr>
+        <tr>
+            <td style="padding: 10px; border-bottom: 1px solid #dbdbdb; font-size: 16px; font-weight: bold;">성별</td>
+            <td th:text="${applyData.gender}" style="padding: 10px; border-bottom: 1px solid #dbdbdb; font-size: 16px;"></td>
+        </tr>
+        <tr>
+            <td style="padding: 10px; border-bottom: 1px solid #dbdbdb; font-size: 16px; font-weight: bold;">학생 유형</td>
+            <td th:text="${applyData.studentType}" style="padding: 10px; border-bottom: 1px solid #dbdbdb; font-size: 16px;"></td>
+        </tr>
+        <tr>
+            <td style="padding: 10px; border-bottom: 1px solid #dbdbdb; font-size: 16px; font-weight: bold;">지역</td>
+            <td th:text="${applyData.region}" style="padding: 10px; border-bottom: 1px solid #dbdbdb; font-size: 16px;"></td>
+        </tr>
+        <tr>
+            <td style="padding: 10px; border-bottom: 1px solid #dbdbdb; font-size: 16px; font-weight: bold;">과목</td>
+            <td th:text="${applyData.subjects}" style="padding: 10px; border-bottom: 1px solid #dbdbdb; font-size: 16px;"></td>
+        </tr>
+        <tr>
+            <td style="padding: 10px; border-bottom: 1px solid #dbdbdb; font-size: 16px; font-weight: bold;">날짜</td>
+            <td th:text="${applyData.dates}" style="padding: 10px; border-bottom: 1px solid #dbdbdb; font-size: 16px;"></td>
+        </tr>
+        <tr>
+            <td style="padding: 10px; border-bottom: 1px solid #dbdbdb; font-size: 16px; font-weight: bold;">수업방식</td>
+            <td th:text="${applyData.classType}" style="padding: 10px; border-bottom: 1px solid #dbdbdb; font-size: 16px;"></td>
+        </tr>
+    </table>
 </div>
 </body>
 </html>
