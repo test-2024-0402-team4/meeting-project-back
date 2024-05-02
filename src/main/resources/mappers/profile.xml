@@ -62,12 +62,6 @@
         <result property="universityName" column="university_name"/>
     </resultMap>
 
-    <resultMap id="UserImgUrlResultMap" type="com.meeteam4.meeting.entity.UserImgUrl">
-        <id property="userImgUrlId" column="user_img_url_id"/>
-        <result property="userId" column="user_id" />
-        <result property="userImgUrl" column="user_img_url" />
-    </resultMap>
-
     <resultMap id="RoleResultMap" type="com.meeteam4.meeting.entity.Role">
         <id property="roleId" column="role_id"/>
         <result property="roleName" column="role_name" />
@@ -258,7 +252,8 @@
             ctrt.class_type_id,
             ctt.class_type,
             rrt.region_id,
-            rt.region_name
+            rt.region_name,
+            ut.user_img_url
             tit.teacher_introduce_content
 
         from

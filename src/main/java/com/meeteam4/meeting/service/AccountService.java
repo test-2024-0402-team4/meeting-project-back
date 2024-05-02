@@ -142,8 +142,7 @@ public class AccountService {
         for (User user : users) {
             // User 클래스의 toSearchProfilesRespDto 메서드를 호출하여 검색 프로필을 생성
             SearchProfilesRespDto searchProfile = user.toSearchProfilesRespDto();
-
-              //  searchProfile.setUserImgUrl(user.getUserImgUrl().getUserImgUrl());
+                searchProfile.setUserImgUrl(user.getUserImgUrl());
             // Teacher 처리
                 searchProfile.setDepartmentName(user.getTeacher().getDepartmentName());
             // GraduateState 처리
@@ -202,8 +201,7 @@ public class AccountService {
         for (User user : users) {
             // User 클래스의 toSearchProfilesRespDto 메서드를 호출하여 검색 프로필을 생성
             SearchProfilesRespDto searchProfile = user.toSearchProfilesRespDto();
-
-           // searchProfile.setUserImgUrl(user.getUserImgUrl().getUserImgUrl());
+            searchProfile.setUserImgUrl(user.getUserImgUrl());
             // Teacher 처리
             searchProfile.setDepartmentName(user.getTeacher().getDepartmentName());
             searchProfile.setBirthDate(user.getTeacher().getBirthDate());
@@ -633,7 +631,7 @@ public class AccountService {
             // User 클래스의 toSearchProfilesRespDto 메서드를 호출하여 검색 프로필을 생성
             SearchProfilesRespDto searchProfile = user.toSearchProfilesRespDto();
 
-            searchProfile.setUserImgUrl(user.getUserImgUrl().getUserImgUrl());
+            searchProfile.setUserImgUrl(user.getUserImgUrl());
             // Teacher 처리
             searchProfile.setDepartmentName(user.getTeacher().getDepartmentName());
             // GraduateState 처리

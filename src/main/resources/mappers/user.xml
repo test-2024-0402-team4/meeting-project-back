@@ -28,6 +28,7 @@
         <result property="roleId" column="role_id" />
         <result property="createDate" column="create_date" />
         <result property="updateDate" column="update_date" />
+        <result property="userImgUrl" column="user_img_url" />
         <association property="teacher" resultMap="TeacherResultMap"/>
         <association property="student" resultMap="StudentResultMap"/>
         <collection property="roleRegisters" javaType="List" resultMap="RoleRegisterResultMap" />
@@ -63,10 +64,11 @@
             keyProperty="userId"
             useGeneratedKeys="true"
     >
-        insert into
-            user_tb
-        values
-            (0, #{name}, #{username}, #{password}, #{nickname}, #{email}, #{roleId}, now(), now());
+        INSERT INTO
+            user_tb (name, username, password, nickname, email, role_id, create_date, update_date)
+        VALUES
+            (#{name}, #{username}, #{password}, #{nickname}, #{email}, #{roleId}, NOW(), NOW());
+
     </insert>
 
     <insert id="saveStudent"

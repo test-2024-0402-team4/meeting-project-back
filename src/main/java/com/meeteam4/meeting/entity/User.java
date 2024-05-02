@@ -28,6 +28,7 @@ public class User {
     private String nickname;
     private String email;
     private int roleId;
+    private String userImgUrl;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
     private String userImgUrl;
@@ -39,8 +40,6 @@ public class User {
     private University university;
     private GraduateState graduateState;
     private TeacherIntroduce teacherIntroduce;
-
-
     private List<SubjectRegister> subjectRegister;
     private List<DateRegister> dateRegister;
     private List<ClassTypeRegister> classTypeRegister;
