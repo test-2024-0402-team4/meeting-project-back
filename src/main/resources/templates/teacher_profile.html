@@ -5,11 +5,38 @@
     <title>선생님 프로필 이동 안내</title>
 </head>
 <body>
-<div align="center" style="font-size: 15px">
-    <!-- 버튼을 a 태그로 변경하고 href 속성에 profileLink를 설정합니다. -->
-    <a th:href="${profileLink}">
-        <button>프로필로 이동</button>
-    </a>
+<div class="container" style="
+        width: 440px;
+        background-color: #fff;
+        border: 1px solid #dbdbdb;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+    ">
+    <div class="header" style="
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #dbdbdb;
+            padding-bottom: 10px;
+        ">
+        과외나무에서 선생님 프로필이 도착했습니다!
+    </div>
+    <div>
+        <a th:href="${profileLink}">
+            <button style="
+                    background-color: #14dbba;
+                    color: #fff;
+                    border: none;
+                    border-radius: 5px;
+                    padding: 10px 20px;
+                    cursor: pointer;
+                    font-size: 16px;
+                ">
+                프로필로 이동
+            </button>
+        </a>
+    </div>
 </div>
 </body>
 </html>
