@@ -119,4 +119,6 @@ public interface AccountMapper {
             @Param("searchText") String searchText
     );
 
+    public int updateImgUrl(User user);
+
 }

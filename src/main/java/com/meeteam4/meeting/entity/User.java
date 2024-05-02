@@ -30,6 +30,7 @@ public class User {
     private int roleId;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
+    private String userImgUrl;
 
     private Gender gender;
     private Teacher teacher;
@@ -37,8 +38,8 @@ public class User {
     private StudentType studentType;
     private University university;
     private GraduateState graduateState;
-    private UserImgUrl userImgUrl;
     private TeacherIntroduce teacherIntroduce;
+
 
     private List<SubjectRegister> subjectRegister;
     private List<DateRegister> dateRegister;
@@ -81,7 +82,7 @@ public class User {
                 .email(email)
                 .nickname(nickname)
                 .studentType(studentType.getStudentType())
-                .userImgUrl(userImgUrl.getUserImgUrl())
+                .userImgUrl(userImgUrl)
                 .genderType(gender.getGenderType())
                 .birthDate(teacher.getBirthDate())
                 .regionName(regionRegister.get(0).getRegion().getRegionName())

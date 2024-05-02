@@ -41,6 +41,17 @@ public class TeacherBoardController {
         return ResponseEntity.ok(teacherBoardService.getSingleTeacherBoard(teacherBoardId));
     }
 
+    @GetMapping("/board/write/{userId}")
+    public ResponseEntity<?> getTeacherIdByUserId(@PathVariable int userId){
+
+        return ResponseEntity.ok(teacherBoardService.getTeacherId(userId));
+    }
+
+    @GetMapping("/board/single/{teacherBoardId}")
+    public ResponseEntity<?> getTeacherIdByTeacherBoardId(@PathVariable int teacherBoardId){
+        return ResponseEntity.ok(teacherBoardService.getTeacherIdByTeacherBoardId(teacherBoardId));
+    }
+
     @DeleteMapping("/board/{teacherBoardId}")  // 선생게시판 단건 삭제
     public ResponseEntity<?> deleteSingleTeacherBoard(@PathVariable int teacherBoardId){
 
@@ -54,6 +65,15 @@ public class TeacherBoardController {
 
         return ResponseEntity.ok(true);
     }
+
+    @PutMapping("/board/view/{teacherBoardId}")
+    public ResponseEntity<?> updateViewCount(@PathVariable int teacherBoardId){
+
+        teacherBoardService.updateViewCount(teacherBoardId);
+        return ResponseEntity.ok(true);
+    }
+
+
     @PostMapping("/board/comment/{teacherBoardId}")  //선생게시판 댓글 등록
     public ResponseEntity<?> teacherBoardComment(@PathVariable int teacherBoardId, @RequestBody TeacherCommentReqDto teacherCommentReqDto){
         commentService.saveTeacherComment(teacherCommentReqDto);
