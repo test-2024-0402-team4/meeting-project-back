@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/student")
 public class StudentController {
@@ -66,7 +68,6 @@ public class StudentController {
     // 학생 프로필 수정
     @PutMapping("/profile")
     public ResponseEntity<?> modifyProfile(@RequestBody StudentProfileModifyDto studentProfileModifyDto) {
-//        System.out.println(studentProfileModifyDto);
         accountService.modifyStudentProfile(studentProfileModifyDto);
         return ResponseEntity.ok(true);
     }
@@ -91,6 +92,19 @@ public class StudentController {
     public ResponseEntity<?> studyGetCount(@PathVariable int userId,StudyBoardListReqDto studyBoardListReqDto){
 
         return ResponseEntity.ok(accountService.getStudyMypageCount(studyBoardListReqDto));
+    }
+
+    @PostMapping("/apply/detail")
+    public ResponseEntity<?> saveApplicationDetail (@RequestBody Map<String, Integer> requestData) {
+        int studentUserId = requestData.get("studentUserId");
+        int teacherUserId = requestData.get("teacherUserId");
+
+        accountService.saveApplicationDetails(studentUserId, teacherUserId);
+        return ResponseEntity.ok(null);
+    }
+    @GetMapping("/apply/detail")
+    public ResponseEntity<?> getUserIdByApplicationDetail (@RequestParam("studentUserId") int studentUserId) {
+        return ResponseEntity.ok(accountService.getApplicationDetails(studentUserId));
     }
 
 }
