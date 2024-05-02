@@ -29,6 +29,7 @@
     <resultMap id="BoardTcResultMap" type="com.meeteam4.meeting.entity.TeacherBoard">
         <id property="teacherBoardId" column="teacher_board_id"/>
         <result property="teacherId" column="teacher_id"/>
+        <result property="userId" column="user_id"/>
         <result property="title" column="title"/>
         <result property="content" column="content"/>
         <result property="viewCount" column="view_count"/>
@@ -83,7 +84,6 @@
             #{studentId},
             #{title},
             #{content},
-            #{theme},
             #{viewCount},
             now(),
             now()
@@ -143,6 +143,28 @@
 
     </select>
 
+    <select id="getStudentId" resultMap="BoardResultMap">
+        select
+            student_id
+        from
+            student_tb st
+        left outer join user_tb ut on(ut.user_id = st.user_id)
+        where
+            ut.user_id = #{userId};
+
+    </select>
+
+    <select id="getStudentIdByStudentBoardId" resultMap="BoardResultMap">
+        select
+            student_id
+        from
+            student_board_tb
+        where
+            student_board_id = #{studentBoardId};
+
+    </select>
+
+
     <delete id="deleteBoardByBoardId">
         delete
         from
@@ -158,10 +180,39 @@
         set
             title = #{title},
             content = #{content},
-            theme = #{theme},
             update_date = now()
         where
             student_board_id = #{studentBoardId}
+
+    </update>
+
+    <update id="updateBoardViewByBoardId" parameterType="com.meeteam4.meeting.entity.StudentBoard">
+        update
+            student_board_tb
+        set
+            view_count = view_count + 1
+        where
+            student_board_id = #{studentBoardId};
+
+    </update>
+
+    <update id="updateBoardViewByTeacherBoardId" parameterType="com.meeteam4.meeting.entity.TeacherBoard">
+        update
+            teacher_board_tb
+        set
+            view_count = view_count + 1
+        where
+            teacher_board_id = #{teacherBoardId};
+
+    </update>
+
+    <update id="updateBoardViewByStudyBoardId" parameterType="com.meeteam4.meeting.entity.StudyBoard">
+        update
+            study_board_tb
+        set
+            view_count = view_count + 1
+        where
+            study_board_id = #{studyBoardId};
 
     </update>
 
@@ -274,6 +325,28 @@
             create_date,
             content,
             view_count
+        from
+            teacher_board_tb
+        where
+            teacher_board_id = #{teacherBoardId};
+
+    </select>
+
+    <select id="getTeacherId" resultMap="BoardTcResultMap">
+        select
+            teacher_id
+        from
+            teacher_tb tt
+        left outer join user_tb ut on(ut.user_id = tt.user_id)
+        where
+            ut.user_id = #{userId};
+
+    </select>
+
+
+    <select id="getTeacherIdByTeacherBoardId" resultMap="BoardTcResultMap">
+        select
+            teacher_id
         from
             teacher_board_tb
         where
@@ -410,6 +483,16 @@
             create_date,
             content,
             view_count
+        from
+            study_board_tb
+        where
+            study_board_id = #{studyBoardId};
+
+    </select>
+
+    <select id="getUserIdByStudyBoardId" resultMap="BoardStudyResultMap">
+        select
+            user_id
         from
             study_board_tb
         where

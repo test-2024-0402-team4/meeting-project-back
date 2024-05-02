@@ -20,6 +20,8 @@
         <association property="gender" resultMap="GenderResultMap"/>
         <association property="graduateState" resultMap="GraduateStateResultMap"/>
         <association property="studentType" resultMap="StudentTypeResultMap"/>
+        <association property="teacherIntroduce" resultMap="teacherIntroduceResultMap" />
+
         <collection property="regionRegister" javaType="list" resultMap="RegionRegisterResultMap"/>
         <collection property="subjectRegister" javaType="list" resultMap="SubjectRegisterResultMap"/>
         <collection property="dateRegister" javaType="list" resultMap="DateRegisterResultMap"/>
@@ -64,7 +66,14 @@
         <id property="roleId" column="role_id"/>
         <result property="roleName" column="role_name" />
         <result property="roleNameKor" column="role_name_kor" />
+    </resultMap>
 
+    <resultMap id="teacherIntroduceResultMap" type="com.meeteam4.meeting.entity.TeacherIntroduce">
+        <id property="teacherIntroduceId" column="teacher_introduce_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="teacherIntroduceContent" column="teacher_introduce_content"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
     </resultMap>
     <resultMap id="RegionRegisterResultMap" type="com.meeteam4.meeting.entity.RegionRegister">
         <id property="regionRegisterId" column="region_register_id"/>
@@ -192,13 +201,20 @@
                 (0, #{userId}, #{classTypeId})
             </foreach>
     </insert>
+
+    <insert id="saveTeacherIntroduce">
+        insert into
+            teacher_introduce_tb
+        values
+            (0, #{userId}, #{teacherIntroduceContent}, now(), now());
+    </insert>
+
     <insert id="saveApplicationDetails">
         insert into
             tutoring_application_detail_tb
         values
             (0, #{studentUserId}, #{teacherUserId}, now())
     </insert>
-
 
     <select id="findStudentByStudentId" resultMap="StudentResultMap">
         select
@@ -238,6 +254,8 @@
             rrt.region_id,
             rt.region_name,
             ut.user_img_url
+            tit.teacher_introduce_content
+
         from
             user_tb ut
             left outer join teacher_tb tt on(tt.user_id = ut.user_id)
@@ -251,7 +269,8 @@
             left outer join class_type_register_tb ctrt on(ctrt.user_id = ut.user_id)
             left outer join class_type_tb ctt on(ctt.class_type_id = ctrt.class_type_id)
             left outer join region_register_tb rrt on(rrt.user_id = ut.user_id)
-            left outer join region_tb rt on(rt.region_id = rrt.region_id)
+            left outer join region_tb rt on(rt.region_id = rrt.region_id)         
+            left outer join teacher_introduce_tb tit on(tit.user_id = ut.user_id)
         where
             ut.user_id in (
             <foreach collection="userIds" item="userId" separator=",">
@@ -573,6 +592,15 @@
         where
             user_id = #{userId}
     </update>
+    <update id="modifyTeacherIntroduce" parameterType="com.meeteam4.meeting.entity.TeacherIntroduce">
+        update
+            teacher_introduce_tb
+        set
+            teacher_introduce_content = #{teacherIntroduceContent},
+            update_date = now()
+        where
+            user_id = #{userId}
+    </update>
     <update id="modifyUserProfile" parameterType="com.meeteam4.meeting.entity.User">
         update
             user_tb
@@ -582,4 +610,16 @@
         where
             user_id = #{userId}
     </update>
+
+
+    <update id="updateImgUrl" parameterType="com.meeteam4.meeting.entity.User">
+        update
+            user_tb
+        set
+            user_img_url = #{userImgUrl}
+        where
+            user_id = #{userId};
+    </update>
+
+
 </mapper>

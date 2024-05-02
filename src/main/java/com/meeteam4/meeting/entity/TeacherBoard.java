@@ -1,10 +1,7 @@
 package com.meeteam4.meeting.entity;
 
 
-import com.meeteam4.meeting.dto.StudentBoardListRespDto;
-import com.meeteam4.meeting.dto.TeacherBoardListReqDto;
-import com.meeteam4.meeting.dto.TeacherBoardListRespDto;
-import com.meeteam4.meeting.dto.TeacherBoardPageRespDto;
+import com.meeteam4.meeting.dto.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -45,6 +42,12 @@ public class TeacherBoard {
                 .content(content)
                 .viewCount(viewCount)
                 .createDate(createDate)
+                .build();
+    }
+
+    public TeacherIdRespDto toTeacherIdRespDto(){
+        return TeacherIdRespDto.builder()
+                .teacherId(teacherId)
                 .build();
     }
 }

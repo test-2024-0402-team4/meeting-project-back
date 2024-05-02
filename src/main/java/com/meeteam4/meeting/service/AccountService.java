@@ -65,13 +65,21 @@ public class AccountService {
                 .userId(teacherProfileReqDto.getUserId())
                 .classTypeIds(teacherProfileReqDto.getClassTypeIds())
                 .build();
+
+        TeacherIntroduce teacherIntroduce = TeacherIntroduce
+                .builder()
+                .userId(teacherProfileReqDto.getUserId())
+                .teacherIntroduceContent(teacherProfileReqDto.getTeacherIntroduceContent())
+                .build();
+
         int successCount = 0;
         successCount += accountMapper.saveDates(dateRegister);
         successCount += accountMapper.saveRegions(regionRegister);
         successCount += accountMapper.saveSubjects(subjectRegister);
         successCount += accountMapper.saveClassType(classTypeRegister);
+        successCount += accountMapper.saveTeacherIntroduce(teacherIntroduce);
 
-        if (successCount < 4) {
+        if (successCount < 5) {
             throw new SaveException();
         }
 
@@ -94,12 +102,12 @@ public class AccountService {
 
         User user = teacherProfileModifyDto.toUserEntity();
         Teacher teacher = teacherProfileModifyDto.toTeacherEntity();
+        TeacherIntroduce teacherIntroduce = teacherProfileModifyDto.toIntroduceEntity();
 
         accountMapper.modifyUserProfile(user);
         accountMapper.modifyTeacherProfile(teacher);
+        accountMapper.modifyTeacherIntroduce(teacherIntroduce);
     }
-
-
 
     // 검색 필터
     @Transactional(rollbackFor = Exception.class)
@@ -134,7 +142,6 @@ public class AccountService {
         for (User user : users) {
             // User 클래스의 toSearchProfilesRespDto 메서드를 호출하여 검색 프로필을 생성
             SearchProfilesRespDto searchProfile = user.toSearchProfilesRespDto();
-
                 searchProfile.setUserImgUrl(user.getUserImgUrl());
             // Teacher 처리
                 searchProfile.setDepartmentName(user.getTeacher().getDepartmentName());
@@ -194,7 +201,6 @@ public class AccountService {
         for (User user : users) {
             // User 클래스의 toSearchProfilesRespDto 메서드를 호출하여 검색 프로필을 생성
             SearchProfilesRespDto searchProfile = user.toSearchProfilesRespDto();
-
             searchProfile.setUserImgUrl(user.getUserImgUrl());
             // Teacher 처리
             searchProfile.setDepartmentName(user.getTeacher().getDepartmentName());
@@ -205,6 +211,8 @@ public class AccountService {
             searchProfile.setGenderType(user.getGender().getGenderType());
             // University 처리
             searchProfile.setUniversityName(user.getUniversity().getUniversityName());
+            // TeacherIntroduceContent 처리
+            searchProfile.setTeacherIntroduceContent(user.getTeacherIntroduce().getTeacherIntroduceContent());
 
             // 과목 등록 정보 처리
             List<String> subjectNames = user.getSubjectRegister().stream()
@@ -537,7 +545,7 @@ public class AccountService {
                 .maxPageNumber(maxPageNumber)
                 .build();
     }
-
+  
     public List<TeacherBoardListRespDto> searchTeacherMypageBoards(TeacherBoardListReqDto teacherBoardListReqDto){
 
         int startIndex = (teacherBoardListReqDto.getPage()-1)* teacherBoardListReqDto.getCount();
@@ -599,6 +607,10 @@ public class AccountService {
                 .maxPageNumber(maxPageNumber)
                 .build();
     }
+
+
+    public void updateImgUrl(UpdateImgUrlReqDto updateImgUrlReqDto){
+        accountMapper.updateImgUrl(updateImgUrlReqDto.toEntity());
 
     public void saveApplicationDetails(int studentUserId, int teacherUserId) {
         accountMapper.saveApplicationDetails(studentUserId, teacherUserId);

@@ -19,9 +19,10 @@ public interface AccountMapper {
     public int saveSubjects(SubjectRegister subjectRegister);
     public int saveRegions(RegionRegister regionRegister);
     public int saveClassType(ClassTypeRegister classTypeRegister);
+    public int saveTeacherIntroduce(TeacherIntroduce teacherIntroduce);
     public int saveApplicationDetails(@Param("studentUserId") int studentUserId,@Param("teacherUserId") int teacherUserId);
-
     public List<Integer> getUserIdByApplicationDetails(@Param("studentUserId") int studentUserId);
+
 
     public List<Integer> searchUserIds(@Param("nickname") String nickname,
                                        @Param("genderId") int genderId,
@@ -34,6 +35,7 @@ public interface AccountMapper {
 
     public int modifyStudentProfile(Student student);
     public int modifyTeacherProfile(Teacher teacher);
+    public int modifyTeacherIntroduce(TeacherIntroduce teacherIntroduce);
     public int modifyUserProfile(User user);
 
     public int saveStudentPoster(Poster poster);
@@ -116,5 +118,7 @@ public interface AccountMapper {
             @Param("count") int count,
             @Param("searchText") String searchText
     );
+
+    public int updateImgUrl(User user);
 
 }

@@ -42,6 +42,12 @@ public class StudyBoardController {
 
         return ResponseEntity.ok(studyBoardService.getSingleStudyBoards(studyBoardId));
     }
+
+    @GetMapping("/board/single/{studyBoardId}")
+    public ResponseEntity<?> getUserIdByStudyBoardId(@PathVariable int studyBoardId){
+        return ResponseEntity.ok(studyBoardService.getUserIdByStudyBoardId(studyBoardId));
+    }
+
     @DeleteMapping("/board/{studyBoardId}")
     public ResponseEntity<?> deleteSingleStudyBoard(@PathVariable int studyBoardId){
 
@@ -55,6 +61,14 @@ public class StudyBoardController {
 
         return ResponseEntity.ok(true);
     }
+
+    @PutMapping("/board/view/{studyBoardId}")
+    public ResponseEntity<?> updateViewCount(@PathVariable int studyBoardId){
+
+        studyBoardService.updateViewCount(studyBoardId);
+        return ResponseEntity.ok(true);
+    }
+
 
     @PostMapping("/board/comment/{studyBoardId}")
     public ResponseEntity<?> studentBoardComment(@PathVariable int studyBoardId, @RequestBody StudyCommentReqDto studyCommentReqDto){

@@ -49,6 +49,12 @@ public class StudentBoard {
                 .createDate(createDate)
                 .build();
     }
+    public StudentBoardPageRespDto toStudentId(){
+        return StudentBoardPageRespDto.builder()
+                .studentId(studentId)
+                .build();
+    }
+
 
 
 

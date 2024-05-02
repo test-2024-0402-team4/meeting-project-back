@@ -153,4 +153,8 @@ public class AuthService {
         return "비밀번호 변경완료";
     }
 
+    public void deleteAccount(int userId) {
+        userMapper.deleteAccount(userId);
+    }
+
 }

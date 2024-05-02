@@ -23,9 +23,25 @@ public interface BoardMapper {
 
     public StudentBoard getSingleBoard(int studentBoardId);
 
+    public StudentBoard getStudentId(int userId);
+
+    public TeacherBoard getTeacherId(int userId);
+
+    public StudentBoard getStudentIdByStudentBoardId(int studentBoardId);
+
+    public TeacherBoard getTeacherIdByTeacherBoardId(int teacherBoardId);
+
+    public StudyBoard getUserIdByStudyBoardId(int studyBoardId);
+
     public int deleteBoardByBoardId(int studentBoardId);
 
     public int updateBoardByBoardId(StudentBoard studentBoard);
+
+    public int updateBoardViewByBoardId(int studentBoardId);
+
+    public int updateBoardViewByTeacherBoardId(int teacherBoardId);
+
+    public int updateBoardViewByStudyBoardId(int studyBoardId);
 
     public int saveComment(StudentComment comment);
 

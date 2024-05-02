@@ -52,12 +52,33 @@ public class TeacherBoardService {
 
         return teacherBoard.toTeacherBoardPageRespDto();
     }
+
+    public TeacherIdRespDto getTeacherId(int userId){
+
+        TeacherBoard board = boardMapper.getTeacherId(userId);
+
+        return board.toTeacherIdRespDto();
+    }
+
+    public TeacherIdRespDto getTeacherIdByTeacherBoardId(int teacherBoardId){
+
+        TeacherBoard board = boardMapper.getTeacherIdByTeacherBoardId(teacherBoardId);
+
+        return board.toTeacherIdRespDto();
+    }
+
     @Transactional(rollbackFor = Exception.class)
     public void deleteTeacherBoard(int teacherBoardId){
         boardMapper.deleteTeacherBoardByBoardId(teacherBoardId);
     }
+
+
     @Transactional(rollbackFor = Exception.class)
     public void updateTeacherBoard(UpdateTeacherBoardReqDto UpdateTeacherBoardReqDto){
         boardMapper.updateTeacherBoardByBoardId(UpdateTeacherBoardReqDto.toEntity());
+    }
+
+    public void updateViewCount(int teacherBoardId){
+        boardMapper.updateBoardViewByTeacherBoardId(teacherBoardId);
     }
 }
