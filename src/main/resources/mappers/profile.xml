@@ -207,11 +207,19 @@
                 (0, #{userId}, #{classTypeId})
             </foreach>
     </insert>
+
     <insert id="saveTeacherIntroduce">
         insert into
             teacher_introduce_tb
         values
             (0, #{userId}, #{teacherIntroduceContent}, now(), now());
+    </insert>
+
+    <insert id="saveApplicationDetails">
+        insert into
+            tutoring_application_detail_tb
+        values
+            (0, #{studentUserId}, #{teacherUserId}, now())
     </insert>
 
     <select id="findStudentByStudentId" resultMap="StudentResultMap">
@@ -341,7 +349,7 @@
         #{userImgUrl}
         )
     </insert>
-    
+
     <select id="getStudentProfile" resultMap="UserResultMap">
         select
             ut.user_id,
@@ -557,6 +565,15 @@
                 )
             </when>
         </choose>
+    </select>
+
+    <select id="getUserIdByApplicationDetails" resultType="java.lang.Integer">
+        select
+            teacher_user_id
+        from
+            tutoring_application_detail_tb
+        where
+            student_user_id = #{studentUserId}
     </select>
 
     <update id="modifyStudentProfile" parameterType="com.meeteam4.meeting.entity.Student">

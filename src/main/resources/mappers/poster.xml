@@ -321,7 +321,6 @@
             left outer join poster_class_type_id_register_tb pctirt on(pctirt.poster_id = pt.poster_id)
             left outer join class_type_tb ctt on(ctt.class_type_id = pctirt.class_type_id)
             left outer join user_tb ut on(ut.user_id = pt.user_id)
-
         where
             pt.poster_id = #{posterId}
         order by
