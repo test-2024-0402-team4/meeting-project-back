@@ -31,7 +31,6 @@ public class User {
     private String userImgUrl;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
-    private String userImgUrl;
 
     private Gender gender;
     private Teacher teacher;
