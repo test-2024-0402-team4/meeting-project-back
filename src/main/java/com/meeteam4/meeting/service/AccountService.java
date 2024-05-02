@@ -213,7 +213,6 @@ public class AccountService {
             searchProfile.setUniversityName(user.getUniversity().getUniversityName());
             // TeacherIntroduceContent 처리
             searchProfile.setTeacherIntroduceContent(user.getTeacherIntroduce().getTeacherIntroduceContent());
-
             // 과목 등록 정보 처리
             List<String> subjectNames = user.getSubjectRegister().stream()
                     .map(sr -> sr.getSubject().getSubjectName())

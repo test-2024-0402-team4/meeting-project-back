@@ -350,6 +350,7 @@
             ut.nickname,
             ut.name,
             ut.email,
+            ut.user_img_url,
             st.birth_date,
             stt.student_type,
             uiut.user_img_url,
@@ -620,6 +621,5 @@
         where
             user_id = #{userId};
     </update>
-
 
 </mapper>

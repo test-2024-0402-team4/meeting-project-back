@@ -263,7 +263,115 @@
             user_tb
         where
             user_id = #{userId}
-
     </delete>
+    <!-- deleteUser 메서드에 대한 SQL 매핑 -->
+    <delete id="deleteTeacher" parameterType="int">
+        <!-- teacher_tb 테이블 -->
+        DELETE FROM teacher_tb WHERE user_id = #{userId};
+    </delete>
+
+    <delete id="deleteTeacherIntroduce" parameterType="int">
+        <!-- teacher_introduce_tb 테이블 -->
+        DELETE FROM teacher_introduce_tb WHERE user_id = #{userId};
+    </delete>
+
+    <delete id="deleteSubjectRegister" parameterType="int">
+        <!-- subject_register_tb 테이블 -->
+        DELETE FROM subject_register_tb WHERE user_id = #{userId};
+    </delete>
+
+    <delete id="deleteStudyComment" parameterType="int">
+        <!-- study_comment_tb 테이블 -->
+        DELETE FROM study_comment_tb WHERE user_id = #{userId};
+    </delete>
+
+    <!-- deleteStudyBoard 메서드에 대한 SQL 매핑 -->
+    <delete id="deleteStudyBoard" parameterType="int">
+        <!-- study_board_tb 테이블 -->
+        DELETE FROM study_board_tb WHERE user_id = #{userId};
+    </delete>
+
+    <!-- deleteStudent 메서드에 대한 SQL 매핑 -->
+    <delete id="deleteStudent" parameterType="int">
+        <!-- student_tb 테이블 -->
+        DELETE FROM student_tb WHERE user_id = #{userId};
+    </delete>
+
+    <!-- deleteRoleRegister 메서드에 대한 SQL 매핑 -->
+    <delete id="deleteRoleRegister" parameterType="int">
+        <!-- role_register_tb 테이블 -->
+        DELETE FROM role_register_tb WHERE user_id = #{userId};
+    </delete>
+
+    <!-- deleteRegionRegister 메서드에 대한 SQL 매핑 -->
+    <delete id="deleteRegionRegister" parameterType="int">
+        <!-- region_register_tb 테이블 -->
+        DELETE FROM region_register_tb WHERE user_id = #{userId};
+    </delete>
+
+    <!-- deletePoster 메서드에 대한 SQL 매핑 -->
+    <delete id="deletePoster" parameterType="int">
+        <!-- poster_tb 테이블 -->
+        DELETE FROM poster_tb WHERE user_id = #{userId};
+    </delete>
+
+    <!-- deleteOauth2 메서드에 대한 SQL 매핑 -->
+    <delete id="deleteOauth2" parameterType="int">
+        <!-- oauth2_tb 테이블 -->
+        DELETE FROM oauth2_tb WHERE user_id = #{userId};
+    </delete>
+
+    <!-- deleteDateRegister 메서드에 대한 SQL 매핑 -->
+    <delete id="deleteDateRegister" parameterType="int">
+        <!-- date_register_tb 테이블 -->
+        DELETE FROM date_register_tb WHERE user_id = #{userId};
+    </delete>
+
+    <!-- deleteClassTypeRegister 메서드에 대한 SQL 매핑 -->
+    <delete id="deleteClassTypeRegister" parameterType="int">
+        <!-- class_type_register_tb 테이블 -->
+        DELETE FROM class_type_register_tb WHERE user_id = #{userId};
+    </delete>
+
+    <delete id="deleteTeacherComment" parameterType="int">
+        <!-- teacher_comment_tb 테이블 -->
+        DELETE FROM teacher_comment_tb
+        WHERE teacher_id = (
+        SELECT teacher_id
+        FROM teacher_tb
+        WHERE user_id = #{userId}
+        );
+    </delete>
+
+    <delete id="deleteTeacherBoard" parameterType="int">
+        <!-- teacher_board_tb 테이블 -->
+        DELETE FROM teacher_board_tb
+        WHERE teacher_id = (
+        SELECT teacher_id
+        FROM teacher_tb
+        WHERE user_id = #{userId}
+        );
+    </delete>
+
+    <delete id="deleteStudentBoard" parameterType="int">
+        <!-- student_board_tb 테이블 -->
+        DELETE FROM student_board_tb
+        WHERE student_id = (
+        SELECT student_id
+        FROM student_tb
+        WHERE user_id = #{userId}
+        );
+    </delete>
+
+    <delete id="deleteStudentComment" parameterType="int">
+        <!-- student_comment_tb 테이블 -->
+        DELETE FROM student_comment_tb
+        WHERE student_user_id = (
+        SELECT student_id
+        FROM student_tb
+        WHERE user_id = #{userId}
+        );
+    </delete>
+
 
 </mapper>
