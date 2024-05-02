@@ -13,10 +13,11 @@ public class TeacherController {
     @Autowired
     private AccountService accountService;
 
+    // 선생님 필수정보 등록 요청
     @PostMapping("/profile")
     public ResponseEntity<?> saveTeacherProfile(@RequestBody TeacherProfileReqDto teacherProfileReqDto) {
-
         accountService.saveTeacherProfile(teacherProfileReqDto);
+        System.out.println(teacherProfileReqDto);
         return ResponseEntity.ok(null);
     }
 
