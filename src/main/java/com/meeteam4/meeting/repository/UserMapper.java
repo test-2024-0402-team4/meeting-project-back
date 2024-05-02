@@ -26,4 +26,6 @@ public interface UserMapper {
     public User findUserByOAuth2Name(String oAuth2Name);
 
     public int modifyPassword(User user);
+
+    public int deleteAccount(int userId);
 }

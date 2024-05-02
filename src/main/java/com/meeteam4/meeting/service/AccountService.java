@@ -65,13 +65,21 @@ public class AccountService {
                 .userId(teacherProfileReqDto.getUserId())
                 .classTypeIds(teacherProfileReqDto.getClassTypeIds())
                 .build();
+
+        TeacherIntroduce teacherIntroduce = TeacherIntroduce
+                .builder()
+                .userId(teacherProfileReqDto.getUserId())
+                .teacherIntroduceContent(teacherProfileReqDto.getTeacherIntroduceContent())
+                .build();
+
         int successCount = 0;
         successCount += accountMapper.saveDates(dateRegister);
         successCount += accountMapper.saveRegions(regionRegister);
         successCount += accountMapper.saveSubjects(subjectRegister);
         successCount += accountMapper.saveClassType(classTypeRegister);
+        successCount += accountMapper.saveTeacherIntroduce(teacherIntroduce);
 
-        if (successCount < 4) {
+        if (successCount < 5) {
             throw new SaveException();
         }
 
@@ -94,12 +102,12 @@ public class AccountService {
 
         User user = teacherProfileModifyDto.toUserEntity();
         Teacher teacher = teacherProfileModifyDto.toTeacherEntity();
+        TeacherIntroduce teacherIntroduce = teacherProfileModifyDto.toIntroduceEntity();
 
         accountMapper.modifyUserProfile(user);
         accountMapper.modifyTeacherProfile(teacher);
+        accountMapper.modifyTeacherIntroduce(teacherIntroduce);
     }
-
-
 
     // 검색 필터
     @Transactional(rollbackFor = Exception.class)
@@ -205,6 +213,8 @@ public class AccountService {
             searchProfile.setGenderType(user.getGender().getGenderType());
             // University 처리
             searchProfile.setUniversityName(user.getUniversity().getUniversityName());
+            // TeacherIntroduceContent 처리
+            searchProfile.setTeacherIntroduceContent(user.getTeacherIntroduce().getTeacherIntroduceContent());
 
             // 과목 등록 정보 처리
             List<String> subjectNames = user.getSubjectRegister().stream()

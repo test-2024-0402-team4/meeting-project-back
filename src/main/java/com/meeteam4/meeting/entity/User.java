@@ -38,6 +38,8 @@ public class User {
     private University university;
     private GraduateState graduateState;
     private UserImgUrl userImgUrl;
+    private TeacherIntroduce teacherIntroduce;
+
     private List<SubjectRegister> subjectRegister;
     private List<DateRegister> dateRegister;
     private List<ClassTypeRegister> classTypeRegister;
@@ -67,7 +69,7 @@ public class User {
         searchProfile.setEmail(email);
         searchProfile.setGraduateState(graduateState.getGraduateState());
         searchProfile.setGenderType(gender.getGenderType());
-
+        searchProfile.setTeacherIntroduceContent(teacherIntroduce.getTeacherIntroduceContent());
 
         return searchProfile;
     }
