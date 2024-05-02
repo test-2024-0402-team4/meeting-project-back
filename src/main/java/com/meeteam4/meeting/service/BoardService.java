@@ -58,14 +58,33 @@ public class BoardService {
        return board.toStudentBoardPageRespDto();
     }
 
+    public StudentBoardPageRespDto getStudentId(int userId){
+
+        StudentBoard board = boardMapper.getStudentId(userId);
+
+        return board.toStudentId();
+    }
+
+    public StudentBoardPageRespDto getStudentIdByStudentBoardId(int studentBoardId){
+
+        StudentBoard board = boardMapper.getStudentIdByStudentBoardId(studentBoardId);
+
+        return board.toStudentId();
+    }
+
     @Transactional(rollbackFor = Exception.class)
     public void deleteBoard(int studentBoardId){
         boardMapper.deleteBoardByBoardId(studentBoardId);
     }
 
+
     @Transactional(rollbackFor = Exception.class)
     public void updateBoard(UpdateBoardReqDto updateBoardReqDto){
         boardMapper.updateBoardByBoardId(updateBoardReqDto.toEntity());
+    }
+
+    public void updateViewCount(int studentBoardId){
+        boardMapper.updateBoardViewByBoardId(studentBoardId);
     }
 
 

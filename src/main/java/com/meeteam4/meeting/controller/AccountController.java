@@ -54,6 +54,13 @@ public class AccountController {
         return ResponseEntity.ok(principalUser);
     }
 
+    @PutMapping("/profile/image/{userId}")
+    public ResponseEntity<?> updateImgUrl(@PathVariable int userId, @RequestBody UpdateImgUrlReqDto updateImgUrlReqDto){
+        accountService.updateImgUrl(updateImgUrlReqDto);
+        return ResponseEntity.ok(true);
+
+    }
+
 
 }
 

@@ -135,7 +135,7 @@ public class AccountService {
             // User 클래스의 toSearchProfilesRespDto 메서드를 호출하여 검색 프로필을 생성
             SearchProfilesRespDto searchProfile = user.toSearchProfilesRespDto();
 
-                searchProfile.setUserImgUrl(user.getUserImgUrl().getUserImgUrl());
+              //  searchProfile.setUserImgUrl(user.getUserImgUrl().getUserImgUrl());
             // Teacher 처리
                 searchProfile.setDepartmentName(user.getTeacher().getDepartmentName());
             // GraduateState 처리
@@ -195,7 +195,7 @@ public class AccountService {
             // User 클래스의 toSearchProfilesRespDto 메서드를 호출하여 검색 프로필을 생성
             SearchProfilesRespDto searchProfile = user.toSearchProfilesRespDto();
 
-            searchProfile.setUserImgUrl(user.getUserImgUrl().getUserImgUrl());
+           // searchProfile.setUserImgUrl(user.getUserImgUrl().getUserImgUrl());
             // Teacher 처리
             searchProfile.setDepartmentName(user.getTeacher().getDepartmentName());
             searchProfile.setBirthDate(user.getTeacher().getBirthDate());
@@ -540,13 +540,6 @@ public class AccountService {
 
 
 
-
-
-
-
-
-
-
     public List<TeacherBoardListRespDto> searchTeacherMypageBoards(TeacherBoardListReqDto teacherBoardListReqDto){
 
         int startIndex = (teacherBoardListReqDto.getPage()-1)* teacherBoardListReqDto.getCount();
@@ -607,6 +600,10 @@ public class AccountService {
                 .totalCount(studyCount)
                 .maxPageNumber(maxPageNumber)
                 .build();
+    }
+
+    public void updateImgUrl(UpdateImgUrlReqDto updateImgUrlReqDto){
+        accountMapper.updateImgUrl(updateImgUrlReqDto.toEntity());
     }
 
 }

@@ -43,6 +43,18 @@ public class StudentBoardController {
         return ResponseEntity.ok(boardService.getSingleBoards(studentBoardId));
     }
 
+    @GetMapping("/board/write/{userId}")
+    public ResponseEntity<?> getStudentIdByUserId(@PathVariable int userId){
+
+        return ResponseEntity.ok(boardService.getStudentId(userId));
+    }
+
+    @GetMapping("/board/single/{studentBoardId}")
+    public ResponseEntity<?> getStudentIdByStudentBoardId(@PathVariable int studentBoardId){
+        return ResponseEntity.ok(boardService.getStudentIdByStudentBoardId(studentBoardId));
+    }
+
+
     @DeleteMapping("/board/{studentBoardId}")
     public ResponseEntity<?> deleteSingleBoard(@PathVariable int studentBoardId){
 
@@ -55,6 +67,13 @@ public class StudentBoardController {
     public ResponseEntity<?> updateBoard(@PathVariable int studentBoardId, @RequestBody UpdateBoardReqDto updateBoardReqDto){
         boardService.updateBoard(updateBoardReqDto);
 
+        return ResponseEntity.ok(true);
+    }
+
+    @PutMapping("/board/view/{studentBoardId}")
+    public ResponseEntity<?> updateViewCount(@PathVariable int studentBoardId){
+
+        boardService.updateViewCount(studentBoardId);
         return ResponseEntity.ok(true);
     }
 

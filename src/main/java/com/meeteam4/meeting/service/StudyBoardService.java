@@ -3,6 +3,7 @@ package com.meeteam4.meeting.service;
 import com.meeteam4.meeting.dto.*;
 import com.meeteam4.meeting.entity.StudentBoard;
 import com.meeteam4.meeting.entity.StudyBoard;
+import com.meeteam4.meeting.entity.TeacherBoard;
 import com.meeteam4.meeting.repository.BoardMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,6 +56,15 @@ public class StudyBoardService {
             return studyBoard.toStudyBoardPageRespDto();
         }
 
+    public StudyBoardPageRespDto getUserIdByStudyBoardId(int studyBoardId){
+
+        StudyBoard board = boardMapper.getUserIdByStudyBoardId(studyBoardId);
+
+        return board.getUserIdByStudyBoardId();
+    }
+
+
+
     @Transactional(rollbackFor = Exception.class)
     public void deleteStudyBoard(int studyBoardId){
         boardMapper.deleteStudyBoardByBoardId(studyBoardId);
@@ -65,7 +75,9 @@ public class StudyBoardService {
         boardMapper.updateStudyBoardByBoardId(updateStudyBoardReqDto.toEntity());
     }
 
-
+    public void updateViewCount(int studyBoardId){
+        boardMapper.updateBoardViewByStudyBoardId(studyBoardId);
+    }
 
 
 }

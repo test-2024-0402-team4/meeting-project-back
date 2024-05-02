@@ -45,4 +45,10 @@ public class StudyBoard {
                 .createDate(createDate)
                 .build();
     }
+
+    public StudyBoardPageRespDto getUserIdByStudyBoardId(){
+        return StudyBoardPageRespDto.builder()
+                .userId(userId)
+                .build();
+    }
 }
