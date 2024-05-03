@@ -39,7 +39,6 @@ public class AccountService {
 
        return userDataRespDto;
     }
-
     // 선생님 필수 정보 등록
     @Transactional(rollbackFor = Exception.class)
     public void saveTeacherProfile(TeacherProfileReqDto teacherProfileReqDto) {
@@ -338,7 +337,6 @@ public class AccountService {
                     .map(ps -> ps.getSubject().getSubjectName())
                     .distinct()
                     .collect(Collectors.toList());
-
             searchPosterRespDto.setSubjectName(subjectNames);
             System.out.println(subjectNames);
 

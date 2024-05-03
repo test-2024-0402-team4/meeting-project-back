@@ -5,6 +5,7 @@ package com.meeteam4.meeting.controller;
 import com.meeteam4.meeting.dto.*;
 
 import com.meeteam4.meeting.service.AccountService;
+import com.meeteam4.meeting.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,6 +18,9 @@ public class StudentController {
 
     @Autowired
     private AccountService accountService;
+
+    @Autowired
+    private TeacherService teacherService;
 
     // 공고 등록
     @PostMapping("/poster")
@@ -43,7 +47,7 @@ public class StudentController {
 
     @GetMapping("/tutor/profile")
     public ResponseEntity<?> getTeacherProfile(@RequestParam("userId") Integer userId) {
-        return ResponseEntity.ok(accountService.getTeacherProfileRespDto(userId));
+        return ResponseEntity.ok(teacherService.getTeacherProfileRespDto(userId));
     }
 
     @GetMapping("/myposters")
