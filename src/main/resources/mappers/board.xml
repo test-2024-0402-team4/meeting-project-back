@@ -76,6 +76,14 @@
         <result property="updateDate" column="update_date"/>
     </resultMap>
 
+    <resultMap id="DeclareResultMap" type="com.meeteam4.meeting.entity.Declaration">
+        <id property="declareId" column="declare_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="theme" column="theme"/>
+        <result property="content" column="content"/>
+        <result property="createDate" column="create_date"/>
+    </resultMap>
+
 
     <insert id="saveBoard" parameterType="com.meeteam4.meeting.entity.StudentBoard">
         insert into student_board_tb
@@ -213,6 +221,16 @@
             view_count = view_count + 1
         where
             study_board_id = #{studyBoardId};
+
+    </update>
+
+    <update id="updateBoardViewByNoticedId" parameterType="com.meeteam4.meeting.entity.Notice">
+        update
+            notice_tb
+        set
+            view_count = view_count + 1
+        where
+        notice_id = #{noticeId};
 
     </update>
 
@@ -625,4 +643,83 @@
             notice_id = #{noticeId};
 
     </select>
+
+    <insert id="saveDeclare" parameterType="com.meeteam4.meeting.entity.Declaration">
+        insert into
+            declare_tb
+        values(
+            0,
+            #{userId},
+            #{studentBoardId},
+            #{theme},
+            #{content},
+            now()
+        )
+    </insert>
+
+    <insert id="saveStudentCommentDeclare" parameterType="com.meeteam4.meeting.entity.Declaration">
+        insert into
+            comment_declare_tb
+        values(
+            0,
+            #{userId},
+            #{studentCommentId},
+            #{theme},
+            #{content},
+            now()
+        )
+    </insert>
+
+
+    <insert id="saveTeacherDeclare" parameterType="com.meeteam4.meeting.entity.Declaration">
+        insert into
+            teacher_declare_tb
+        values(
+            0,
+            #{userId},
+            #{teacherBoardId},
+            #{theme},
+            #{content},
+            now()
+        )
+    </insert>
+
+    <insert id="saveTeacherCommentDeclare" parameterType="com.meeteam4.meeting.entity.Declaration">
+        insert into
+            teacher_comment_declare_tb
+        values(
+            0,
+            #{userId},
+            #{teacherCommentId},
+            #{theme},
+            #{content},
+            now()
+        )
+    </insert>
+
+    <insert id="saveStudyDeclare" parameterType="com.meeteam4.meeting.entity.Declaration">
+        insert into
+        study_declare_tb
+        values(
+        0,
+        #{userId},
+        #{studyBoardId},
+        #{theme},
+        #{content},
+        now()
+        )
+    </insert>
+
+    <insert id="saveStudyCommentDeclare" parameterType="com.meeteam4.meeting.entity.Declaration">
+        insert into
+        study_comment_declare_tb
+        values(
+        0,
+        #{userId},
+        #{studyCommentId},
+        #{theme},
+        #{content},
+        now()
+        )
+    </insert>
 </mapper>
