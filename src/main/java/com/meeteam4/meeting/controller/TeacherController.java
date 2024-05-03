@@ -2,6 +2,7 @@ package com.meeteam4.meeting.controller;
 
 import com.meeteam4.meeting.dto.*;
 import com.meeteam4.meeting.service.AccountService;
+import com.meeteam4.meeting.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,9 @@ public class TeacherController {
 
     @Autowired
     private AccountService accountService;
+
+    @Autowired
+    private TeacherService teacherService;
 
     // 선생님 필수정보 등록 요청
     @PostMapping("/profile")
@@ -39,12 +43,12 @@ public class TeacherController {
 
         return ResponseEntity.ok(accountService.saveStudentPoster(posterReqDto));
     }
+
     @GetMapping("/tutee/profile")
-    public ResponseEntity<?> getTuteeProfile(Integer userId) {
+    public ResponseEntity<?> getTuteeProfile( Integer userId) {
         System.out.println(accountService.getStudentProfile(userId));
         return ResponseEntity.ok(accountService.getStudentProfile(userId));
     }
-
 
     // 선생님 프로필 수정
     @PutMapping("/profile")
@@ -56,11 +60,12 @@ public class TeacherController {
     // 선생님 프로필 정보 가져오기
     @GetMapping("/tutor/profile")
     public ResponseEntity<?> getTeacherProfile(@RequestParam("userId") Integer userId) {
-        return ResponseEntity.ok(accountService.getTeacherProfileRespDto(userId));
+        System.out.println(userId);
+        return ResponseEntity.ok(teacherService.getTeacherProfileRespDto(userId));
     }
 
     @GetMapping("/profile/{userId}")
-    public ResponseEntity<?> getTeacherProfile(@PathVariable int userId){
+    public ResponseEntity<?> getStudentProfile(@PathVariable int userId){
         return  ResponseEntity.ok(accountService.getStudentProfile(userId));
     }
 
@@ -89,7 +94,7 @@ public class TeacherController {
     @GetMapping("/mypage/profile/{userId}")
     public ResponseEntity<?> getTeacherMypageProfile(@PathVariable int userId){
 
-        return ResponseEntity.ok(accountService.getTeacherProfileRespDto(userId));
+        return ResponseEntity.ok(teacherService.getTeacherProfileRespDto(userId));
     }
 
 }
