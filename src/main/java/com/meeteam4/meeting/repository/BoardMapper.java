@@ -43,6 +43,8 @@ public interface BoardMapper {
 
     public int updateBoardViewByStudyBoardId(int studyBoardId);
 
+    public int updateBoardViewByNoticedId(int noticeId);
+
     public int saveComment(StudentComment comment);
 
     public List<StudentComment> getStudentComment(int studentBoardId);
@@ -115,6 +117,21 @@ public interface BoardMapper {
             @Param("searchText") String searchText
     );
     public Notice getSingleNoticeBoard(int noticeId);
+
+    public int saveDeclare(Declaration declare);
+
+    public int saveStudentCommentDeclare(Declaration declare);
+
+    public int saveTeacherDeclare(Declaration declare);
+
+    public int saveTeacherCommentDeclare(Declaration declare);
+
+    public int saveStudyDeclare(Declaration declare);
+
+    public int saveStudyCommentDeclare(Declaration declare);
+
+
+
 
 
 

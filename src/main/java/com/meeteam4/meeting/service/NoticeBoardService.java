@@ -48,4 +48,34 @@ public class NoticeBoardService {
 
         return noticeBoard.toNoticeBoardPageRespDto();
     }
+
+    public void updateViewCount(int noticeId){
+        boardMapper.updateBoardViewByNoticedId(noticeId);
+    }
+
+    public void saveDeclare(DeclareReqDto declareReqDto){
+        boardMapper.saveDeclare(declareReqDto.toEntity());
+    }
+
+    public void saveStudentCommentDeclare(DeclareReqDto declareReqDto){
+        boardMapper.saveStudentCommentDeclare(declareReqDto.studentCommentDeclare());
+    }
+
+    public void saveTeacherDeclare(TeacherDeclareReqDto teacherDeclareReqDto){
+        boardMapper.saveTeacherDeclare(teacherDeclareReqDto.toEntity());
+    }
+
+    public void saveTeacherCommentDeclare(TeacherDeclareReqDto teacherDeclareReqDto){
+        boardMapper.saveTeacherCommentDeclare(teacherDeclareReqDto.teacherCommentDeclare());
+    }
+
+    public void saveStudyDeclare(StudyDeclareReqDto studyDeclareReqDto){
+        boardMapper.saveStudyDeclare(studyDeclareReqDto.toEntity());
+    }
+
+    public void saveStudyCommentDeclare(StudyDeclareReqDto studyDeclareReqDto){
+        boardMapper.saveStudyCommentDeclare(studyDeclareReqDto.studyCommentDeclare());
+    }
+
+
 }
