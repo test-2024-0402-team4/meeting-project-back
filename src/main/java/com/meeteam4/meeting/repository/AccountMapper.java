@@ -20,6 +20,13 @@ public interface AccountMapper {
     public int saveRegions(RegionRegister regionRegister);
     public int saveClassType(ClassTypeRegister classTypeRegister);
     public int saveTeacherIntroduce(TeacherIntroduce teacherIntroduce);
+
+    public int deleteDates(@Param("userId") int userId);
+    public int deleteSubjects(@Param("userId") int userId);
+    public int deleteRegions(@Param("userId") int userId);
+    public int deleteClassTypes(@Param("userId") int userId);
+    public int deleteTeacherIntroduce(@Param("userId") int userId);
+
     public int saveApplicationDetails(@Param("studentUserId") int studentUserId,@Param("teacherUserId") int teacherUserId);
     public List<Integer> getUserIdByApplicationDetails(@Param("studentUserId") int studentUserId);
 

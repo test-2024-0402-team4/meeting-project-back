@@ -21,7 +21,14 @@ public class TeacherController {
     @PostMapping("/profile")
     public ResponseEntity<?> saveTeacherProfile(@RequestBody TeacherProfileReqDto teacherProfileReqDto) {
         accountService.saveTeacherProfile(teacherProfileReqDto);
-        System.out.println(teacherProfileReqDto);
+//        System.out.println(teacherProfileReqDto);
+        return ResponseEntity.ok(null);
+    }
+
+    // 선생님 필수정보 수정 요청
+    @PostMapping("/essentialInfo")
+    public ResponseEntity<?> modifyTeacherEssentialInfo(@RequestBody TeacherProfileReqDto teacherProfileReqDto ) {
+        accountService.modifyTeacherEssentialInfo(teacherProfileReqDto);
         return ResponseEntity.ok(null);
     }
 

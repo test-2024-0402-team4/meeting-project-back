@@ -18,7 +18,6 @@ public class TeacherProfileModifyDto {
     private String departmentName;
     private int graduateStateId;
     private String phoneNumber;
-    private String teacherIntroduceContent;
 
     public User toUserEntity() {
         return User.builder()
@@ -34,13 +33,6 @@ public class TeacherProfileModifyDto {
                 .departmentName(departmentName)
                 .graduateStateId(graduateStateId)
                 .phoneNumber(phoneNumber)
-                .build();
-    }
-
-    public TeacherIntroduce toIntroduceEntity() {
-        return TeacherIntroduce.builder()
-                .userId(userId)
-                .teacherIntroduceContent(teacherIntroduceContent)
                 .build();
     }
 }
