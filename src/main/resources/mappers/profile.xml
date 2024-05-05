@@ -209,6 +209,43 @@
             (0, #{userId}, #{teacherIntroduceContent}, now(), now());
     </insert>
 
+    <delete id="deleteDates">
+        delete
+        from
+            date_register_tb
+        where
+            user_id = #{userId}
+    </delete>
+    <delete id="deleteSubjects">
+        delete
+        from
+            subject_register_tb
+        where
+            user_id = #{userId}
+    </delete>
+    <delete id="deleteRegions">
+        delete
+        from
+            region_register_tb
+        where
+            user_id = #{userId}
+    </delete>
+    <delete id="deleteClassTypes">
+        delete
+        from
+            class_type_register_tb
+        where
+            user_id = #{userId}
+    </delete>
+    <delete id="deleteTeacherIntroduce">
+        delete
+        from
+            teacher_introduce_tb
+        where
+            user_id = #{userId}
+    </delete>
+
+
     <insert id="saveApplicationDetails">
         insert into
             tutoring_application_detail_tb

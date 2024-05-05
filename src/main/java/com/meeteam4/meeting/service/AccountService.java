@@ -95,17 +95,69 @@ public class AccountService {
         accountMapper.modifyStudentProfile(student);
     }
 
-    // 선생님 프로필 수정
+    // 선생님 기본 프로필 정보 수정
     @Transactional(rollbackFor = Exception.class)
     public void modifyTeacherProfile(TeacherProfileModifyDto teacherProfileModifyDto) {
 
         User user = teacherProfileModifyDto.toUserEntity();
         Teacher teacher = teacherProfileModifyDto.toTeacherEntity();
-        TeacherIntroduce teacherIntroduce = teacherProfileModifyDto.toIntroduceEntity();
 
         accountMapper.modifyUserProfile(user);
         accountMapper.modifyTeacherProfile(teacher);
-        accountMapper.modifyTeacherIntroduce(teacherIntroduce);
+    }
+
+    // 선생님 필수정보 수정
+    @Transactional(rollbackFor = Exception.class)
+    public void modifyTeacherEssentialInfo(TeacherProfileReqDto teacherProfileReqDto){
+
+        DateRegister dateRegister = DateRegister.builder()
+                .userId(teacherProfileReqDto.getUserId())
+                .dateIds(teacherProfileReqDto.getDateIds())
+                .build();
+
+        SubjectRegister subjectRegister = SubjectRegister
+                .builder()
+                .userId(teacherProfileReqDto.getUserId())
+                .subjectIds(teacherProfileReqDto.getSubjectIds())
+                .build();
+
+        RegionRegister regionRegister = RegionRegister
+                .builder()
+                .userId(teacherProfileReqDto.getUserId())
+                .regionIds(teacherProfileReqDto.getRegionIds())
+                .build();
+
+        ClassTypeRegister classTypeRegister = ClassTypeRegister
+                .builder()
+                .userId(teacherProfileReqDto.getUserId())
+                .classTypeIds(teacherProfileReqDto.getClassTypeIds())
+                .build();
+
+        TeacherIntroduce teacherIntroduce = TeacherIntroduce
+                .builder()
+                .userId(teacherProfileReqDto.getUserId())
+                .teacherIntroduceContent(teacherProfileReqDto.getTeacherIntroduceContent())
+                .build();
+
+        int successCount = 0;
+
+        //삭제 후
+        successCount += accountMapper.deleteDates(teacherProfileReqDto.getUserId());
+        successCount += accountMapper.deleteRegions(teacherProfileReqDto.getUserId());
+        successCount += accountMapper.deleteSubjects(teacherProfileReqDto.getUserId());
+        successCount += accountMapper.deleteClassTypes(teacherProfileReqDto.getUserId());
+        successCount += accountMapper.deleteTeacherIntroduce(teacherProfileReqDto.getUserId());
+
+        //다시 등록
+        successCount += accountMapper.saveDates(dateRegister);
+        successCount += accountMapper.saveRegions(regionRegister);
+        successCount += accountMapper.saveSubjects(subjectRegister);
+        successCount += accountMapper.saveClassType(classTypeRegister);
+        successCount += accountMapper.saveTeacherIntroduce(teacherIntroduce);
+
+        if (successCount < 10) {
+            throw new SaveException();
+        }
     }
 
     // 검색 필터
