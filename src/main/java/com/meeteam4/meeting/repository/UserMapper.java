@@ -15,6 +15,8 @@ public interface UserMapper {
     public int saveTeacher(Teacher teacher);
     public int saveRole(@Param("userId") int userId, @Param("roleId") int roleId);
     public int saveOAuth2(OAuth2 oAuth2);
+    public User findEmailAuthByUserId(@Param("userId") int userId);
+    public int updateEmailAuth(@Param("userId") int userId, @Param("emailAuth") int emailAuth);
 
     public User findByUsername(String username);
     public User findByNickname(String nickname);
