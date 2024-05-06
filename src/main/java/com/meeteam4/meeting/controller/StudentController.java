@@ -5,6 +5,7 @@ package com.meeteam4.meeting.controller;
 import com.meeteam4.meeting.dto.*;
 
 import com.meeteam4.meeting.service.AccountService;
+import com.meeteam4.meeting.service.StudentService;
 import com.meeteam4.meeting.service.TeacherService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,9 @@ public class StudentController {
 
     @Autowired
     private TeacherService teacherService;
+
+    @Autowired
+    private StudentService studentService;
 
     // 공고 등록
     @PostMapping("/poster")
@@ -41,32 +45,28 @@ public class StudentController {
 
     @GetMapping("/tutor/profiles")
     public ResponseEntity<?> searchTeacherProfiles(SearchProfilesReqDto searchProfilesReqDto) {
-        System.out.println(searchProfilesReqDto);
-        return ResponseEntity.ok(accountService.searchTeacherProfiles(searchProfilesReqDto));
+        return ResponseEntity.ok(teacherService.searchTeacherProfiles(searchProfilesReqDto));
     }
 
     @GetMapping("/tutor/profile")
     public ResponseEntity<?> getTeacherProfile(@RequestParam("userId") Integer userId) {
-        return ResponseEntity.ok(teacherService.getTeacherProfileRespDto(userId));
+        return ResponseEntity.ok(teacherService.getTeacherProfile(userId));
     }
 
     @GetMapping("/myposters")
     public ResponseEntity<?> getMyPosters(@RequestParam("userId") Integer userId) {
-        System.out.println(accountService.getStudentMyPosters(userId));
 
-        return ResponseEntity.ok(accountService.getStudentMyPosters(userId));
+        return ResponseEntity.ok(studentService.getStudentMyPosters(userId));
     }
 
     @GetMapping("/myposter")
     public ResponseEntity<?> getMyPoster(@RequestParam("posterId") Integer posterId) {
-        System.out.println(accountService.getMyposter(posterId));
-        return ResponseEntity.ok(accountService.getMyposter(posterId));
+        return ResponseEntity.ok(studentService.getMyposter(posterId));
     }
 
     @GetMapping("/profile/{userId}")
     public ResponseEntity<?> getStudentProfile(@PathVariable int userId){
-        System.out.println(accountService.getStudentProfile(userId));
-        return ResponseEntity.ok(accountService.getStudentProfile(userId));
+        return ResponseEntity.ok(studentService.getStudentProfile(userId));
     }
 
     // 학생 프로필 수정

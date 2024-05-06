@@ -25,8 +25,6 @@ public class StudentBoardController {
 
         return ResponseEntity.ok(boardWriteReqDto);
     }
-
-
     @GetMapping("/boards")
     public ResponseEntity<?> studentBoardList(StudentBoardListReqDto studentBoardListReqDto){
         return ResponseEntity.ok(boardService.searchBoards(studentBoardListReqDto));
