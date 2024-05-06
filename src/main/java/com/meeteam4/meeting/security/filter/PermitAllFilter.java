@@ -14,12 +14,10 @@ public class PermitAllFilter extends GenericFilter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
-
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
 
         List<String> antMatchers = List.of("/auth", "/auth/oauth2","/study/**", "/notice/**", "/main", "/mail/authenticate");
-
 
         String uri = request.getRequestURI();
         request.setAttribute("isPermitAll", false);

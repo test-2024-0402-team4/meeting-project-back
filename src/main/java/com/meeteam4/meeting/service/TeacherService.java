@@ -1,8 +1,9 @@
 package com.meeteam4.meeting.service;
 
 
-import com.meeteam4.meeting.dto.SearchProfilesRespDto;
+import com.meeteam4.meeting.dto.*;
 import com.meeteam4.meeting.entity.*;
+import com.meeteam4.meeting.exception.SaveException;
 import com.meeteam4.meeting.repository.AccountMapper;
 import com.meeteam4.meeting.repository.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,21 +16,67 @@ import java.util.stream.Collectors;
 
 @Service
 public class TeacherService {
-
     @Autowired
     private AccountMapper accountMapper;
-
     @Autowired
     private UserMapper userMapper;
 
+    // 선생님 프로필 조회 및 검색 필터
     @Transactional(rollbackFor = Exception.class)
-    public SearchProfilesRespDto getTeacherProfileRespDto(Integer userId) {
+    public List<SearchProfilesRespDto> searchTeacherProfiles(SearchProfilesReqDto searchProfilesReqDto) {
+
+        List<Integer> userIds = new ArrayList<>();
+        if(searchProfilesReqDto.getGenderId() == null) {
+            searchProfilesReqDto.setGenderId(0);
+        }
+        // 검색 조건에 맞는 UserIds
+        userIds.addAll(accountMapper.searchUserIds(
+                searchProfilesReqDto.getNickname(),
+                searchProfilesReqDto.getGenderId(),
+                searchProfilesReqDto.getRegionIds(),
+                searchProfilesReqDto.getSubjectIds(),
+                searchProfilesReqDto.getClassTypeIds(),
+                searchProfilesReqDto.getDateIds())
+        );
+        // DB에서 가져온 userIds 중복 제거
+        List<Integer> distinctUserIds = userIds.stream().distinct().collect(Collectors.toList());
+
+        if(distinctUserIds.isEmpty()) {
+            return null;
+        }
+
+        List<User> users = accountMapper.getTeacherProfiles(distinctUserIds);
+        List<SearchProfilesRespDto> searchProfiles = new ArrayList<>();
+
+        for (User user : users) {
+            SearchProfilesRespDto searchProfile = user.toSearchProfilesRespDto();
+            searchProfile.setUserImgUrl(user.getUserImgUrl());
+            searchProfile.setDepartmentName(user.getTeacher().getDepartmentName());
+            searchProfile.setUniversityName(user.getUniversity().getUniversityName());
+
+            List<String> subjectNames = user.getSubjectRegister().stream()
+                    .map(sr -> sr.getSubject().getSubjectName())
+                    .distinct()
+                    .collect(Collectors.toList());
+            searchProfile.setSubjectNames(subjectNames);
+
+            List<String> classTypeNames = user.getClassTypeRegister().stream()
+                    .map(ctr -> ctr.getClassType().getClassType())
+                    .distinct()
+                    .collect(Collectors.toList());
+            searchProfile.setClassTypeNames(classTypeNames);
+
+            searchProfiles.add(searchProfile);
+        }
+
+        return searchProfiles;
+    }
+    @Transactional(rollbackFor = Exception.class)
+    public SearchProfilesRespDto getTeacherProfile(Integer userId) {
         List<Integer> userIds = new ArrayList<>();
         userIds.add(userId);
-        System.out.println(userId);
 
         List<User> users = accountMapper.getTeacherProfiles(userIds);
-        System.out.println(users);
 
         if(users.isEmpty()) {
             return null;

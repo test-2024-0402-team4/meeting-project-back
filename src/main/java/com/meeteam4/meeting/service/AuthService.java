@@ -54,7 +54,6 @@ public class AuthService {
 
         User user = userMapper.findByUsername(signinReqDto.getUsername());
 
-//        System.out.println(user);
 
         if(user == null) {
             throw new UsernameNotFoundException("사용자 정보를 확인하세요.");
@@ -105,7 +104,6 @@ public class AuthService {
     // ID 찾기
     public String findId(AuthFindIdReqDto authFindIdReqDto ) {
         User user = userMapper.findByName(authFindIdReqDto.getName(), authFindIdReqDto.getEmail());
-//        System.out.println(user);
 
         String name = user.getName();
         String username = user.getUsername();
@@ -125,15 +123,10 @@ public class AuthService {
     // 비밀번호 찾기 - 확인
     public int findPassword(AuthFindPasswordReqDto authFindPasswordReqDto) {
         User user = userMapper.findPassword(authFindPasswordReqDto.getUsername(), authFindPasswordReqDto.getEmail());
-
-        System.out.println(user);
-
         String name = user.getName();
         String username = user.getUsername();
         String email = user.getEmail();
 
-        System.out.println(username);
-        System.out.println(email);
 
 //        if(username == null) {
 //            throw new UsernameNotFoundException("아이디를 확인하세요.");

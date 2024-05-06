@@ -23,17 +23,10 @@ public class JwtAuthenticationFilter extends GenericFilter {
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain) throws IOException, ServletException {
         HttpServletRequest request = (HttpServletRequest) servletRequest;
         HttpServletResponse response = (HttpServletResponse) servletResponse;
-
         Boolean isPermitAll = (Boolean) request.getAttribute("isPermitAll");
-
-        System.out.println(isPermitAll);
-
         if(!isPermitAll) {
             String accessToken = request.getHeader("Authorization");
             String removedBearerToken = jwtProvider.removeBearer(accessToken);
-
-            System.out.println(removedBearerToken);
-
             Claims claims = null;
             try{
                 claims = jwtProvider.getClaims(removedBearerToken);

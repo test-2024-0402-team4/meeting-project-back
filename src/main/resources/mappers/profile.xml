@@ -15,6 +15,7 @@
         <result property="createDate" column="create_date"/>
         <result property="updateDate" column="update_date"/>
         <result property="userImgUrl" column="user_img_url"/>
+
         <association property="teacher" resultMap="TeacherResultMap"/>
         <association property="university" resultMap="UniversityResultMap"/>
         <association property="gender" resultMap="GenderResultMap"/>
@@ -167,8 +168,6 @@
         <result property="updateDate" column="update_date"/>
     </resultMap>
 
-
-
     <insert id="saveDates">
             insert into
                 date_register_tb
@@ -292,7 +291,6 @@
             rt.region_name,
             ut.user_img_url,
             tit.teacher_introduce_content
-
         from
             user_tb ut
             left outer join teacher_tb tt on(tt.user_id = ut.user_id)
@@ -369,17 +367,7 @@
             </foreach>
             )
         </if>
-
     </select>
-
-    <insert id="saveImgUrl" parameterType="com.meeteam4.meeting.entity.UserImgUrl">
-        insert into user_img_url_tb
-        values(
-        0,
-        #{userId},
-        #{userImgUrl}
-        )
-    </insert>
 
     <select id="getStudentProfile" resultMap="UserResultMap">
         select
@@ -630,6 +618,7 @@
         where
             user_id = #{userId}
     </update>
+
     <update id="modifyTeacherIntroduce" parameterType="com.meeteam4.meeting.entity.TeacherIntroduce">
         update
             teacher_introduce_tb
@@ -639,6 +628,7 @@
         where
             user_id = #{userId}
     </update>
+
     <update id="modifyUserProfile" parameterType="com.meeteam4.meeting.entity.User">
         update
             user_tb
@@ -648,7 +638,6 @@
         where
             user_id = #{userId}
     </update>
-
 
     <update id="updateImgUrl" parameterType="com.meeteam4.meeting.entity.User">
         update

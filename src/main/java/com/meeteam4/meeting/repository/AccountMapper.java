@@ -72,8 +72,6 @@ public interface AccountMapper {
 
     public Poster getStudentMyPoster(@Param("posterId") int posterId);
 
-    public int saveImgUrl(UserImgUrl userImgUrl);
-
     public User getStudentProfile(int userId);
 
     public List<StudentBoard> searchStudentMypageBoards(

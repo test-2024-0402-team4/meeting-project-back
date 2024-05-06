@@ -65,7 +65,6 @@ public class JwtProvider {
         return accessToken;
     }
 
-    //
     public Authentication getAuthentication(Claims claims) {
         String username = claims.get("username").toString();
         User user = userMapper.findByUsername(username);
@@ -82,11 +81,8 @@ public class JwtProvider {
         if(!StringUtils.hasText(token)) {
             return null;
         }
-//        System.out.println(token);
-
         return token.substring("Bearer ".length());
     }
-
 
     public Claims getClaims(String token) {
         Claims claims = null;

@@ -22,30 +22,8 @@ import java.util.List;
 @RestController
 @RequestMapping("/account")
 public class AccountController {
-
-
     @Autowired
     private AccountService accountService;
-
-//    @GetMapping("/mypage")
-//    public ResponseEntity<?> getStudentId(@RequestParam int userId) {
-//       Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-//
-//       if (authentication.getPrincipal() instanceof PrincipalStudent) {
-//          PrincipalStudent principalStudent = (PrincipalStudent) authentication.getPrincipal();
-//            int studentId = principalStudent.g; // 아이디 값을 가져옴
-//           return ResponseEntity.ok(null);
-//       } else {
-//          return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
-//       }
-//        return ResponseEntity.ok(accountService.getStudentInfo(userId));
-//    }
-
-    @PostMapping("/profile/image/{userId}")
-    public ResponseEntity<?> saveImgUrl(@RequestBody ImgUrlSaveReqDto imgUrlSaveReqDto) {
-        accountService.saveImgUrl(imgUrlSaveReqDto);
-        return ResponseEntity.ok(imgUrlSaveReqDto);
-    }
 
     @GetMapping("/principal")
     public ResponseEntity<?> getPrincipal() {
