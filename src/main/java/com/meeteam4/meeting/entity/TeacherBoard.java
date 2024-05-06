@@ -16,6 +16,7 @@ import java.time.LocalDateTime;
 public class TeacherBoard {
     private int teacherBoardId;
     private int teacherId;
+    private String nickname;
     private String title;
     private String content;
     private int viewCount;
@@ -27,6 +28,7 @@ public class TeacherBoard {
         return TeacherBoardListRespDto.builder()
                 .teacherBoardId(teacherBoardId)
                 .teacherId(teacherId)
+                .nickname(nickname)
                 .title(title)
                 .content(content)
                 .viewCount(viewCount)
@@ -38,6 +40,7 @@ public class TeacherBoard {
         return TeacherBoardPageRespDto.builder()
                 .teacherBoardId(teacherBoardId)
                 .teacherId(teacherId)
+                .nickname(nickname)
                 .title(title)
                 .content(content)
                 .viewCount(viewCount)

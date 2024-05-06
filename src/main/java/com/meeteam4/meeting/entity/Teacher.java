@@ -1,6 +1,7 @@
 package com.meeteam4.meeting.entity;
 
 
+import com.meeteam4.meeting.dto.GenderRespDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,6 +19,7 @@ public class Teacher {
     private int userId;
     private String birthDate;
     private int genderId;
+    private String genderType;
     private int universityId;
     private String departmentName;
     private int graduateStateId;
@@ -25,5 +27,12 @@ public class Teacher {
 
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
+
+
+    public GenderRespDto toEntity(){
+        return GenderRespDto.builder()
+                .genderType(genderType)
+                .build();
+    }
 
 }

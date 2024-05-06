@@ -84,6 +84,7 @@ public class StudyBoardController {
 
         return ResponseEntity.ok(commentService.getStudyComment(studyBoardId));
     }
+
     @DeleteMapping("/board/comment/{studyCommentId}")
     public ResponseEntity<?> deleteStudyComment(@PathVariable int studyCommentId){
         commentService.deleteStudyComment(studyCommentId);
@@ -93,6 +94,11 @@ public class StudyBoardController {
     public ResponseEntity<?> updateComment(@PathVariable int studyCommentId , @RequestBody UpdateStudyCommentReqDto updateStudyCommentReqDto){
         commentService.updateStudyComment(updateStudyCommentReqDto);
         return ResponseEntity.ok(true);
+    }
+    @GetMapping("/board/genderImg/{userId}")
+    public ResponseEntity<?> getStudyGenderImg(@PathVariable int userId){
+
+        return ResponseEntity.ok(studyBoardService.getUserGenderType(userId));
     }
 
 

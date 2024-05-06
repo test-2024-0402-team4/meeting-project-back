@@ -1,8 +1,7 @@
 package com.meeteam4.meeting.service;
 
 import com.meeteam4.meeting.dto.*;
-import com.meeteam4.meeting.entity.StudentBoard;
-import com.meeteam4.meeting.entity.TeacherBoard;
+import com.meeteam4.meeting.entity.*;
 import com.meeteam4.meeting.repository.BoardMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -81,4 +80,18 @@ public class TeacherBoardService {
     public void updateViewCount(int teacherBoardId){
         boardMapper.updateBoardViewByTeacherBoardId(teacherBoardId);
     }
+
+    public GenderRespDto getTeacherGenderType(int teacherId){
+
+        Teacher board = boardMapper.getTeacherBoardGenderImg(teacherId);
+
+        return board.toEntity();
+    }
+
+    public NicknameRespDto getTeahcerNickname(int userId){
+        User board = boardMapper.getTeacherNickname(userId);
+        return board.toNickname();
+    }
+
+
 }

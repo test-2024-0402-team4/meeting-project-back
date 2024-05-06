@@ -1,5 +1,7 @@
 package com.meeteam4.meeting.entity;
 
+import com.meeteam4.meeting.dto.GenderRespDto;
+import com.meeteam4.meeting.dto.NicknameRespDto;
 import com.meeteam4.meeting.dto.SearchProfilesRespDto;
 import com.meeteam4.meeting.dto.StudentProfileRespDto;
 import com.meeteam4.meeting.security.PrincipalUser;
@@ -33,6 +35,7 @@ public class User {
     private LocalDateTime updateDate;
 
     private Gender gender;
+    private String genderType;
     private Teacher teacher;
     private Student student;
     private StudentType studentType;
@@ -85,6 +88,18 @@ public class User {
                 .birthDate(teacher.getBirthDate())
                 .regionName(regionRegister.get(0).getRegion().getRegionName())
                 .roleNameKor(roleRegisters.get(0).getRole().getRoleNameKor())
+                .build();
+    }
+
+    public GenderRespDto toEntity(){
+        return GenderRespDto.builder()
+                .genderType(genderType)
+                .build();
+    }
+
+    public NicknameRespDto toNickname(){
+        return NicknameRespDto.builder()
+                .nickname(nickname)
                 .build();
     }
 }

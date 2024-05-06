@@ -8,6 +8,7 @@ public class BoardWriteReqDto {
 
     private int studentBoardId;
     private int studentId;
+    private String nickname;
     private String title;
     private String content;
     private String theme;
@@ -16,6 +17,7 @@ public class BoardWriteReqDto {
     public StudentBoard toEntity(){
         return StudentBoard.builder()
                 .studentId(studentId)
+                .nickname(nickname)
                 .title(title)
                 .content(content)
                 .theme(theme)

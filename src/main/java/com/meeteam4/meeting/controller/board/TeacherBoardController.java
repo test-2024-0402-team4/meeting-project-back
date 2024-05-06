@@ -95,4 +95,14 @@ public class TeacherBoardController {
         return ResponseEntity.ok(true);
     }
 
+    @GetMapping("/board/genderImg/{teacherId}")
+    public ResponseEntity<?> getTeacherGenderImg(@PathVariable int teacherId){
+
+        return ResponseEntity.ok(teacherBoardService.getTeacherGenderType(teacherId));
+    }
+    @GetMapping("/board/nickname/{userId}")
+    public ResponseEntity<?> getUsernickname(@PathVariable int userId){
+        return ResponseEntity.ok(teacherBoardService.getTeahcerNickname(userId));
+    }
+
 }

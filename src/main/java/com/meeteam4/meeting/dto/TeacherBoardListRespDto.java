@@ -11,6 +11,7 @@ public class TeacherBoardListRespDto {
     private int teacherBoardId;
     private int teacherId;
     private int userId;
+    private String nickname;
     private String title;
     private String content;
     private int viewCount;

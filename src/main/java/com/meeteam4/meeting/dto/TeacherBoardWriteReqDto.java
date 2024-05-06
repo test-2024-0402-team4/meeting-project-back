@@ -7,6 +7,7 @@ import lombok.Data;
 public class TeacherBoardWriteReqDto {
     private int teacherBoardId;
     private int teacherId;
+    private String nickname;
     private String title;
     private String content;
     private int viewCount;
@@ -14,6 +15,7 @@ public class TeacherBoardWriteReqDto {
     public TeacherBoard toEntity(){
         return TeacherBoard.builder()
                 .teacherId(teacherId)
+                .nickname(nickname)
                 .title(title)
                 .content(content)
                 .viewCount(viewCount)

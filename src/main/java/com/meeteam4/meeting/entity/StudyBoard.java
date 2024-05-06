@@ -18,6 +18,7 @@ import java.time.LocalDateTime;
 public class StudyBoard {
     private int studyBoardId;
     private int userId;
+    private String nickname;
     private String title;
     private String content;
     private int viewCount;
@@ -28,6 +29,7 @@ public class StudyBoard {
         return StudyBoardListRespDto.builder()
                 .studyBoardId(studyBoardId)
                 .userId(userId)
+                .nickname(nickname)
                 .title(title)
                 .content(content)
                 .viewCount(viewCount)
@@ -39,6 +41,7 @@ public class StudyBoard {
         return StudyBoardPageRespDto.builder()
                 .studyBoardId(studyBoardId)
                 .userId(userId)
+                .nickname(nickname)
                 .title(title)
                 .content(content)
                 .viewCount(viewCount)

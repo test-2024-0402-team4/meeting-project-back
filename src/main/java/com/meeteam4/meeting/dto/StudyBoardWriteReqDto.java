@@ -7,6 +7,7 @@ import lombok.Data;
 public class StudyBoardWriteReqDto {
     private int studyBoardId;
     private int userId;
+    private String nickname;
     private String title;
     private String content;
     private int viewCount;
@@ -15,6 +16,7 @@ public class StudyBoardWriteReqDto {
         return StudyBoard.builder()
                 .studyBoardId(studyBoardId)
                 .userId(userId)
+                .nickname(nickname)
                 .title(title)
                 .content(content)
                 .viewCount(viewCount)
