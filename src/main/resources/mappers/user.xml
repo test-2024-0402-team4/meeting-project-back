@@ -25,6 +25,7 @@
         <result property="password" column="password" />
         <result property="nickname" column="nickname" />
         <result property="email" column="email" />
+        <result property="emailAuth" column="email_auth" />
         <result property="roleId" column="role_id" />
         <result property="createDate" column="create_date" />
         <result property="updateDate" column="update_date" />
@@ -121,6 +122,7 @@
             ut.password,
             ut.name,
             ut.email,
+            ut.email_auth,
             ut.create_date,
             ut.update_date,
             rrt.role_register_id,
@@ -244,6 +246,14 @@
         where
             username = #{username} and email = #{email}
     </select>
+    <select id="findEmailAuthByUserId" resultMap="UserResultMap">
+        select
+            *
+        from
+            user_tb
+        where
+            user_id = #{userId}
+    </select>
 
     <update id="modifyPassword"
             parameterType="com.meeteam4.meeting.entity.User"
@@ -255,6 +265,15 @@
             update_date = now()
         where
             username = #{username}
+    </update>
+    <update id="updateEmailAuth">
+        update
+        user_tb
+        set
+            email_auth = #{emailAuth},
+            update_date = now()
+        where
+            user_id = #{userId}
     </update>
 
     <delete id="deleteAccount">

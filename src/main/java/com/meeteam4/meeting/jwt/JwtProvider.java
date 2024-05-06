@@ -39,8 +39,10 @@ public class JwtProvider {
         int roleId = user.getRoleId();
         int studentId = user.getStudent().getStudentId();
         int teacherId = user.getTeacher().getTeacherId();
+        int emailAuth = user.getEmailAuth();
 
         String username = user.getUsername();
+        String email = user.getEmail();
         Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
 
         // 토큰 유효기간
@@ -53,7 +55,9 @@ public class JwtProvider {
                 .claim("teacherId", teacherId)
                 .claim("studentId", studentId)
                 .claim("roleId", roleId)
+                .claim("email", email)
                 .claim("authorities", authorities)
+                .claim("emailAuth", emailAuth)
                 .setExpiration(expireDate)
                 .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
@@ -92,5 +96,14 @@ public class JwtProvider {
                 .parseClaimsJws(token)
                 .getBody();
         return claims;
+    }
+    public String generateAuthMailToken(int userId ,String toMailAddress) {
+        Date expireDate = new Date(new Date().getTime() + (1000 * 60 * 3)); // 3분동안 유효한 토큰 시간 설정
+        return Jwts.builder()
+                .claim("userId", userId)
+                .claim("toMailAddress", toMailAddress)
+                .setExpiration(expireDate)
+                .signWith(key, SignatureAlgorithm.HS256)
+                .compact();
     }
 }

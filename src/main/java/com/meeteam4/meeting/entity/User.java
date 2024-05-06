@@ -27,6 +27,7 @@ public class User {
     private String password;
     private String nickname;
     private String email;
+    private int emailAuth;
     private int roleId;
     private String userImgUrl;
     private LocalDateTime createDate;
@@ -58,6 +59,8 @@ public class User {
                 .username(username)
                 .name(name)
                 .roleId(roleId)
+                .email(email)
+                .emailAuth(emailAuth)
                 .authorities(getAuthorities())
                 .build();
     }

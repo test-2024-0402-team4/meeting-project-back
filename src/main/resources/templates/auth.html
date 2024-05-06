@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>계정 활성화 안내</title>
+</head>
+<body>
+    <div class="container" style="max-width: 600px; padding: 20px; background-color: #ffffff; border-radius: 5px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);">
+        <h1 style="color: #333333; text-align: center; margin-bottom: 20px;">계정 활성화 안내</h1>
+        <p style="color: #555555; text-align: center; margin-bottom: 20px;">해당 계정 인증하기 위해 아래의 버튼을 클릭해 주세요.</p>
+        <a th:href="${auth}"
+           class="button" style="display: block; margin: 0 auto; padding: 10px 20px; background-color: #11b69a; color: #ffffff; text-decoration: none; border-radius: 3px; text-align: center;"
+        >인증하기</a>
+    </div>
+</body>
+</html>

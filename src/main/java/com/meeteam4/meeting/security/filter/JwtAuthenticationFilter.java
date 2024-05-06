@@ -32,7 +32,7 @@ public class JwtAuthenticationFilter extends GenericFilter {
             String accessToken = request.getHeader("Authorization");
             String removedBearerToken = jwtProvider.removeBearer(accessToken);
 
-//            System.out.println(removedBearerToken);
+            System.out.println(removedBearerToken);
 
             Claims claims = null;
             try{
@@ -42,7 +42,6 @@ public class JwtAuthenticationFilter extends GenericFilter {
                 return;
             }
             Authentication authentication = jwtProvider.getAuthentication(claims);
-            System.out.println(authentication.getAuthorities());
 
             if(authentication == null) {
                 response.sendError(HttpStatus.UNAUTHORIZED.value());
