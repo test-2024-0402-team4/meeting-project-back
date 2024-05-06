@@ -11,6 +11,7 @@ public class StudentCommentRespDto {
     private int studentCommentId;
     private int studentBoardId;
     private int studentUserId;
+    private String nickname;
     private String comment;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;

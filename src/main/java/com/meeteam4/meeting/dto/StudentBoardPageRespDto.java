@@ -11,6 +11,7 @@ public class StudentBoardPageRespDto {
     private int studentBoardId;
     private int studentId;
     private int userId;
+    private String nickname;
     private String title;
     private String content;
     private int viewCount;

@@ -4,6 +4,7 @@ import com.meeteam4.meeting.dto.*;
 import com.meeteam4.meeting.entity.StudentBoard;
 import com.meeteam4.meeting.entity.StudyBoard;
 import com.meeteam4.meeting.entity.TeacherBoard;
+import com.meeteam4.meeting.entity.User;
 import com.meeteam4.meeting.repository.BoardMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -78,6 +79,13 @@ public class StudyBoardService {
     public void updateViewCount(int studyBoardId){
         boardMapper.updateBoardViewByStudyBoardId(studyBoardId);
     }
+
+    public GenderRespDto getUserGenderType(int userId){
+
+        User board = boardMapper.getUserBoardGenderImg(userId);
+        return board.toEntity();
+    }
+
 
 
 }

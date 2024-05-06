@@ -16,6 +16,7 @@ public class StudyComment {
     private int studyCommentId;
     private int studyBoardId;
     private int userId;
+    private String nickname;
     private String comment;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
@@ -25,6 +26,7 @@ public class StudyComment {
                 .studyCommentId(studyCommentId)
                 .studyBoardId(studyBoardId)
                 .userId(userId)
+                .nickname(nickname)
                 .comment(comment)
                 .createDate(createDate)
                 .updateDate(updateDate)

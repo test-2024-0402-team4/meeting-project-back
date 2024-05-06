@@ -3,6 +3,7 @@ package com.meeteam4.meeting.controller.board;
 import com.meeteam4.meeting.dto.*;
 import com.meeteam4.meeting.service.BoardService;
 import com.meeteam4.meeting.service.CommentService;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -101,6 +102,17 @@ public class StudentBoardController {
     public ResponseEntity<?> updateComment(@PathVariable int studentCommentId , @RequestBody UpdateCommentReqDto updateCommentReqDto){
         commentService.updateComment(updateCommentReqDto);
         return ResponseEntity.ok(true);
+    }
+
+    @GetMapping("/board/genderImg/{studentId}")
+    public ResponseEntity<?> getGenderImg(@PathVariable int studentId){
+
+        return ResponseEntity.ok(boardService.getStudentGenderType(studentId));
+    }
+
+    @GetMapping("/board/nickname/{userId}")
+    public ResponseEntity<?> getUsernickname(@PathVariable int userId){
+        return ResponseEntity.ok(boardService.getUserNickname(userId));
     }
 
 

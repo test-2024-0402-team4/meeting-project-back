@@ -130,6 +130,18 @@ public interface BoardMapper {
 
     public int saveStudyCommentDeclare(Declaration declare);
 
+    public Student getBoardGenderImg(int studentId);
+
+    public Teacher getTeacherBoardGenderImg(int teacherId);
+
+    public User getUserBoardGenderImg(int userId);
+
+    public User getUserNickname(int userId);
+
+    public User getTeacherNickname(int userId);
+
+
+
 
 
 

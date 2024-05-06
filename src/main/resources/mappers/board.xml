@@ -8,6 +8,7 @@
     <resultMap id="BoardResultMap" type="com.meeteam4.meeting.entity.StudentBoard">
         <id property="studentBoardId" column="student_board_id"/>
         <result property="studentId" column="student_id"/>
+        <result property="nickname" column="nickname"/>
         <result property="title" column="title"/>
         <result property="content" column="content"/>
         <result property="theme" column="theme"/>
@@ -30,6 +31,7 @@
         <id property="teacherBoardId" column="teacher_board_id"/>
         <result property="teacherId" column="teacher_id"/>
         <result property="userId" column="user_id"/>
+        <result property="nickname" column="nickname"/>
         <result property="title" column="title"/>
         <result property="content" column="content"/>
         <result property="viewCount" column="view_count"/>
@@ -50,6 +52,7 @@
     <resultMap id="BoardStudyResultMap" type="com.meeteam4.meeting.entity.StudyBoard">
         <id property="studyBoardId" column="study_board_id"/>
         <result property="userId" column="user_id"/>
+        <result property="nickname" column="nickname"/>
         <result property="title" column="title"/>
         <result property="content" column="content"/>
         <result property="viewCount" column="view_count"/>
@@ -84,12 +87,61 @@
         <result property="createDate" column="create_date"/>
     </resultMap>
 
+    <resultMap id="GenderResultMap" type="com.meeteam4.meeting.entity.Gender">
+        <id property="genderId" column="gender_id" />
+        <result property="genderType" column="gender_type" />
+    </resultMap>
+
+    <resultMap id="UserResultMap" type="com.meeteam4.meeting.entity.User">
+        <id property="userId" column="user_id" />
+        <result property="name" column="name" />
+        <result property="username" column="username" />
+        <result property="password" column="password" />
+        <result property="nickname" column="nickname" />
+        <result property="genderType" column="gender_type" />
+        <result property="email" column="email" />
+        <result property="roleId" column="role_id" />
+        <result property="createDate" column="create_date" />
+        <result property="updateDate" column="update_date" />
+        <result property="userImgUrl" column="user_img_url" />
+        <association property="teacher" resultMap="TeacherResultMap"/>
+        <association property="student" resultMap="StudentResultMap"/>
+    </resultMap>
+
+    <resultMap id="StudentResultMap" type="com.meeteam4.meeting.entity.Student">
+        <id property="studentId" column="student_id" />
+        <result property="userId" column="user_id"/>
+        <result property="birthDate" column="birth_date"/>
+        <result property="genderId" column="gender_id"/>
+        <result property="genderType" column="gender_type"/>
+        <result property="studentTypeId" column="student_type_id"/>
+        <result property="phoneNumber" column="phone_number"/>
+        <result property="regionId" column="region_id"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+    </resultMap>
+
+    <resultMap id="TeacherResultMap" type="com.meeteam4.meeting.entity.Teacher">
+        <id property="teacherId" column="teacher_id" />
+        <result property="userId" column="user_id"/>
+        <result property="birthDate" column="birth_date"/>
+        <result property="genderId" column="gender_id"/>
+        <result property="genderType" column="gender_type"/>
+        <result property="universityId" column="university_id"/>
+        <result property="departmentName" column="department_name"/>
+        <result property="graduateStateId" column="graduate_state_id"/>
+        <result property="phoneNumber" column="phone_number"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+    </resultMap>
+
 
     <insert id="saveBoard" parameterType="com.meeteam4.meeting.entity.StudentBoard">
         insert into student_board_tb
         values(
             0,
             #{studentId},
+            #{nickname},
             #{title},
             #{content},
             #{viewCount},
@@ -102,6 +154,7 @@
         select
              sbt.student_board_id,
              sbt.student_id,
+             sbt.nickname,
              sbt.title,
              sbt.create_date,
              sbt.view_count
@@ -140,6 +193,7 @@
     <select id="getSingleBoard" resultMap="BoardResultMap">
         select
             student_board_id,
+            nickname,
             title,
             create_date,
             content,
@@ -241,6 +295,7 @@
             0,
             #{studentBoardId},
             #{studentUserId},
+            #{nickname},
             #{comment},
             now(),
             now()
@@ -253,6 +308,7 @@
             student_comment_id,
             student_board_id,
             student_user_id,
+            nickname,
             comment,
             create_date,
             update_date
@@ -289,6 +345,7 @@
         values(
             0,
             #{teacherId},
+            #{nickname},
             #{title},
             #{content},
             #{viewCount},
@@ -301,6 +358,7 @@
         select
             teacher_board_id,
             teacher_id,
+            nickname,
             title,
             create_date,
             view_count
@@ -339,6 +397,7 @@
     <select id="getSingleTeacherBoard" resultMap="BoardTcResultMap">
         select
             teacher_board_id,
+            nickname,
             title,
             create_date,
             content,
@@ -400,6 +459,7 @@
             0,
             #{teacherBoardId},
             #{teacherId},
+            #{nickname},
             #{comment},
             now(),
             now()
@@ -412,6 +472,7 @@
             teacher_comment_id,
             teacher_board_id,
             teacher_id,
+            nickname,
             comment,
             create_date,
             update_date
@@ -447,6 +508,7 @@
         values(
             0,
             #{userId},
+            #{nickname},
             #{title},
             #{content},
             #{viewCount},
@@ -459,6 +521,7 @@
         select
             study_board_id,
             user_id,
+            nickname,
             title,
             create_date,
             view_count
@@ -498,6 +561,7 @@
         select
             study_board_id,
             title,
+            nickname,
             create_date,
             content,
             view_count
@@ -549,6 +613,7 @@
             0,
             #{studyBoardId},
             #{userId},
+            #{nickname},
             #{comment},
             now(),
             now()
@@ -561,6 +626,7 @@
             study_comment_id,
             study_board_id,
             user_id,
+            nickname,
             comment,
             create_date,
             update_date
@@ -722,4 +788,59 @@
         now()
         )
     </insert>
+
+    <select id="getBoardGenderImg" resultMap="StudentResultMap">
+        select
+            gt.gender_type
+        from
+            student_tb st
+        left outer join gender_tb gt on(gt.gender_id = st.gender_id)
+        where
+            student_id = #{studentId};
+    </select>
+
+    <select id="getTeacherBoardGenderImg" resultMap="TeacherResultMap">
+        select
+            gt.gender_type
+        from
+            teacher_tb tt
+        left outer join gender_tb gt on(gt.gender_id = tt.gender_id)
+        where
+            teacher_id = #{teacherId};
+    </select>
+
+
+    <select id="getUserBoardGenderImg" resultMap="UserResultMap">
+        SELECT
+        g.gender_type
+        FROM user_tb u
+        LEFT JOIN student_tb s ON u.user_id = s.user_id
+        LEFT JOIN teacher_tb t ON u.user_id = t.user_id
+        JOIN gender_tb g ON CASE
+        WHEN s.student_id IS NOT NULL THEN s.gender_id
+        WHEN t.teacher_id IS NOT NULL THEN t.gender_id
+        ELSE NULL
+        END = g.gender_id
+        WHERE u.user_id = #{userId};
+    </select>
+
+    <select id="getUserNickname" resultMap="UserResultMap">
+        select
+            nickname
+        from
+            user_tb
+        where
+            user_id = #{userId};
+    </select>
+
+    <select id="getTeacherNickname" resultMap="UserResultMap">
+        select
+        nickname
+        from
+        user_tb
+        where
+        user_id = #{userId};
+    </select>
+
+
 </mapper>

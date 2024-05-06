@@ -19,6 +19,7 @@ public class StudentBoard {
     private int studentBoardId;
     private int studentId;
     private int userId;
+    private String nickname;
     private String title;
     private String content;
     private String theme;
@@ -30,6 +31,7 @@ public class StudentBoard {
         return StudentBoardListRespDto.builder()
                 .studentBoardId(studentBoardId)
                 .userId(userId)
+                .nickname(nickname)
                 .title(title)
                 .content(content)
                 .theme(theme)
@@ -43,6 +45,7 @@ public class StudentBoard {
                 .studentBoardId(studentBoardId)
                 .studentId(studentId)
                 .userId(userId)
+                .nickname(nickname)
                 .title(title)
                 .content(content)
                 .viewCount(viewCount)
@@ -54,6 +57,7 @@ public class StudentBoard {
                 .studentId(studentId)
                 .build();
     }
+
 
 
 
