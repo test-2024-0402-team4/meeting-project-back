@@ -367,6 +367,8 @@
             </foreach>
             )
         </if>
+            and
+            ut.is_enabled != 2
     </select>
 
     <select id="getStudentProfile" resultMap="UserResultMap">

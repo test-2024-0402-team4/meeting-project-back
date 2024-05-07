@@ -30,6 +30,10 @@
         <result property="createDate" column="create_date" />
         <result property="updateDate" column="update_date" />
         <result property="userImgUrl" column="user_img_url" />
+        <result property="isAccountNonExpired" column="is_account_non_expired" />
+        <result property="isAccountNonLocked" column="is_account_non_locked" />
+        <result property="isCredentialsNonExpired" column="is_credentials_non_expired" />
+        <result property="isEnabled" column="is_enabled" />
         <association property="teacher" resultMap="TeacherResultMap"/>
         <association property="student" resultMap="StudentResultMap"/>
         <collection property="roleRegisters" javaType="List" resultMap="RoleRegisterResultMap" />
@@ -125,6 +129,10 @@
             ut.email_auth,
             ut.create_date,
             ut.update_date,
+            ut.is_account_non_expired,
+            ut.is_account_non_locked,
+            ut.is_credentials_non_expired,
+            ut.is_enabled,
             rrt.role_register_id,
             rrt.role_id,
             rt.role_name,

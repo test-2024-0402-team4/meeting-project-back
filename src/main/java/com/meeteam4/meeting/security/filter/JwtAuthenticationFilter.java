@@ -35,6 +35,7 @@ public class JwtAuthenticationFilter extends GenericFilter {
                 return;
             }
             Authentication authentication = jwtProvider.getAuthentication(claims);
+            System.out.println(authentication);
 
             if(authentication == null) {
                 response.sendError(HttpStatus.UNAUTHORIZED.value());

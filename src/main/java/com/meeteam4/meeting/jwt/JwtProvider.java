@@ -11,6 +11,8 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
@@ -20,6 +22,8 @@ import org.springframework.util.StringUtils;
 import java.security.Key;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 @Component
 public class JwtProvider {
@@ -34,7 +38,6 @@ public class JwtProvider {
 
     // Token에 담을 데이터 정보 설정 및 Token 생성
     public String generateToken(User user) {
-//        System.out.println(user);
         int userId = user.getUserId();
         int roleId = user.getRoleId();
         int studentId = user.getStudent().getStudentId();
@@ -69,10 +72,8 @@ public class JwtProvider {
         String username = claims.get("username").toString();
         User user = userMapper.findByUsername(username);
 
-        if(user == null) {
-            return null;
-        }
         PrincipalUser principalUser = user.toprincipalUser();
+        System.out.println(principalUser);
         return new UsernamePasswordAuthenticationToken(principalUser, principalUser.getPassword(), principalUser.getAuthorities());
     }
 
