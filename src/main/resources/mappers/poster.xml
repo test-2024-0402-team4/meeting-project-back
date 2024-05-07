@@ -305,6 +305,8 @@
             stt.student_type,
             rt.region_name,
             pt.content,
+            pt.create_date,
+            pt.update_date,
             st.subject_name,
             dt.date_type,
             ctt.class_type,

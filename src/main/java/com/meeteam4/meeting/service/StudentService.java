@@ -70,6 +70,9 @@ public class StudentService {
         searchPosterRespDto.setGenderType(poster.getGender().getGenderType());
         searchPosterRespDto.setStudentType(poster.getStudentType().getStudentType());
         searchPosterRespDto.setRegionName(poster.getRegion().getRegionName());
+        searchPosterRespDto.setCreateDate(poster.getCreateDate());
+        searchPosterRespDto.setUpdateDate(poster.getUpdateDate());
+
         List<String> subjectNames = poster.getPosterSubjectRegister().stream()
                 .map(ps -> ps.getSubject().getSubjectName())
                 .distinct()

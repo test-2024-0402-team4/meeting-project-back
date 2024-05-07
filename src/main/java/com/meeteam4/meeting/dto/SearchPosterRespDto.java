@@ -3,6 +3,7 @@ package com.meeteam4.meeting.dto;
 import lombok.Builder;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -17,6 +18,10 @@ public class SearchPosterRespDto {
     private String regionName;
     private String content;
     private String email;
+
+    private LocalDateTime createDate;
+    private LocalDateTime updateDate;
+
     private List<String> subjectName;
     private List<String> dateType;
     private List<String> classType;
