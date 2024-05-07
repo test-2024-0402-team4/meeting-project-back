@@ -235,7 +235,7 @@
                 <foreach collection="posterIds" item="posterId" separator=",">
                     #{posterId}
                 </foreach>
-            )
+            ) and ut.is_enabled = 2
         order by
             dt.date_id asc;
     </select>

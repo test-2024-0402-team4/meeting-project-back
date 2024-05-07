@@ -8,14 +8,18 @@ import com.meeteam4.meeting.entity.Teacher;
 import com.meeteam4.meeting.entity.User;
 import com.meeteam4.meeting.jwt.JwtProvider;
 import com.meeteam4.meeting.repository.UserMapper;
+import com.sun.jdi.request.DuplicateRequestException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Objects;
 
 
 @Service
@@ -35,12 +39,13 @@ public class AuthService {
     // 회원가입
     @Transactional(rollbackFor = Exception.class)
     public void signupUser(SignupUserDto signupUserDto) {
-
+        String email = userMapper.findByUsername(signupUserDto.getUsername()).getEmail();
         User user = signupUserDto.toUserEntity(passwordEncoder);
         userMapper.saveUser(user);
 
         Student student = signupUserDto.toStudentEntity(user.getUserId());
         Teacher teacher = signupUserDto.toTeacherEntity(user.getUserId());
+
         if(user.getRoleId() == 1) {
             userMapper.saveStudent(student);
         }else if(user.getRoleId() == 2) {
@@ -54,11 +59,12 @@ public class AuthService {
 
         User user = userMapper.findByUsername(signinReqDto.getUsername());
 
-
         if(user == null) {
             throw new UsernameNotFoundException("사용자 정보를 확인하세요.");
-        }else if(!passwordEncoder.matches(signinReqDto.getPassword(), user.getPassword())) { // matches(암호화된 값을 풀어서 평문으로 만든다, 입력한 값) 두 매개변수를 비교
+        }else if(!passwordEncoder.matches(signinReqDto.getPassword(), user.getPassword())) {
             throw new BadCredentialsException("사용자 정보를 확인하세요.");
+        }else if(user.getIsEnabled() != 1) {
+            throw new DisabledException("해당 계정은 관리자에 의해 비활성화된 계정입니다. 관리자에게 문의하세요.");
         }
         return jwtProvider.generateToken(user);     // 토큰 만들기
     }

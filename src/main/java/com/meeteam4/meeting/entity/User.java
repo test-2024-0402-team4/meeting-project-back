@@ -34,6 +34,10 @@ public class User {
     private String userImgUrl;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
+    private int isAccountNonExpired;
+    private int isAccountNonLocked;
+    private int isCredentialsNonExpired;
+    private int isEnabled;
 
     private Gender gender;
     private String genderType;
@@ -64,6 +68,10 @@ public class User {
                 .roleId(roleId)
                 .email(email)
                 .emailAuth(emailAuth)
+                .isAccountNonExpired(isAccountNonExpired)
+                .isAccountNonLocked(isAccountNonLocked)
+                .isCredentialsNonExpired(isCredentialsNonExpired)
+                .isEnabled(isEnabled)
                 .authorities(getAuthorities())
                 .build();
     }

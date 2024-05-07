@@ -20,7 +20,12 @@ public class PrincipalUser implements UserDetails {
     private int roleId;
     private String email;
     private int emailAuth;
+    private int isAccountNonExpired;
+    private int isAccountNonLocked;
+    private int isCredentialsNonExpired;
+    private int isEnabled;
     private List<SimpleGrantedAuthority> authorities;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -31,24 +36,24 @@ public class PrincipalUser implements UserDetails {
     public String getPassword() {
         return "";
     }
-    // 계정 사용기간 만료
+
     @Override
     public boolean isAccountNonExpired() {
-        return true;
+        return isAccountNonExpired == 1;
     }
-    // 계정 잠금
+
     @Override
     public boolean isAccountNonLocked() {
-        return true;
+        return isAccountNonLocked == 1;
     }
-    // 비밀번호 사용기간 만료
+
     @Override
     public boolean isCredentialsNonExpired() {
-        return true;
+        return isCredentialsNonExpired == 1;
     }
-    // 계정 비활성화
+
     @Override
     public boolean isEnabled() {
-        return true;
+        return isEnabled == 1;
     }
 }
