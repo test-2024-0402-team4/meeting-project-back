@@ -290,7 +290,9 @@
             rrt.region_id,
             rt.region_name,
             ut.user_img_url,
-            tit.teacher_introduce_content
+            tit.teacher_introduce_content,
+            tit.create_date,
+            tit.update_date
         from
             user_tb ut
             left outer join teacher_tb tt on(tt.user_id = ut.user_id)

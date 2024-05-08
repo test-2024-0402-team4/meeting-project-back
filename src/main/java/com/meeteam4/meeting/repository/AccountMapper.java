@@ -55,7 +55,6 @@ public interface AccountMapper {
     public int deletePosterSubjectIds(@Param("posterId") int posterId);
     public int deletePosterClassTypeIds(@Param("posterId") int posterId);
 
-    public int deleteUser(@Param("userId") int userId);
 
     public int modifyStudentPoster(Poster poster);
 
