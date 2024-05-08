@@ -24,7 +24,6 @@
         <result property="comment" column="comment"/>
         <result property="createDate" column="create_date"/>
         <result property="updateDate" column="update_date"/>
-
     </resultMap>
 
     <resultMap id="BoardTcResultMap" type="com.meeteam4.meeting.entity.TeacherBoard">
@@ -46,7 +45,6 @@
         <result property="comment" column="comment"/>
         <result property="createDate" column="create_date"/>
         <result property="updateDate" column="update_date"/>
-
     </resultMap>
 
     <resultMap id="BoardStudyResultMap" type="com.meeteam4.meeting.entity.StudyBoard">
@@ -67,7 +65,6 @@
         <result property="comment" column="comment"/>
         <result property="createDate" column="create_date"/>
         <result property="updateDate" column="update_date"/>
-
     </resultMap>
 
     <resultMap id="BoardNoticeResultMap" type="com.meeteam4.meeting.entity.Notice">
