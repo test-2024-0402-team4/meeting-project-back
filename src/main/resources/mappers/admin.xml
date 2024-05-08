@@ -4,6 +4,120 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.meeteam4.meeting.repository.AdminMapper">
+    <resultMap id="DeclareStudentBoardResultMap" type="com.meeteam4.meeting.entity.StudentBoardDeclare">
+        <id property="declareId" column="declareId" />
+        <result property="userId" column="user_id" />
+        <result property="boardId" column="board_id" />
+        <result property="theme" column="theme" />
+        <result property="content" column="content" />
+        <result property="createDate" column="create_date" />
+        <association property="studentBoard" resultMap="StudentBoardResultMap"/>
+    </resultMap>
+    <resultMap id="DeclareTeacherBoardResultMap" type="com.meeteam4.meeting.entity.TeacherBoardDeclare">
+        <id property="declareId" column="declare_id" />
+        <result property="userId" column="user_id" />
+        <result property="boardId" column="board_id" />
+        <result property="theme" column="theme"/>
+        <result property="content" column="content" />
+        <result property="createDate" column="create_date"/>
+        <association property="teacherBoard" resultMap="BoardTcResultMap"/>
+    </resultMap>
+    <resultMap id="DeclareStudyBoardResultMap" type="com.meeteam4.meeting.entity.StudyBoardDeclare">
+        <id property="declareId" column="declare_id" />
+        <result property="userId" column="user_id" />
+        <result property="boardId" column="board_id" />
+        <result property="theme" column="theme" />
+        <result property="content" column="content" />
+        <result property="createDate" column="create_date" />
+        <association property="studyBoard" resultMap="BoardStudyResultMap" />
+    </resultMap>
+    <resultMap id="DeclareStudentCommentResultMap" type="com.meeteam4.meeting.entity.StudentCommentDeclare">
+        <id property="declareId" column="declare_id" />
+        <result property="userId" column="user_id" />
+        <result property="commentId" column="comment_id" />
+        <result property="theme" column="theme" />
+        <result property="content" column="content" />
+        <result property="createDate" column="create_date" />
+        <association property="studentComment" resultMap="StudentCommentResultMap" />
+        <association property="studentBoard" resultMap="StudentBoardResultMap"/>
+    </resultMap>
+    <resultMap id="DeclareTeacherCommentResultMap" type="com.meeteam4.meeting.entity.TeacherCommentDeclare">
+        <id property="declareId" column="declare_id" />
+        <result property="userId" column="user_id" />
+        <result property="commentId" column="comment_id" />
+        <result property="theme" column="theme" />
+        <result property="content" column="content" />
+        <result property="createDate" column="create_date" />
+        <association property="teacherComment" resultMap="TeacherCommentResultMap" />
+        <association property="teacherBoard" resultMap="BoardTcResultMap"/>
+    </resultMap>
+    <resultMap id="DeclareStudyCommentResultMap" type="com.meeteam4.meeting.entity.StudyCommentDeclare">
+        <id property="declareId" column="declare_id" />
+        <result property="userId" column="user_id" />
+        <result property="commentId" column="comment_id" />
+        <result property="theme" column="theme" />
+        <result property="content" column="content" />
+        <result property="createDate" column="create_date" />
+        <association property="studyComment" resultMap="StudyCommentResultMap" />
+        <association property="studyBoard" resultMap="BoardStudyResultMap"/>
+    </resultMap>
+    <resultMap id="StudentBoardResultMap" type="com.meeteam4.meeting.entity.StudentBoard">
+        <id property="studentBoardId" column="student_board_id"/>
+        <result property="studentId" column="student_id"/>
+        <result property="nickname" column="nickname"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="theme" column="theme"/>
+        <result property="viewCount" column="view_count"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+    </resultMap>
+    <resultMap id="BoardTcResultMap" type="com.meeteam4.meeting.entity.TeacherBoard">
+        <id property="teacherBoardId" column="teacher_board_id"/>
+        <result property="teacherId" column="teacher_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="nickname" column="nickname"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="viewCount" column="view_count"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+    </resultMap>
+    <resultMap id="BoardStudyResultMap" type="com.meeteam4.meeting.entity.StudyBoard">
+        <id property="studyBoardId" column="study_board_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="nickname" column="nickname"/>
+        <result property="title" column="title"/>
+        <result property="content" column="content"/>
+        <result property="viewCount" column="view_count"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+    </resultMap>
+    <resultMap id="StudentCommentResultMap" type="com.meeteam4.meeting.entity.StudentComment">
+        <id property="studentCommentId" column="student_comment_id"/>
+        <result property="studentBoardId" column="student_board_id"/>
+        <result property="studentUserId" column="student_user_id"/>
+        <result property="comment" column="comment"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+    </resultMap>
+    <resultMap id="TeacherCommentResultMap" type="com.meeteam4.meeting.entity.TeacherComment">
+        <id property="teacherCommentId" column="teacher_comment_id"/>
+        <result property="teacherBoardId" column="teacher_board_id"/>
+        <result property="teacherId" column="teacher_id"/>
+        <result property="comment" column="comment"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+    </resultMap>
+    <resultMap id="StudyCommentResultMap" type="com.meeteam4.meeting.entity.StudyComment">
+        <id property="studyCommentId" column="study_comment_id"/>
+        <result property="studyBoardId" column="study_board_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="comment" column="comment"/>
+        <result property="createDate" column="create_date"/>
+        <result property="updateDate" column="update_date"/>
+    </resultMap>
+
     <update id="disableAccount" parameterType="com.meeteam4.meeting.entity.User">
         update
             user_tb
@@ -13,5 +127,112 @@
         where
             user_id = #{userId}
     </update>
+
+    <select id="getDeclareStudentBoard" resultMap="DeclareStudentBoardResultMap">
+        select
+            sbt.nickname,
+            sbt.title,
+            sbt.content,
+            dt.user_id,
+            dt.board_id,
+            dt.theme,
+            dt.content,
+            dt.create_date
+        from
+            declare_tb dt
+            left outer join student_board_tb sbt on (dt.board_id = sbt.student_board_id)
+        where
+            not dt.declare_id is null
+    </select>
+    <select id="getDeclareTeacherBoard" resultMap="DeclareTeacherBoardResultMap">
+        select
+            tbt.nickname,
+            tbt.title,
+            tbt.content,
+            tdt.user_id,
+            tdt.board_id,
+            tdt.theme,
+            tdt.content,
+            tdt.create_date
+        from
+            teacher_board_tb tbt
+            left outer join teacher_declare_tb tdt on (tdt.board_id = tbt.teacher_board_id)
+        where
+            not tdt.declare_id is null
+    </select>
+    <select id="getDeclareStudyBoard" resultMap="DeclareStudyBoardResultMap">
+        select
+            sbt.nickname,
+            sbt.title,
+            sbt.content,
+            sdt.user_id,
+            sdt.board_id,
+            sdt.theme,
+            sdt.content,
+            sdt.create_date
+        from
+            study_board_tb sbt
+            left outer join study_declare_tb sdt on (sdt.board_id = sbt.study_board_id)
+        where
+            not sdt.declare_id is null
+    </select>
+    <select id="getDeclareStudentComment" resultMap="DeclareStudentCommentResultMap">
+        select
+            cdt.user_id,
+            cdt.theme,
+            cdt.content,
+            cdt.create_date,
+            sct.student_board_id,
+            sct.nickname,
+            sct.comment,
+            sct.update_date,
+            sbt.title
+        from
+            comment_declare_tb cdt
+            left outer join student_comment_tb sct on (sct.student_comment_id = cdt.comment_id)
+            left outer join student_board_tb sbt on(sbt.student_board_id = sct.student_board_id)
+    </select>
+    <select id="getDeclareTeacherComment" resultMap="DeclareTeacherCommentResultMap">
+        select
+            cdt.user_id,
+            cdt.theme,
+            cdt.content,
+            cdt.create_date,
+            tct.teacher_board_id,
+            tct.nickname,
+            tct.comment,
+            tct.update_date,
+            tbt.title
+        from
+            teacher_comment_declare_tb cdt
+            left outer join teacher_comment_tb tct on (tct.teacher_comment_id = cdt.comment_id)
+            left outer join teacher_board_tb tbt on(tbt.teacher_board_id = tct.teacher_board_id)
+    </select>
+    <select id="getDeclareStudyComment" resultMap="DeclareStudyCommentResultMap">
+        select
+            scdt.user_id,
+            scdt.theme,
+            scdt.content,
+            scdt.create_date,
+            sct.study_board_id,
+            sct.nickname,
+            sct.comment,
+            sct.update_date,
+            sbt.title
+        from
+            study_comment_declare_tb scdt
+            left outer join study_comment_tb sct on (sct.study_comment_id = scdt.comment_id)
+            left outer join study_board_tb sbt on(sbt.study_board_id = sct.study_board_id)
+    </select>
+    <select id="getUserStatus" resultType="integer">
+        select
+        st.student_id
+        from
+        user_tb ut
+        left outer join teacher_tb tt on (tt.user_id = ut.user_id)
+        left outer join student_tb st on (st.user_id = ut.user_id)
+        where
+        ut.user_id = #{userId}
+    </select>
 
 </mapper>
