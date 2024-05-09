@@ -39,7 +39,6 @@ public class AuthService {
     // 회원가입
     @Transactional(rollbackFor = Exception.class)
     public void signupUser(SignupUserDto signupUserDto) {
-        String email = userMapper.findByUsername(signupUserDto.getUsername()).getEmail();
         User user = signupUserDto.toUserEntity(passwordEncoder);
         userMapper.saveUser(user);
 

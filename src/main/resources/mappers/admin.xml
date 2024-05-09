@@ -117,6 +117,31 @@
         <result property="createDate" column="create_date"/>
         <result property="updateDate" column="update_date"/>
     </resultMap>
+    <resultMap id="DeclareUserResultMap" type="com.meeteam4.meeting.entity.DeclareUser">
+        <id property="declareId" column="declare_id"/>
+        <result property="userId" column="user_id"/>
+        <result property="theme" column="theme" />
+        <result property="content" column="content" />
+        <result property="createDate" column="create_date" />
+        <association property="user" resultMap="UserResultMap" />
+    </resultMap>
+    <resultMap id="UserResultMap" type="com.meeteam4.meeting.entity.User">
+        <id property="userId" column="user_id" />
+        <result property="name" column="name" />
+        <result property="username" column="username" />
+        <result property="password" column="password" />
+        <result property="nickname" column="nickname" />
+        <result property="email" column="email" />
+        <result property="emailAuth" column="email_auth" />
+        <result property="roleId" column="role_id" />
+        <result property="createDate" column="create_date" />
+        <result property="updateDate" column="update_date" />
+        <result property="userImgUrl" column="user_img_url" />
+        <result property="isAccountNonExpired" column="is_account_non_expired" />
+        <result property="isAccountNonLocked" column="is_account_non_locked" />
+        <result property="isCredentialsNonExpired" column="is_credentials_non_expired" />
+        <result property="isEnabled" column="is_enabled" />
+    </resultMap>
 
     <update id="disableAccount" parameterType="com.meeteam4.meeting.entity.User">
         update
@@ -127,7 +152,21 @@
         where
             user_id = #{userId}
     </update>
-
+    <select id="getDeclareUser" resultMap="DeclareUserResultMap">
+        select
+            dut.user_id,
+            ut.name,
+            ut.username,
+            ut.nickname,
+            ut.email,
+            ut.role_id,
+            dut.theme,
+            dut.content,
+            dut.create_date
+        from
+            declare_user_tb dut
+            left outer join user_tb ut on(ut.user_id = dut.user_id)
+    </select>
     <select id="getDeclareStudentBoard" resultMap="DeclareStudentBoardResultMap">
         select
             sbt.nickname,

@@ -251,6 +251,12 @@
         values
             (0, #{studentUserId}, #{teacherUserId}, now())
     </insert>
+    <insert id="declareUser">
+        insert into
+            declare_user_tb
+        values
+            (0, #{userId}, #{theme}, #{content}, now())
+    </insert>
 
     <select id="findStudentByStudentId" resultMap="StudentResultMap">
         select

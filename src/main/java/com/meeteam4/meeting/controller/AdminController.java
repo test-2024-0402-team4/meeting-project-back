@@ -51,5 +51,8 @@ public class AdminController {
 
         return ResponseEntity.ok(adminService.getUserStatus(userId));
     }
-
+    @GetMapping("/declare/user")
+    public ResponseEntity<?> getDeclareUser() {
+        return ResponseEntity.ok(adminService.getDeclareUser());
+    }
 }
