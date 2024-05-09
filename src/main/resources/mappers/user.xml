@@ -69,10 +69,10 @@
             keyProperty="userId"
             useGeneratedKeys="true"
     >
-        INSERT INTO
-            user_tb (name, username, password, nickname, email, email_auth ,role_id, create_date, update_date)
+        INSERT INTO user_tb
+            (name, username, password, nickname, email, email_auth, role_id, is_account_non_expired, is_account_non_locked, is_credentials_non_expired, is_enabled, create_date, update_date)
         VALUES
-            (#{name}, #{username}, #{password}, #{nickname}, #{email}, 1, #{roleId}, NOW(), NOW());
+            (#{name}, #{username}, #{password}, #{nickname}, #{email}, 1, #{roleId}, 1, 1, 1, 1, NOW(), NOW());
 
     </insert>
 
