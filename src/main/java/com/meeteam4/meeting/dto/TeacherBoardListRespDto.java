@@ -15,5 +15,6 @@ public class TeacherBoardListRespDto {
     private String title;
     private String content;
     private int viewCount;
+    private int genderId;
     private LocalDateTime createDate;
 }
