@@ -54,8 +54,7 @@ public interface AccountMapper {
     public int deletePosterDate(@Param("posterId") int posterId);
     public int deletePosterSubjectIds(@Param("posterId") int posterId);
     public int deletePosterClassTypeIds(@Param("posterId") int posterId);
-
-
+  
     public int modifyStudentPoster(Poster poster);
 
     public List<Integer> searchPosterIds(@Param("regionIds") List<Integer> regionId,

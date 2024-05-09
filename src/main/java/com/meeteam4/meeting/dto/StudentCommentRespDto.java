@@ -15,4 +15,5 @@ public class StudentCommentRespDto {
     private String comment;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
+    private String userImgUrl;
 }

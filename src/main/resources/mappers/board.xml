@@ -12,6 +12,8 @@
         <result property="title" column="title"/>
         <result property="content" column="content"/>
         <result property="theme" column="theme"/>
+        <result property="userId" column="user_id"/>
+        <result property="genderId" column="gender_id"/>
         <result property="viewCount" column="view_count"/>
         <result property="createDate" column="create_date"/>
         <result property="updateDate" column="update_date"/>
@@ -24,7 +26,7 @@
         <result property="comment" column="comment"/>
         <result property="createDate" column="create_date"/>
         <result property="updateDate" column="update_date"/>
-
+        <result property="userImgUrl" column="user_img_url"/>
     </resultMap>
 
     <resultMap id="BoardTcResultMap" type="com.meeteam4.meeting.entity.TeacherBoard">
@@ -35,6 +37,7 @@
         <result property="title" column="title"/>
         <result property="content" column="content"/>
         <result property="viewCount" column="view_count"/>
+        <result property="genderId" column="gender_id"/>
         <result property="createDate" column="create_date"/>
         <result property="updateDate" column="update_date"/>
     </resultMap>
@@ -46,7 +49,7 @@
         <result property="comment" column="comment"/>
         <result property="createDate" column="create_date"/>
         <result property="updateDate" column="update_date"/>
-
+        <result property="userImgUrl" column="user_img_url"/>
     </resultMap>
 
     <resultMap id="BoardStudyResultMap" type="com.meeteam4.meeting.entity.StudyBoard">
@@ -56,6 +59,7 @@
         <result property="title" column="title"/>
         <result property="content" column="content"/>
         <result property="viewCount" column="view_count"/>
+        <result property="genderId" column="gender_id"/>
         <result property="createDate" column="create_date"/>
         <result property="updateDate" column="update_date"/>
     </resultMap>
@@ -67,7 +71,7 @@
         <result property="comment" column="comment"/>
         <result property="createDate" column="create_date"/>
         <result property="updateDate" column="update_date"/>
-
+        <result property="userImgUrl" column="user_img_url"/>
     </resultMap>
 
     <resultMap id="BoardNoticeResultMap" type="com.meeteam4.meeting.entity.Notice">
@@ -152,16 +156,21 @@
 
     <select id="searchBoard" resultMap="BoardResultMap">
         select
-             sbt.student_board_id,
-             sbt.student_id,
-             sbt.nickname,
-             sbt.title,
-             sbt.create_date,
-             sbt.view_count
+            sbt.student_board_id,
+            sbt.student_id,
+            sbt.nickname,
+            sbt.title,
+            sbt.create_date,
+            sbt.view_count,
+            st.user_id,
+            st.gender_id
         from
-            student_board_tb sbt
+        student_board_tb sbt
+        left outer join student_tb st on(st.student_id = sbt.student_id)
+        left outer join user_tb ut on(ut.user_id = st.user_id)
         where
             1=1
+
         <choose>
         <when test="count != -1 ">
             and(
@@ -169,6 +178,8 @@
             )
         </when>
         </choose>
+        order by
+        sbt.create_date desc
         limit #{startIndex}, #{count}
 
     </select>
@@ -305,17 +316,20 @@
 
     <select id="getStudentComment" resultMap="CommentResultMap">
         select
-            student_comment_id,
-            student_board_id,
-            student_user_id,
-            nickname,
-            comment,
-            create_date,
-            update_date
-        from
-            student_comment_tb
+            sct.student_comment_id,
+            sct.student_board_id,
+            sct.student_user_id,
+            sct.nickname,
+            sct.comment,
+            sct.create_date,
+            ut.user_img_url
+        from student_comment_tb sct
+        left outer join student_tb st on(st.student_id = sct.student_user_id)
+        left outer join user_tb ut on(ut.user_id = st.user_id)
         where
-        student_board_id = #{studentBoardId};
+            sct.student_board_id = #{studentBoardId}
+        order by
+        sct.create_date desc
 
     </select>
 
@@ -356,14 +370,18 @@
 
     <select id="searchTeacherBoard" resultMap="BoardTcResultMap">
         select
-            teacher_board_id,
-            teacher_id,
-            nickname,
-            title,
-            create_date,
-            view_count
+            tbt.teacher_board_id,
+            tbt.teacher_id,
+            tbt.nickname,
+            tbt.title,
+            tbt.content,
+            tbt.view_count,
+            tbt.create_date,
+            tt.gender_id
         from
-            teacher_board_tb
+            teacher_board_tb tbt
+        left outer join teacher_tb tt on(tt.teacher_id = tbt.teacher_id)
+        left outer join user_tb ut on(ut.user_id = tt.user_id)
         where
             1=1
         <choose>
@@ -373,6 +391,8 @@
                 )
             </when>
         </choose>
+        order by
+            tbt.create_date desc
         limit #{startIndex}, #{count}
 
     </select>
@@ -469,17 +489,20 @@
 
     <select id="getTeacherComment" resultMap="TeacherCommentResultMap">
         select
-            teacher_comment_id,
-            teacher_board_id,
-            teacher_id,
-            nickname,
-            comment,
-            create_date,
-            update_date
-        from
-            teacher_comment_tb
+            tct.teacher_comment_id,
+            tct.teacher_board_id,
+            tct.teacher_id,
+            tct.nickname,
+            tct.comment,
+            tct.create_date,
+            ut.user_img_url
+        froteacher_comment_tb tct
+        left outer join teacher_tb tt on(tt.teacher_id = tct.teacher_id)
+        left outer join user_tb ut on(ut.user_id = tt.user_id)
         where
-            teacher_board_id = #{teacherBoardId};
+            tct.teacher_board_id = #{teacherBoardId}
+        order by
+        tct.create_date desc
 
     </select>
 
@@ -518,16 +541,23 @@
     </insert>
 
     <select id="searchStudyBoard" resultMap="BoardStudyResultMap">
-        select
-            study_board_id,
-            user_id,
-            nickname,
-            title,
-            create_date,
-            view_count
-        from
-            study_board_tb
-        where
+        SELECT
+            sbt.study_board_id,
+            sbt.user_id,
+            sbt.nickname,
+            sbt.title,
+            sbt.content,
+            sbt.view_count,
+            sbt.create_date,
+        CASE
+            WHEN st.gender_id IS NOT NULL THEN st.gender_id
+            ELSE tt.gender_id
+            END AS gender_id
+        FROM
+            study_board_tb sbt
+            LEFT OUTER JOIN student_tb st ON (st.user_id = sbt.user_id)
+            LEFT OUTER JOIN teacher_tb tt ON (tt.user_id = sbt.user_id)
+        WHERE
             1=1
         <choose>
             <when test="count != -1 ">
@@ -536,6 +566,8 @@
                 )
             </when>
         </choose>
+        order by
+        sbt.create_date desc
         limit #{startIndex}, #{count}
 
     </select>
@@ -623,17 +655,19 @@
 
     <select id="getStudyComment" resultMap="StudyCommentResultMap">
         select
-            study_comment_id,
-            study_board_id,
-            user_id,
-            nickname,
-            comment,
-            create_date,
-            update_date
-        from
-            study_comment_tb
+            sct.study_comment_id,
+            sct.study_board_id,
+            sct.user_id,
+            sct.nickname,
+            sct.comment,
+            sct.create_date,
+            ut.user_img_url
+        from study_comment_tb sct
+        left outer join user_tb ut on(ut.user_id = sct.user_id)
         where
-            study_board_id = #{studyBoardId};
+            study_board_id =  #{studyBoardId}
+        order by
+        sct.create_date desc
 
     </select>
 
