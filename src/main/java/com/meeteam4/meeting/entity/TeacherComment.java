@@ -20,6 +20,7 @@ public class TeacherComment {
     private String comment;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
+    private String userImgUrl;
 
     public TeacherCommentRespDto toTeacherCommentRespDto(){
         return TeacherCommentRespDto.builder()
@@ -30,6 +31,7 @@ public class TeacherComment {
                 .comment(comment)
                 .createDate(createDate)
                 .updateDate(updateDate)
+                .userImgUrl(userImgUrl)
                 .build();
     }
 }

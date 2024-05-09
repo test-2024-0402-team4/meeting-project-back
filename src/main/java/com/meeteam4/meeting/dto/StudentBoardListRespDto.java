@@ -17,6 +17,7 @@ public class StudentBoardListRespDto {
     private String content;
     private String theme;
     private int viewCount;
+    private int genderId;
     private LocalDateTime createDate;
 
 

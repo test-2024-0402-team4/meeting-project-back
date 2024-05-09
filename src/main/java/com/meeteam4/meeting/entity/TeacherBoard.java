@@ -20,6 +20,7 @@ public class TeacherBoard {
     private String title;
     private String content;
     private int viewCount;
+    private int genderId;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
     private int userId;
@@ -32,6 +33,7 @@ public class TeacherBoard {
                 .title(title)
                 .content(content)
                 .viewCount(viewCount)
+                .genderId(genderId)
                 .createDate(createDate)
                 .build();
     }
