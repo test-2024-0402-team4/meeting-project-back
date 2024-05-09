@@ -27,7 +27,7 @@ public class AdminService {
         for (StudentBoardDeclare studentBoardDeclare : studentBoardDeclares) {
             DeclareStudentBoardRespDto declareStudentBoardRespDto = studentBoardDeclare.toDeclareStudentBoardRespDto();
             declareStudentBoardRespDto.setTitle(studentBoardDeclare.getStudentBoard().getTitle());
-            declareStudentBoardRespDto.setContent(studentBoardDeclare.getStudentBoard().getContent());
+            declareStudentBoardRespDto.setNickName(studentBoardDeclare.getStudentBoard().getNickname());
 
             declareStudentBoardList.add(declareStudentBoardRespDto);
         }
@@ -39,11 +39,11 @@ public class AdminService {
         List<DeclareTeacherBoardRespDto> declareTeacherBoardList = new ArrayList<>();
 
         for (TeacherBoardDeclare teacherBoardDeclare : teacherBoardDeclares) {
-            DeclareTeacherBoardRespDto declareStudentBoardRespDto = teacherBoardDeclare.toDeclareTeacherBoardRespDto();
-            declareStudentBoardRespDto.setTitle(teacherBoardDeclare.getTeacherBoard().getTitle());
-            declareStudentBoardRespDto.setContent(teacherBoardDeclare.getTeacherBoard().getContent());
+            DeclareTeacherBoardRespDto declareTeacherBoardRespDto = teacherBoardDeclare.toDeclareTeacherBoardRespDto();
+            declareTeacherBoardRespDto.setTitle(teacherBoardDeclare.getTeacherBoard().getTitle());
+            declareTeacherBoardRespDto.setNickName(teacherBoardDeclare.getTeacherBoard().getNickname());
 
-            declareTeacherBoardList.add(declareStudentBoardRespDto);
+            declareTeacherBoardList.add(declareTeacherBoardRespDto);
         }
 
         return declareTeacherBoardList;
@@ -56,7 +56,7 @@ public class AdminService {
         for (StudyBoardDeclare studyBoardDeclare : studyBoardDeclares) {
             DeclareStudyBoardRespDto declareStudyBoardRespDto = studyBoardDeclare.toDeclareStudyBoardRespDto();
             declareStudyBoardRespDto.setTitle(studyBoardDeclare.getStudyBoard().getTitle());
-            declareStudyBoardRespDto.setContent(studyBoardDeclare.getStudyBoard().getContent());
+            declareStudyBoardRespDto.setNickName(studyBoardDeclare.getStudyBoard().getNickname());
 
             declareStudyBoardList.add(declareStudyBoardRespDto);
         }
