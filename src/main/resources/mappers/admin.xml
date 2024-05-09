@@ -164,7 +164,6 @@
         select
             sbt.nickname,
             sbt.title,
-            sbt.content,
             sdt.user_id,
             sdt.board_id,
             sdt.theme,

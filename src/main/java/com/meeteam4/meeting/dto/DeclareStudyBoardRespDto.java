@@ -10,7 +10,6 @@ import java.time.LocalDateTime;
 public class DeclareStudyBoardRespDto {
     private String nickName;
     private String title;
-    private String content;
     private String theme;
     private String declareContent;
     private int userId;

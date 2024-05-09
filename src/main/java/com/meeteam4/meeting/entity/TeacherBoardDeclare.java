@@ -28,7 +28,6 @@ public class TeacherBoardDeclare {
                 .boardId(boardId)
                 .userId(userId)
                 .title(teacherBoard.getTitle())
-                .content(teacherBoard.getContent())
                 .theme(theme)
                 .declareContent(content)
                 .createDate(createDate)
