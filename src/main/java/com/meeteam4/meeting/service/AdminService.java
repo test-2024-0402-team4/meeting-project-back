@@ -129,5 +129,16 @@ public class AdminService {
         }
         return result;
     }
+    public List<DeclareUserRespDto> getDeclareUser() {
+        List<DeclareUser> declareUsers = adminMapper.getDeclareUser();
+        List<DeclareUserRespDto> declareUserRespDtos = new ArrayList<>();
+
+        for(DeclareUser declareUser : declareUsers) {
+            DeclareUserRespDto declareUserRespDto = declareUser.toDeclareUserRespDto();
+
+            declareUserRespDtos.add(declareUserRespDto);
+        }
+        return declareUserRespDtos;
+    }
 
 }

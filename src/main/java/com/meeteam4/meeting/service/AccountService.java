@@ -347,4 +347,11 @@ public class AccountService {
         return searchProfiles;
     }
 
+    public int declareUser (DeclareUserReqDto declareUserReqDto) {
+        int reslut = 0;
+
+        reslut += accountMapper.declareUser(declareUserReqDto.toDeclareUser());
+        return reslut;
+    }
+
 }

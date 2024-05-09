@@ -19,4 +19,6 @@ public interface AdminMapper {
 
     public Integer getUserStatus(@Param("userId") int userId);
 
+    public List<DeclareUser> getDeclareUser();
+
 }

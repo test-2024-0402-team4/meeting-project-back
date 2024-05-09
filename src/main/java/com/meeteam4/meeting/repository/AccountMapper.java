@@ -126,4 +126,6 @@ public interface AccountMapper {
 
     public int updateImgUrl(User user);
 
+    public int declareUser(DeclareUser declareUser);
+
 }
