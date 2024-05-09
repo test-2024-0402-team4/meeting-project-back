@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -22,6 +23,8 @@ public class SearchProfilesRespDto {
     private String departmentName;
     private String  graduateState;
     private String teacherIntroduceContent;
+    private LocalDateTime createDate;
+    private LocalDateTime updateDate;
 
     private List<String> subjectNames;
     private List<String> classTypeNames;

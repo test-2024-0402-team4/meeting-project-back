@@ -91,6 +91,9 @@ public class TeacherService {
             searchProfile.setGenderType(user.getGender().getGenderType());
             searchProfile.setUniversityName(user.getUniversity().getUniversityName());
             searchProfile.setTeacherIntroduceContent(user.getTeacherIntroduce().getTeacherIntroduceContent());
+            searchProfile.setCreateDate(user.getCreateDate());
+            searchProfile.setUpdateDate(user.getUpdateDate());
+
 
             // SubjectRegister 처리
             if (user.getSubjectRegister() != null) {
