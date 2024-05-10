@@ -20,7 +20,7 @@ public class AccountController {
     public ResponseEntity<?> getPrincipal() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         PrincipalUser principalUser = (PrincipalUser) authentication.getPrincipal();
-        return ResponseEntity.ok(principalUser);
+        return ResponseEntity.created(null).body(principalUser);
     }
 
     @PutMapping("/profile/image/{userId}")

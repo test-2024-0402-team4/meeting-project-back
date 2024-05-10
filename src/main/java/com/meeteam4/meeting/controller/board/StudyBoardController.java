@@ -1,7 +1,9 @@
 package com.meeteam4.meeting.controller.board;
 
 import com.meeteam4.meeting.dto.*;
+import com.meeteam4.meeting.entity.StudentBoard;
 import com.meeteam4.meeting.repository.BoardMapper;
+import com.meeteam4.meeting.service.BoardService;
 import com.meeteam4.meeting.service.CommentService;
 import com.meeteam4.meeting.service.StudyBoardService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +15,9 @@ import org.springframework.web.bind.annotation.*;
 public class StudyBoardController {
     @Autowired
     private StudyBoardService studyBoardService;
+
+    @Autowired
+    private BoardService boardService;
 
     @Autowired
     private BoardMapper boardMapper;
@@ -72,19 +77,14 @@ public class StudyBoardController {
 
     @PostMapping("/board/comment/{studyBoardId}")
     public ResponseEntity<?> studentBoardComment(@PathVariable int studyBoardId, @RequestBody StudyCommentReqDto studyCommentReqDto){
-
         commentService.saveStudyComment(studyCommentReqDto);
-
-
         return ResponseEntity.ok(studyCommentReqDto);
     }
 
     @GetMapping("/board/comments/{studyBoardId}")
     public ResponseEntity<?> getStudyComments(@PathVariable int studyBoardId){
-
         return ResponseEntity.ok(commentService.getStudyComment(studyBoardId));
     }
-
     @DeleteMapping("/board/comment/{studyCommentId}")
     public ResponseEntity<?> deleteStudyComment(@PathVariable int studyCommentId){
         commentService.deleteStudyComment(studyCommentId);
@@ -95,10 +95,16 @@ public class StudyBoardController {
         commentService.updateStudyComment(updateStudyCommentReqDto);
         return ResponseEntity.ok(true);
     }
+
     @GetMapping("/board/genderImg/{userId}")
     public ResponseEntity<?> getStudyGenderImg(@PathVariable int userId){
 
         return ResponseEntity.ok(studyBoardService.getUserGenderType(userId));
+    }
+    @GetMapping("/board/nickname/{userId}")
+    public ResponseEntity<?> getStudyUserNickname(@PathVariable int userId){
+
+        return ResponseEntity.ok(boardService.getUserNickname(userId));
     }
 
 

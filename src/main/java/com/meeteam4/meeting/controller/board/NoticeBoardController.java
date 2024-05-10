@@ -15,7 +15,6 @@ public class NoticeBoardController {
 
     @GetMapping("/boards")
     public ResponseEntity<?> noticeBoardList(NoticeBoardListReqDto noticeBoardListReqDto){
-
         return ResponseEntity.ok(noticeBoardService.searchNoticeBoards(noticeBoardListReqDto));
     }
 
