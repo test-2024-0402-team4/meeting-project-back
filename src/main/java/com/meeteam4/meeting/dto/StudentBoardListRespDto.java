@@ -18,6 +18,7 @@ public class StudentBoardListRespDto {
     private String theme;
     private int viewCount;
     private int genderId;
+    private int commentCount;
     private LocalDateTime createDate;
 
 

@@ -1,5 +1,6 @@
 package com.meeteam4.meeting.entity;
 
+import com.meeteam4.meeting.dto.CommentCountRespDto;
 import com.meeteam4.meeting.dto.StudentCommentRespDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,6 +23,7 @@ public class StudentComment {
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
     private String userImgUrl;
+    private int commentCount;
 
     public StudentCommentRespDto toStudentCommentRespDto(){
         return StudentCommentRespDto.builder()
@@ -33,6 +35,12 @@ public class StudentComment {
                 .createDate(createDate)
                 .updateDate(updateDate)
                 .userImgUrl(userImgUrl)
+                .build();
+    }
+
+    public CommentCountRespDto toCommentCount(){
+        return CommentCountRespDto.builder()
+                .commentCount(commentCount)
                 .build();
     }
 }

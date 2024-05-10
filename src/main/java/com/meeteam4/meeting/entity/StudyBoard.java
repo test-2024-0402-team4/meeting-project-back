@@ -25,6 +25,7 @@ public class StudyBoard {
     private int genderId;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
+    private int commentCount;
 
     public StudyBoardListRespDto toStudyBoardListRespDto(){
         return StudyBoardListRespDto.builder()
@@ -35,6 +36,7 @@ public class StudyBoard {
                 .content(content)
                 .viewCount(viewCount)
                 .genderId(genderId)
+                .commentCount(commentCount)
                 .createDate(createDate)
                 .build();
     }
