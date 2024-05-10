@@ -102,6 +102,7 @@ public class StudentService {
     // 학생 본인 공고 리스트 조회
     public List<SearchPosterRespDto> getStudentMyPosters(int userId) {
         List<Poster> posters = accountMapper.getStudentMyPosters(userId);
+
         List<SearchPosterRespDto> searchPosters = new ArrayList<>();
         for (Poster poster : posters) {
             SearchPosterRespDto searchPosterRespDto = poster.toSearchPosterRespDto();

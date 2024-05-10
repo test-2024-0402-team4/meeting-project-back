@@ -24,7 +24,6 @@ public class NoticeBoardService {
                 noticeBoardListReqDto.getCount(),
                 noticeBoardListReqDto.getSearchText()
         );
-
         return noticeBoards.stream().map(Notice :: toNoticeBoardListRespDto).collect(Collectors.toList());
     }
 

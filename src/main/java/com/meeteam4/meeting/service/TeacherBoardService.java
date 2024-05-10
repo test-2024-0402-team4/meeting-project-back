@@ -93,6 +93,4 @@ public class TeacherBoardService {
         return board.toNickname();
     }
 
-
-
 }
