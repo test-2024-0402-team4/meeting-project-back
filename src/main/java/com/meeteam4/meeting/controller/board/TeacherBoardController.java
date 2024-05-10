@@ -105,4 +105,9 @@ public class TeacherBoardController {
         return ResponseEntity.ok(teacherBoardService.getTeahcerNickname(userId));
     }
 
+
+
+
+
+
 }

@@ -24,6 +24,7 @@ public class TeacherBoard {
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
     private int userId;
+    private int commentCount;
 
     public TeacherBoardListRespDto toTeacherBoardListRespDto(){
         return TeacherBoardListRespDto.builder()
@@ -34,6 +35,7 @@ public class TeacherBoard {
                 .content(content)
                 .viewCount(viewCount)
                 .genderId(genderId)
+                .commentCount(commentCount)
                 .createDate(createDate)
                 .build();
     }

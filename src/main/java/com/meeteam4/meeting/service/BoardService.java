@@ -3,6 +3,7 @@ package com.meeteam4.meeting.service;
 import com.meeteam4.meeting.dto.*;
 import com.meeteam4.meeting.entity.Student;
 import com.meeteam4.meeting.entity.StudentBoard;
+import com.meeteam4.meeting.entity.StudentComment;
 import com.meeteam4.meeting.entity.User;
 import com.meeteam4.meeting.repository.BoardMapper;
 import org.springframework.beans.factory.annotation.Autowired;

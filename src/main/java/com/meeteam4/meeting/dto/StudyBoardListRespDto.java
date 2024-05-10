@@ -16,4 +16,5 @@ public class StudyBoardListRespDto {
     private int viewCount;
     private int genderId;
     private LocalDateTime createDate;
+    private int commentCount;
 }

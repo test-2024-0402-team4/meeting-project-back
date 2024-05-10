@@ -25,6 +25,7 @@ public class StudentBoard {
     private String theme;
     private int viewCount;
     private int genderId;
+    private int commentCount;
     private LocalDateTime createDate;
     private LocalDateTime updateDate;
 
@@ -38,6 +39,7 @@ public class StudentBoard {
                 .theme(theme)
                 .viewCount(viewCount)
                 .genderId(genderId)
+                .commentCount(commentCount)
                 .createDate(createDate)
                 .build();
     }
