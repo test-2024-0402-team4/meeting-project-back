@@ -110,6 +110,7 @@ public class StudentBoardController {
 
     @GetMapping("/board/nickname/{userId}")
     public ResponseEntity<?> getUserNickname(@PathVariable int userId){
+        System.out.println(userId);
         return ResponseEntity.ok(boardService.getUserNickname(userId));
     }
 
