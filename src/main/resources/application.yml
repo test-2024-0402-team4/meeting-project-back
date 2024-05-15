@@ -1,8 +1,8 @@
 spring:
   profiles:
-    active: local_server
+    active: local
     group:
-      local_server: local, common, secret
+      local: local, common, secret
       blue_server: blue, common, secret
       green_server: green, common, secret
 
@@ -27,7 +27,7 @@ spring:
 server:
   port: 8080
   deploy-address: localhost
-  name: local_server
+  name: local
 
 ---
 
