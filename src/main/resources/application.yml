@@ -79,11 +79,6 @@ server:
 
 ---
 spring:
-  config:
-    import: classpath:application-secret.yml
-
----
-spring:
   security:
     oauth2:
       client:
