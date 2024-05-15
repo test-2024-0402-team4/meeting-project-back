@@ -1,8 +1,13 @@
 spring:
   profiles:
-    active: local
+    active: local_server
     group:
-      local: local, common, secret
+      local_server: local, common, secret
+      blue_server: blue, common, secret
+      green_server: green, common, secret
+
+server:
+  env: blue
 
 ---
 
@@ -10,7 +15,6 @@ spring:
   config:
     activate:
       on-profile: local
-
   security:
     oauth2:
       client:
@@ -24,6 +28,57 @@ server:
   port: 8080
   deploy-address: localhost
   name: local
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: blue
+  security:
+    oauth2:
+      client:
+        registration:
+          naver:
+            redirectUri: http://15.165.30.210/login/oauth2/code/naver
+          kakao:
+            redirectUri: http://15.165.30.210/login/oauth2/code/kakao
+
+server:
+  port: 8080
+  deploy-address: 15.165.30.210
+  name: blue_server
+
+---
+
+spring:
+  config:
+    activate:
+      on-profile: green
+  security:
+    oauth2:
+      client:
+        registration:
+          naver:
+            redirectUri: http://15.165.30.210/login/oauth2/code/naver
+          kakao:
+            redirectUri: http://15.165.30.210/login/oauth2/code/kakao
+
+server:
+  port: 9090
+  deploy-address: 15.165.30.210
+  name: green_server
+
+---
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          naver:
+            redirectUri: http://localhost:8080/login/oauth2/code/naver
+          kakao:
+            redirectUri: http://localhost:8080/login/oauth2/code/kakao
 
 
 ---
