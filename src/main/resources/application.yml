@@ -1,6 +1,13 @@
 spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://${secrets.DB_HOST}:3306/lesson_db
+    username: ${{ secrets.DB_USERNAME }}
+    password: ${{ secrets.DB_PASSWORD }}
+---
+
+spring:
   profiles:
-    include: secret
     active: blue_server
     group:
       local: local, common, secret
